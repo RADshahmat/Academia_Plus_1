@@ -1,0 +1,126 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header{
+    text-align: center;
+}
+
+ul{
+    margin-top: 10px;
+}
+li{
+    background-color: rgb(255, 255, 255);
+}
+
+#main_nav,#secondary_nav,#Logo_Name{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    position: fixed;
+    top: 0;
+}
+
+#secondary_nav{
+    background-color: rgb(102, 25, 209);
+    align-items: center;
+    align-content: center;
+    transition: all 0.3s ease;
+     z-index: 2;
+}
+.secondary_nav_hidden {
+    transform: translateY(-100%);
+}
+
+#Logo_Name{
+    justify-content: unset;
+    background-color: rgba(123, 207, 255,.7);
+    padding: 25px;
+    margin-top: 50px;
+    top: -10px;
+    transition: all 0.3s ease;
+}
+
+#Logo_Name img{
+    margin: -10px 0 0 9rem;
+    width: 70px;
+
+}
+
+.nav_ul {
+    max-height: 0;
+    margin-top: -20px;
+    height: auto;
+    overflow: hidden;
+    cursor: pointer;
+    transition: max-height 0.3s ease-in-out;
+}
+
+#main_nav{
+    height: 60px;
+    background-color: rgba(255, 255, 255,.4);
+    margin-top: 150px;
+    justify-content: center;
+    margin-right: 20px;
+    transition: all 0.3s ease;
+   
+}
+
+#main_nav_container{
+    width: fit-content;
+    
+    display: flex;
+    justify-content: space-around;
+}
+
+#main_nav_container p{
+    padding:18px 25px;
+    background-color: rgb(255, 255, 255);
+    
+}
+.main_nav_buttons{
+   cursor: pointer;
+}
+
+
+#Logo_Name.collapsed {
+    margin-top: 0px; 
+}
+
+#main_nav.collapsed {
+    margin-top: 100px; 
+}
+
+/*................................................................................................ */
+.carousel-item img{
+    width: 100%;
+    height: 30%;
+    object-fit: cover;
+    margin: auto;
+    
+}
+#carouselExampleCaptions{
+    margin: auto;
+    width: 100%;
+    height: 30%;
+    top: 0;
+}
+
+.carousel-item{
+    text-align: center;
+}
+.carousel-inner {
+    height: 50rem; 
+}
+.carousel-caption {
+    bottom: 15%; 
+}
+/*................................................................................................ */
+@media(max-width:788px){
+    html{
+        zoom: 30%;
+    }
+}
