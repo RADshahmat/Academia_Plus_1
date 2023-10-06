@@ -10,9 +10,13 @@ header{
 ul{
     margin-top: 10px;
 }
-li{
+.nav_ul li {
+     /* Add !important to ensure the border is applied */
     background-color: rgb(255, 255, 255);
+    
+    padding: 10.5px;
 }
+
 
 #main_nav,#secondary_nav,#Logo_Name{
     display: flex;
@@ -29,7 +33,7 @@ li{
     align-items: center;
     align-content: center;
     transition: all 0.3s ease;
-     z-index: 2;
+     
 }
 .secondary_nav_hidden {
     transform: translateY(-100%);
@@ -41,6 +45,7 @@ li{
     padding: 25px;
     margin-top: 50px;
     top: -10px;
+    z-index: 1;
     transition: all 0.3s ease;
 }
 
@@ -52,12 +57,19 @@ li{
 
 .nav_ul {
     max-height: 0;
-    margin-top: -20px;
+    margin-top: -17px;
     height: auto;
     overflow: hidden;
     cursor: pointer;
+    
+   box-shadow: 0px 20px 20px -0px rgba(10, 23, 45, 0.8);
     transition: max-height 0.3s ease-in-out;
 }
+.nav_ul li:hover{
+    background-color: rgb(234, 45, 45);
+
+}
+
 
 #main_nav{
     height: 60px;
@@ -65,15 +77,17 @@ li{
     margin-top: 150px;
     justify-content: center;
     margin-right: 20px;
+    position: fixed;
+    z-index: 1;
     transition: all 0.3s ease;
    
 }
 
 #main_nav_container{
     width: fit-content;
-    
     display: flex;
     justify-content: space-around;
+    box-shadow:0px 3px 3px 3px rgba(27, 25, 25,.3);
 }
 
 #main_nav_container p{
@@ -83,15 +97,22 @@ li{
 }
 .main_nav_buttons{
    cursor: pointer;
+   
+    background-color: rgb(255, 255, 255);
+    margin-top: .5px;
+    padding: 10px;
+    padding-bottom: 9.5;
 }
 
 
 #Logo_Name.collapsed {
     margin-top: 0px; 
+    background-color: rgba(123, 207, 255,1); ;
 }
 
 #main_nav.collapsed {
     margin-top: 100px; 
+    
 }
 
 /*................................................................................................ */
@@ -107,6 +128,8 @@ li{
     width: 100%;
     height: 30%;
     top: 0;
+    margin-top: -10rem;
+    z-index: 0;
 }
 
 .carousel-item{
@@ -118,6 +141,129 @@ li{
 .carousel-caption {
     bottom: 15%; 
 }
+#clubs_ul{
+    margin-top: 5rem;
+}
+#clubs_ul li{
+    text-align: center;
+    transition: all .3s ease-in-out;
+}
+#clubs_ul li i{
+    scale: 4;
+ }
+ #clubs_ul li a{
+    text-decoration: none;
+    color: rgb(22, 21, 21);
+    
+ }
+ 
+ #clubs_ul li:hover{
+    transform: translateY(-5px);
+ }
+
+
+
+.news-events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.news-event {
+    width: 48%; 
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.prev, .next {
+    cursor: pointer;
+    color: #007bff;
+    margin: 0 10px;
+}
+
+.prev:hover, .next:hover {
+    text-decoration: underline;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.news-events-section {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.news-events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.news-event {
+    width: calc(48% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.news-event:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.date {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.prev, .next {
+    cursor: pointer;
+    color: #007bff;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.prev:hover, .next:hover {
+    text-decoration: underline;
+}
+
 /*................................................................................................ */
 @media(max-width:788px){
     html{
