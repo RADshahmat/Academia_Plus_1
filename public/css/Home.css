@@ -3,6 +3,13 @@
     margin: 0;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
 header{
     text-align: center;
 }
@@ -17,6 +24,10 @@ ul{
     padding: 10.5px;
 }
 
+.dropdown .btn {
+    font-size: 14px; 
+    padding: 5px 10px; 
+}
 
 #main_nav,#secondary_nav,#Logo_Name{
     display: flex;
@@ -26,10 +37,11 @@ ul{
     text-align: center;
     position: fixed;
     top: 0;
+    z-index: 999; 
 }
 
 #secondary_nav{
-    background-color: rgb(102, 25, 209);
+    background-color: rgb(13, 66, 126);
     align-items: center;
     align-content: center;
     transition: all 0.3s ease;
@@ -161,44 +173,6 @@ ul{
     transform: translateY(-5px);
  }
 
-
-
-.news-events {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.news-event {
-    width: 48%; 
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.pagination {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.prev, .next {
-    cursor: pointer;
-    color: #007bff;
-    margin: 0 10px;
-}
-
-.prev:hover, .next:hover {
-    text-decoration: underline;
-}
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-}
 
 .container {
     max-width: 800px;
