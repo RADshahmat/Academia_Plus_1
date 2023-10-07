@@ -22,5 +22,8 @@ app.get('/',function(req,res){
 app.get('/index',function(req,res){
     res.render('index');
 })
+app.get('/admission',function(req,res){
+    res.render('admission');
+})
 
 app.listen(3000);
