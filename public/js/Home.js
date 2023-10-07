@@ -3,7 +3,7 @@ const div1 = document.querySelectorAll('#main_nav_container div');
 for (let index = 0; index < div1.length; index++) {
     
     div1[index].addEventListener('mouseover', function () {
-            ul1[index].style.maxHeight = '15rem'; 
+            ul1[index].style.maxHeight = '27rem'; 
         });
 
         div1[index].addEventListener('mouseout', function () {
