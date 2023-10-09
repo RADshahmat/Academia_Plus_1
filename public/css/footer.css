@@ -1,12 +1,13 @@
 .footer {
- 
     margin-top: 20px;
     background-color: rgba(6, 53, 162,.7);
     color: #fff;
     padding: 40px 0;
     text-align: center;
-    
-
+  }
+  .footer-container{
+    max-width: 800px;
+    margin: auto;
   }
   footer{
     background-image: url('/images/qxdqs.png');

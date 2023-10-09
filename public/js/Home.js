@@ -1,3 +1,5 @@
+// -----------------------------Navbar---------------------------------
+
 const div1 = document.querySelectorAll('#main_nav_container div');
         const ul1 = document.querySelectorAll('ul');
 for (let index = 0; index < div1.length; index++) {
@@ -11,6 +13,8 @@ for (let index = 0; index < div1.length; index++) {
         });
 }
 
+
+//--------------------------On Scroll Header---------------------------------
 
 var lastScrollTop = 0;
 
@@ -27,7 +31,32 @@ window.addEventListener("scroll", function() {
         document.getElementById("main_nav").classList.remove("collapsed");
         
     }
-
-    
 });
 
+ //--------------------------interactive notice board--------------------------
+
+const noticeList = document.querySelector(".notice-list");
+const noticeItems = document.querySelectorAll(".notice-link");
+
+noticeList.style.animation = "scroll 20s linear infinite";
+
+noticeItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+        noticeList.style.animationPlayState = "paused";
+    });
+
+    item.addEventListener("mouseleave", () => {
+        noticeList.style.animationPlayState = "running";
+     });
+});
+
+ // Handle click events on notices
+noticeItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+        e.preventDefault();
+         // Handle the click action here, e.g., open a link or perform an action
+        alert(`You clicked on: ${item.textContent}`);
+    });
+});
+
+//-------------------------------------------------------------------------------------
