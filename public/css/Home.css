@@ -245,4 +245,10 @@ ul{
     html{
         zoom: 30%;
     }
+    #carouselExampleCaptions img{
+   height: 50rem;
+    }
+    #carouselExampleCaptions{
+        height: 50rem;
+         }
 }

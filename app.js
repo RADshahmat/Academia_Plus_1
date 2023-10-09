@@ -1,8 +1,13 @@
 const express=require('express');
+const http = require('http');
+const socketIO = require('socket.io');
 
 const app=express();
+const server = http.createServer(app);
+const io = socketIO(server);
 
 const path=require('path');
+
 
 app.use(express.urlencoded({extended: true}));
 
@@ -25,5 +30,15 @@ app.get('/index',function(req,res){
 app.get('/admission',function(req,res){
     res.render('admission');
 })
+app.get('/call',function(req,res){
+    res.render('videoCall');
+})
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 
 app.listen(3000);
