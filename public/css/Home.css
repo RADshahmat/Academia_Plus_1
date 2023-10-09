@@ -176,10 +176,9 @@ ul{
  }
 
 
-.container {
+.news-container {
     max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 0 ;
 }
 
 .news-events-section {
@@ -188,6 +187,9 @@ ul{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin-top: 30px;
     overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 20px 20px 20px;
 }
 
 .news-events {
@@ -238,6 +240,52 @@ ul{
 
 .prev:hover, .next:hover {
     text-decoration: underline;
+}
+
+.notice-container {
+    width: 25rem;
+    height: 32rem;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px 0 0 0;
+}
+
+.notice-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+}
+
+.notice-item {
+    width: 25rem;
+    line-height: 30px;
+    background-color: #e0e8f1;
+    color: #fff;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.notice-item:hover {
+    animation-play-state: paused;
+}
+
+.notice-item:not(:hover) {
+    animation-play-state: running;
+}
+
+@keyframes scroll {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: -100%;
+    }
 }
 
 /*................................................................................................ */
