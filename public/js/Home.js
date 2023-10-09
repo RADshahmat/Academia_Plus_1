@@ -1,6 +1,6 @@
 // -----------------------------Navbar---------------------------------
 
-const div1 = document.querySelectorAll('#main_nav_container div');
+const div1 = document.querySelectorAll('.holder');
         const ul1 = document.querySelectorAll('ul');
 for (let index = 0; index < div1.length; index++) {
     
