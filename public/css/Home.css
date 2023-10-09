@@ -40,10 +40,10 @@ transition: all .3s;
 .main_nav_buttons:hover{
     color: red;
 }
-.main_nav_button a{
+.main_nav_buttons a{
     transition: all .3s;
     }
-    .main_nav_buttons a:hover{
+.main_nav_buttons a:hover{
         color: red;
     }
 .dropdown .btn {
