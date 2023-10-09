@@ -18,6 +18,7 @@ header{
 
 ul{
     margin-top: 10px;
+
 }
 .nav_ul li {
      /* Add !important to ensure the border is applied */
@@ -25,7 +26,26 @@ ul{
     
     padding: 10.5px;
 }
-
+.nav_ul li a{
+    text-decoration: none;
+    color: black;
+}
+.main_nav_buttons a{
+    text-decoration: none;
+    color: black;
+}
+.main_nav_buttons{
+transition: all .3s;
+}
+.main_nav_buttons:hover{
+    color: red;
+}
+.main_nav_button a{
+    transition: all .3s;
+    }
+    .main_nav_buttons a:hover{
+        color: red;
+    }
 .dropdown .btn {
     font-size: 14px; 
     padding: 5px 10px; 
