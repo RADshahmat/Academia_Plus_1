@@ -33,7 +33,9 @@ app.get('/admission',function(req,res){
 app.get('/call',function(req,res){
     res.render('videoCall');
 })
-
+app.get('/history',function(req,res){
+    res.render('history');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
