@@ -36,6 +36,9 @@ app.get('/call',function(req,res){
 app.get('/history',function(req,res){
     res.render('history');
 })
+app.get('/events',function(req,res){
+    res.render('events');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
