@@ -39,6 +39,9 @@ app.get('/history',function(req,res){
 app.get('/events',function(req,res){
     res.render('events');
 })
+app.get('/calender',function(req,res){
+    res.render('calender');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
