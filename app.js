@@ -42,6 +42,9 @@ app.get('/events',function(req,res){
 app.get('/calender',function(req,res){
     res.render('calender');
 })
+app.get('/achievements',function(req,res){
+    res.render('achievements');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
