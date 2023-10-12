@@ -1,6 +1,5 @@
 const express=require('express');
-const http = require('http');
-const socketIO = require('socket.io');
+
 
 const app=express();
 const server = http.createServer(app);
@@ -13,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.static('public'));
 
-const fs=require('fs');
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,11 +35,6 @@ app.get('/call',function(req,res){
 app.get('/history',function(req,res){
     res.render('history');
 })
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
-});
+
 
 app.listen(3000);
