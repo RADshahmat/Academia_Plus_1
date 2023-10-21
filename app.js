@@ -45,6 +45,15 @@ app.get('/calender',function(req,res){
 app.get('/achievements',function(req,res){
     res.render('achievements');
 })
+app.get('/facultyStaffInfo',function(req,res){
+    res.render('facultyStaffInfo');
+})
+app.get('/message',function(req,res){
+    res.render('message');
+})
+app.get('/governingbody',function(req,res){
+    res.render('governingbody');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
