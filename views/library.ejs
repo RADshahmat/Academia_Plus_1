@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School/College Management system</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>     
+    <link rel="stylesheet" href="css/Home.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/Home.js" defer></script>
+</head>
+<body>
+  <%- include('includes/header.ejs') %>
+<div class="ss"style="margin-bottom:10rem;margin-top:17rem;">
+  <div style=" display: flex;width: 40rem; height: 40px;margin-left: 8rem;  padding-top: 5px; /*background: #BDD6EA !important;*/">
+    <div class="col-md-6">
+        <input name="ctl00$MasterContentPlace$txtSearch" type="text" id="MasterContentPlace_txtSearch" placeholder="Enter keyword. exm: book/author/item no etc.." style="width:100%;">
+    </div>
+    <div class="col-md-4">
+        <select name="ctl00$MasterContentPlace$ddlSearchtype" id="MasterContentPlace_ddlSearchtype" style="width:100%;">
+<option value="0">Title</option>
+<option value="1">Author</option>
+<option value="2">Subject</option>
+<option value="3">Keyword</option>
+<option value="5">Year</option>
+<option value="6">Call Number</option>
+
+</select>
+    </div>
+    <div class="col-md-2">
+        <input type="submit" name="ctl00$MasterContentPlace$btnSearch" value="Search" id="MasterContentPlace_btnSearch" style="width:100%;">
+    </div>
+    <div class="news-eventall22" style="display: flex; align-items: center;">
+        <div class="news-details" style="margin-left: 10px;width: 20rem; height: 5rem;">
+            <h4 class="widget-title">Notice Board</h4>
+            <p>
+                <i class="fas fa-exclamation-circle" style="margin-right: 5px;"><a href="News.aspx?id=1"style="text-decoration: none;"> E-Books in public libraries </a></i>
+            </p>
+        </div>
+    </div>  
+</div>
+<br><br>
+<img src="images/library.png" alt="our_team"style="margin-left:5rem;height: 385px;width:720px;"><br><br>
+<div class="news-eventall22" style="display: flex; align-items: center;width: 45rem; height: 20rem;">
+    <div class="news-details" style="margin-left: 10px;width: 50rem;margin-top: -2rem;">
+        <h2 class="welcome-text">Welcome to Our Library</h2>
+    <span style="color: rgb(102, 102, 102); font-size: 15px; line-height: 15px;"><font face="tahoma">Welcome to <b>Dhaka Residential Model Collage Library</b>. We believe that immersion in the Library's collections and engagement with our staff and services is what transforms the intellectual and academic development of our students, and is what distinguishes an education at Yale from all other academic institutions. We recognize that service to the Yale community is our top priority, and that goal drives us to be better in every way.</font></span>
+    </div>
+</div> 
+        <div class="news-eventall22" style="display: flex; align-items: center;width: 23rem;height:15rem;margin-left: 55rem;margin-top: -18rem;">
+            <div class="news-details" style="margin-left: 10px;width: 20rem; height: 5rem;margin-top: -6rem;">
+                <h4 class="widget-title">LIBRARY HOURS</h4>
+                <p>
+                    <i class="far fa-clock" style="margin-right: 5px;"><span class="left_txt" style="box-sizing: border-box;"> Saturday  </span> </font><font face="tahoma">08.<span class="right_txt" style="box-sizing: border-box;">00AM-5.30PM</span></font></i>
+                    <i class="far fa-clock" style="margin-right: 5px;"><span class="left_txt" style="box-sizing: border-box;"> Sunday    </span> </font><font face="tahoma">08.<span class="right_txt" style="box-sizing: border-box;">00AM-5.30PM</span></font></i>
+                    <i class="far fa-clock" style="margin-right: 5px;"><span class="left_txt" style="box-sizing: border-box;"> Monday    </span> </font><font face="tahoma">08.<span class="right_txt" style="box-sizing: border-box;">00AM-5.30PM</span></font></i>
+                    <i class="far fa-clock" style="margin-right: 5px;"><span class="left_txt" style="box-sizing: border-box;"> Tuesday   </span> </font><font face="tahoma">08.<span class="right_txt" style="box-sizing: border-box;">00AM-5.30PM</span></font></i>
+                    <i class="far fa-clock" style="margin-right: 5px;"><span class="left_txt" style="box-sizing: border-box;"> Wednesday </span> </font><font face="tahoma">08.<span class="right_txt" style="box-sizing: border-box;">00AM-5.30PM</span></font></i>
+                    <i class="far fa-clock" style="margin-right: 5px;"><span class="left_txt" style="box-sizing: border-box;"> Thursday  </span> </font><font face="tahoma">08.<span class="right_txt" style="box-sizing: border-box;">00AM-5.30PM</span></font></i>
+                </p>
+            </div>
+        </div>  
+</div>
+
+  <%- include('includes/footer.ejs') %>  
+</body>
+</html>

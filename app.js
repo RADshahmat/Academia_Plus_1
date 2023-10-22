@@ -47,6 +47,9 @@ app.get('/governingbody',function(req,res){
 app.get('/GuidelineforParents',function(req,res){
     res.render('GuidelineforParents');
 })
+app.get('/library',function(req,res){
+    res.render('library');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
