@@ -1,19 +1,16 @@
 const express=require('express');
-const http = require('http');
-const socketIO = require('socket.io');
-
 const app=express();
-const server = http.createServer(app);
-const io = socketIO(server);
-
+const socketIo = require('socket.io');
+const http = require('http');
 const path=require('path');
 
 
 app.use(express.urlencoded({extended: true}));
-
+const server = http.createServer(app);
+const io = socketIo(server);
 app.use(express.static('public'));
 
-const fs=require('fs');
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -30,21 +27,14 @@ app.get('/index',function(req,res){
 app.get('/admission',function(req,res){
     res.render('admission');
 })
-app.get('/call',function(req,res){
-    res.render('videoCall');
-})
+
 app.get('/history',function(req,res){
     res.render('history');
-})
-app.get('/events',function(req,res){
-    res.render('events');
-})
-app.get('/calender',function(req,res){
-    res.render('calender');
 })
 app.get('/achievements',function(req,res){
     res.render('achievements');
 })
+
 app.get('/facultyStaffInfo',function(req,res){
     res.render('facultyStaffInfo');
 })
@@ -63,5 +53,6 @@ io.on('connection', (socket) => {
         console.log('user disconnected');
     });
 });
+
 
 app.listen(3000);
