@@ -1,11 +1,13 @@
 const express=require('express');
 const app=express();
-
+const socketIo = require('socket.io');
+const http = require('http');
 const path=require('path');
 
 
 app.use(express.urlencoded({extended: true}));
-
+const server = http.createServer(app);
+const io = socketIo(server);
 app.use(express.static('public'));
 
 
