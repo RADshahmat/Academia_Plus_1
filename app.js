@@ -27,7 +27,9 @@ app.get('/index',function(req,res){
 app.get('/admission',function(req,res){
     res.render('admission');
 })
-
+app.get('/events',function(req,res){
+    res.render('events');
+})
 app.get('/history',function(req,res){
     res.render('history');
 })
