@@ -1,9 +1,5 @@
 const express=require('express');
-
-
 const app=express();
-const server = http.createServer(app);
-const io = socketIO(server);
 
 const path=require('path');
 
@@ -29,11 +25,12 @@ app.get('/index',function(req,res){
 app.get('/admission',function(req,res){
     res.render('admission');
 })
-app.get('/call',function(req,res){
-    res.render('videoCall');
-})
+
 app.get('/history',function(req,res){
     res.render('history');
+})
+app.get('/achievements',function(req,res){
+    res.render('achievements');
 })
 
 

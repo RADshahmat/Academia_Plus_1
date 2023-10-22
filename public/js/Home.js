@@ -5,7 +5,7 @@ const div1 = document.querySelectorAll('.holder');
 for (let index = 0; index < div1.length; index++) {
     
     div1[index].addEventListener('mouseover', function () {
-            ul1[index].style.maxHeight = '30rem'; 
+            ul1[index].style.maxHeight = '35rem'; 
         });
 
         div1[index].addEventListener('mouseout', function () {
