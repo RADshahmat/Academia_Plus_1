@@ -523,3 +523,22 @@ transition: all .3s;
     transform: translateY(-5px);
     box-shadow: 0 20px 20px rgba(0, 0, 0, 0.5);
 }
+.header{
+    background:#0d427e;
+    padding-bottom: 8px;
+    width: 30rem;
+}
+.header b{
+    margin-top: -1rem;
+    background: #fff;
+    color: red;
+    padding: 10px;
+    font-size: 20px;
+}
+.header marquee{
+position: relative;
+top:7px;
+    font-size: 20px;
+    color: white;
+    width: 70%;
+}

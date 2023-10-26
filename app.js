@@ -52,6 +52,12 @@ app.get('/GuidelineforParents',function(req,res){
 app.get('/library',function(req,res){
     res.render('library');
 })
+app.get('/clubs',function(req,res){
+    res.render('clubs');
+})
+app.get('/notice',function(req,res){
+    res.render('notice');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
