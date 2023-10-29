@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School/College Management system</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>     
+    <link rel="stylesheet" href="css/Home.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <script src="js/Home.js" defer></script>
+    
+</head>
+<body>
+  <%- include('includes/header.ejs') %>
+  <div class="row justify-content-center"style="margin-bottom:10rem;margin-top:17rem;">
+
+    <div class="col-lg-8 col-md-12">
+        <div class="sec-title mb-50 text-center">
+            <h2><strong>Contact Us</strong></h2> <br>
+            <hr style="position: absolute; width: 15%; border-bottom: 2px solid #000; top: 70%;left: 42%; transform: translateY(50%);">  
+        
+        </div>
+    </div>
+
+    <div class="col-lg-8 col-md-12"style="margin-left:1rem;">
+        <p><br>
+            </p>
+            <p>Address : G. P. O. Box No. 5 Toyenbee Circular Rd, Dhaka 1000, Bangladesh<br>
+                Phone : +88-02-41070712<br>
+                E-mail : notredamecollege@ndc.edu.bd
+               <br>
+            </p>
+            <br>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.80178831495!2d90.36642297530419!3d22.698421479402274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755340ebfb8e1f9%3A0xf5d9acdf06ca6c67!2sBarishal%20Zilla%20School!5e0!3m2!1sen!2sbd!4v1698588130667!5m2!1sen!2sbd" width="800" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        </div>
+        <div class="info">
+            <div class="col-md-4 pl-0">
+                <div class="contact-info contact-address setheight">
+                    <i class="fa fa-map-marker"></i>
+                    <h4>Address</h4>
+                    <p class="text-center">G. P. O. Box No. 5
+Toyenbee Circular Rd, Dhaka 1000, Bangladesh</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-info contact-phone setheight">
+                    <i class="fa fa-phone"></i>
+                    <h4>Phone Number</h4>
+                    <a>+88-02-41070712</a><br>
+                    <a>+88-02-41070712</a><br>
+                    <a>+88-02-41070712</a>
+                </div>
+            </div>
+            <div class="col-md-4 pr-0">
+                <div class="contact-info contact-email setheight">
+                    <i class="fa fa-envelope"></i>
+                    <h4>Email Address</h4>
+                    <a>notredamecollege@ndc.edu.bd</a>
+                    <a>notredamecollege@ndc.edu.bd</a>
+                    <a>notredamecollege@ndc.edu.bd</a>
+                </div>
+            </div>
+        </div>
+</div>
+  <%- include('includes/footer.ejs') %>  
+</body>
+</html>

@@ -58,6 +58,12 @@ app.get('/clubs',function(req,res){
 app.get('/notice',function(req,res){
     res.render('notice');
 })
+app.get('/contact',function(req,res){
+    res.render('contact');
+})
+app.get('/codeofconduct',function(req,res){
+    res.render('codeofconduct');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {

@@ -1,0 +1,42 @@
+.info{
+    width: 55rem;
+    display: flex;
+    margin-top: 5rem;
+    margin-left: -4rem;
+    justify-content: space-around;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+/* Style each contact info block */
+.contact-info {
+    text-align: center;
+    border-left: 1px solid #272222; /* Add vertical line */
+    border-right: 1px solid #272222; /* Add vertical line */
+    padding-right: 15px; /* Adjust spacing */
+}
+/* Style each specific contact information */
+.address,
+.phone,
+.email {
+    margin: 0 15px;
+}
+
+.address i,
+.phone i,
+.email i {
+    font-size: 24px;
+}
+
+.address h4,
+.phone h4,
+.email h4 {
+    margin: 10px 0;
+}
+
+.address p,
+.phone a,
+.email a {
+    margin: 5px 0;
+}
