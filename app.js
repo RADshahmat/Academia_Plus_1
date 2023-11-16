@@ -64,6 +64,9 @@ app.get('/contact',function(req,res){
 app.get('/codeofconduct',function(req,res){
     res.render('codeofconduct');
 })
+app.get('/routine',function(req,res){
+    res.render('routine');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
