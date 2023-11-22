@@ -3,6 +3,7 @@ const app=express();
 const socketIo = require('socket.io');
 const http = require('http');
 const path=require('path');
+const bodyParser = require('body-parser');
 
 
 app.use(express.urlencoded({extended: true}));
@@ -14,6 +15,15 @@ app.use(express.static('public'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+var screenWidth;
+
+app.post('/setScreenWidth', (req, res) => {
+    screenWidth = req.body.screenWidth;
+    console.log('Received screen width:', screenWidth);
+
+    res.sendStatus(200);
+});
 
 app.get('/',function(req,res){
 
@@ -63,6 +73,9 @@ app.get('/contact',function(req,res){
 })
 app.get('/codeofconduct',function(req,res){
     res.render('codeofconduct');
+})
+app.get('/routine',function(req,res){
+    res.render('routine');
 })
 io.on('connection', (socket) => {
     console.log('a user connected');
