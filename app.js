@@ -77,6 +77,15 @@ app.get('/codeofconduct',function(req,res){
 app.get('/routine',function(req,res){
     res.render('routine');
 })
+app.get('/photos',function(req,res){
+    res.render('photos');
+})
+app.get('/videos',function(req,res){
+    res.render('videos');
+})
+app.get('/calender',function(req,res){
+    res.render('calender');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
