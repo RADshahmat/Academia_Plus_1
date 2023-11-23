@@ -1,46 +1,22 @@
-<<<<<<< HEAD
-{
-  "name": "a-new-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "agora-rtc-sdk-ng": "^4.19.0",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "git": "^0.1.5",
-    "mime": "^3.0.0",
-    "node": "^20.7.0",
-    "nodemon": "^3.0.1",
-    "socket.io": "^4.7.2"
-  }
+{ 
+  "name": "a-new-project", 
+  "version": "1.0.0", 
+  "description": "", 
+  "main": "index.js", 
+  "scripts": { 
+    "start": "nodemon app.js" 
+  }, 
+  "author": "", 
+  "license": "ISC", 
+  "dependencies": { 
+    "agora-rtc-sdk-ng": "^4.19.0", 
+    "body-parser": "^1.20.2", 
+    "ejs": "^3.1.9", 
+    "express": "^4.18.2", 
+    "git": "^0.1.5", 
+    "mime": "^3.0.0", 
+    "node": "^20.7.0", 
+    "nodemon": "^3.0.1", 
+    "socket.io": "^4.7.2" 
+  } 
 }
-=======
-{
-  "name": "a-new-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "agora-rtc-sdk-ng": "^4.19.0",
-    "body-parser": "^1.20.2",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "git": "^0.1.5",
-    "mime": "^3.0.0",
-    "node": "^20.7.0",
-    "nodemon": "^3.0.1",
-    "socket.io": "^4.7.2"
-  }
-}
->>>>>>> a2e83cb98d762ba42ad4195e54ecaf8777927a37
