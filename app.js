@@ -86,6 +86,9 @@ app.get('/videos',function(req,res){
 app.get('/calender',function(req,res){
     res.render('calender');
 })
+app.get('/cocur',function(req,res){
+    res.render('cocur');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
