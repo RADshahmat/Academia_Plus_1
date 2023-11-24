@@ -89,6 +89,9 @@ app.get('/calender',function(req,res){
 app.get('/cocur',function(req,res){
     res.render('cocur');
 })
+app.get('/dress',function(req,res){
+    res.render('dress');
+})
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
