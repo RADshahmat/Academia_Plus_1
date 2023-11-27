@@ -96,8 +96,8 @@ transition: all .3s;
     overflow: hidden;
     cursor: pointer;
     
-   box-shadow: 0px 20px 20px -0px rgba(10, 23, 45, 0.8);
-    transition: max-height 0.3s ease-in-out;
+   box-shadow: 0px 4px 5px -0px rgba(0, 0, 0, 0.7);
+    transition: all .3s ease-in-out;
 }
 .nav_ul li:hover{
     background-color: rgb(234, 45, 45);
@@ -144,7 +144,7 @@ transition: all .3s;
     background-color: rgba(123, 207, 255,1); ;
 }
 
-#main_nav.collapsed {
+#main_nav.coll {
     margin-top: 100px; 
     
 }
@@ -170,7 +170,7 @@ transition: all .3s;
     text-align: center;
 }
 .carousel-inner {
-    height: 50rem; 
+    height: fit-content; 
 }
 .carousel-caption {
     bottom: 15%; 
@@ -299,6 +299,10 @@ transition: all .3s;
     animation-play-state: running;
 }
 
+#hamburgerIcon{
+    display: none;
+ }
+
 @keyframes scroll {
     0% {
         top: 100%;
@@ -319,6 +323,73 @@ transition: all .3s;
     #carouselExampleCaptions{
         height: 50rem;
          }
+         
+}
+@media(max-width:1182px){
+#hamburgerIcon{
+            display: block;
+         }
+
+         #main_nav_container{
+            display: none;
+            width: 100%;
+         }
+         .holder{
+            width: 100%;
+         }
+         
+#main_nav{
+    display: block;
+    height: fit-content;
+}
+#main_nav.collapsed{
+    background-color: rgba(255, 255, 255,.4);
+}
+#main_nav.expanded{
+    background-color: rgba(255, 255, 255,1);
+}
+
+
+ #main_nav_container {
+    display: block;
+    max-height: 0;
+    overflow-x: hidden;
+    
+    
+    transition: max-height .5s;
+    
+    
+  }
+  
+  #main_nav_container.collapsed {
+    max-height: 0;
+    box-shadow: none;
+  }
+  
+  #main_nav_container.expanded {
+    max-height: 750px; 
+  }
+  .nav_ul li a{
+    font-size: 2.5rem;
+  }
+  .main_nav_buttons{
+    font-size: 2.5rem;
+    text-align: left;
+    margin-left: 3.5rem;
+  }
+.nav_ul{
+    box-shadow: none;
+    transition: all 1s ease-in-out;
+}
+  
+  
+}
+@media(min-width:1183px){
+    
+    
+    #main_nav_container{
+       display: flex;
+    }
 }
 
 

@@ -9,6 +9,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     transition: 0.3s;
+    text-align: center;
 }
 .box-container1:hover {
     transform: translateY(-5px);
@@ -35,3 +36,21 @@ display: inline-block;
     
 }
 
+
+.sp:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+}
+.sp {
+    text-decoration: none;
+    margin-left: 3rem;
+    width: 20rem;
+    height: 20rem;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    transition: 0.3s;
+    text-align: center;
+}

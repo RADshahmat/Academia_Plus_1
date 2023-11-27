@@ -3,6 +3,8 @@ const app=express();
 const socketIo = require('socket.io');
 const http = require('http');
 const path=require('path');
+const bodyParser = require('body-parser');
+const oracledb = require('oracledb');
 
 
 app.use(express.urlencoded({extended: true}));
@@ -14,9 +16,53 @@ app.use(express.static('public'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+var screenWidth;
+
+app.post('/setScreenWidth', (req, res) => {
+    screenWidth = req.body.screenWidth;
+    console.log('Received screen width:', screenWidth);
+
+    res.sendStatus(200);
+});
+
+
+const connectionConfig = {
+    user: 'system',
+    password: '12345',
+    connectString: 'localhost:1521/xe', // Change this to your Oracle SID
+  };
+  
+  // Function to handle connection
+  async function run() {
+    let connection;
+  
+    try {
+      // Establish a connection
+      connection = await oracledb.getConnection(connectionConfig);
+  
+      // Your database operations go here
+  
+      // Example: Querying from a table
+      const result = await connection.execute('SELECT * FROM your_table_name');
+      console.log(result);
+  
+    } catch (err) {
+      console.error('Error connecting to Oracle:', err);
+    } finally {
+      // Close the connection
+      if (connection) {
+        try {
+          await connection.close();
+        } catch (err) {
+          console.error('Error closing connection:', err);
+        }
+      }
+    }
+  }
 
 app.get('/',function(req,res){
-
+    run();
     res.redirect('index');
 
 })
@@ -63,6 +109,24 @@ app.get('/contact',function(req,res){
 })
 app.get('/codeofconduct',function(req,res){
     res.render('codeofconduct');
+})
+app.get('/routine',function(req,res){
+    res.render('routine');
+})
+app.get('/photos',function(req,res){
+    res.render('photos');
+})
+app.get('/videos',function(req,res){
+    res.render('videos');
+})
+app.get('/calender',function(req,res){
+    res.render('calender');
+})
+app.get('/cocur',function(req,res){
+    res.render('cocur');
+})
+app.get('/dress',function(req,res){
+    res.render('dress');
 })
 io.on('connection', (socket) => {
     console.log('a user connected');
