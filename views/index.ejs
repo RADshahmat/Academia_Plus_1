@@ -127,8 +127,8 @@
     </section>
     </main>
     
-    <% if (db_stat.success) { %>
-        <% for (const t of result.data) { %>
+    <% if (db_stat) { %>
+        <% for (const t of result) { %>
           <ul style="display: flex; justify-content: center;">
             <li><%= t[0] %></li>
             <li><%= t[1] %></li>

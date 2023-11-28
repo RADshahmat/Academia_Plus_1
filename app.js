@@ -76,7 +76,7 @@ app.get("/index", async function (req, res) {
   console.log(result.data);
   if (result.success) {
     console.log(result.data);
-    res.render("index", { result: result.data });
+    res.render("index", { result: result.data, db_stat: result.success });
   } else {
     res.render("index", { result: result.data, db_stat: result.success });
   }
@@ -111,7 +111,10 @@ app.get("/GuidelineforParents", async function (req, res) {
   console.log(gline.data);
   if (gline.success) {
     console.log(gline.data);
-    res.render("GuidelineforParents", { gline: gline.data });
+    res.render("GuidelineforParents", {
+      gline: gline.data,
+      db_stat: gline.success,
+    });
   } else {
     res.render("GuidelineforParents", {
       gline: gline.data,
