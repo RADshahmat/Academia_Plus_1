@@ -1,159 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>School/College Management system</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>     
-    <link rel="stylesheet" href="css/Home.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/Home.css" />
+    <link rel="stylesheet" href="css/footer.css" />
     <script src="js/Home.js" defer></script>
     <script src="js/sideBar.js" defer></script>
-</head>
-<body>
-  <%- include('includes/header.ejs') %>
-  <div class="master_med"style="margin-bottom:10rem;margin-top:17rem;">                   
-    <div class="slider_bg">
-    <div class="slider_bg">
-   <div id="right_master" style="text-align: center;">
-<div class="master_heading">
-<div style=" margin-top: 6px; text-align: center;">
-    <div class="col-lg-8 col-md-12" style="margin: auto;">
-        <div class="sec-title mb-50 text-center">
-            <h2><strong>General Guidelines for Parents</strong></h2> <br>
-            <hr style="position: absolute; width: 15%; border-bottom: 2px solid #000; top: 70%;left: 42%; transform: translateY(50%);">  
-        
+  </head>
+  <body>
+    <%- include('includes/header.ejs') %>
+    <div class="master_med" style="margin-bottom: 10rem; margin-top: 17rem">
+      <div class="slider_bg">
+        <div class="slider_bg">
+          <div id="right_master" style="text-align: center">
+            <div class="master_heading">
+              <div style="margin-top: 6px; text-align: center">
+                <div class="col-lg-8 col-md-12" style="margin: auto">
+                  <div class="sec-title mb-50 text-center">
+                    <h2><strong>General Guidelines for Parents</strong></h2>
+                    <br />
+                    <hr
+                      style="
+                        position: absolute;
+                        width: 15%;
+                        border-bottom: 2px solid #000;
+                        top: 70%;
+                        left: 42%;
+                        transform: translateY(50%);
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-lg-8 col-md"
+              style="width: 100%; text-align: center; margin: auto"
+            >
+              <% if (db_stat.success) { %>
+              <div
+                class="para"
+                style="
+                  width: 100%;
+                  font-size: 18px;
+                  text-align: left;
+                  margin: auto;
+                  white-space: pre-line;
+                "
+              >
+                <%= gline[0] %>
+              </div>
+              <% } else{ %>
+                <br><br>
+       <h3>Database is Offline.</h3>
+
+                <% } %>
+                 
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
-</div>
-</div>
-<div class="col-lg-8 col-md" style="width: 100%;text-align: center;margin: auto;">
-
-<div class="para" style="width: 100%; font-size: 18px; text-align: left;margin: auto;"><br>
-
-To attain it's high aim the school expects, full co-operation of the students, parents
-and guardians. The best of school training is seriously crippled unless the home
-does its part. In order to secure all that is best in the education of the child,
-maximum co-operation between the parents and the school authorities is necessary.
-Parents are requested to see that their children spend at least two hours in the
-evening in reading and writing. All parents are earnestly asked to ensure that the
-ideals of courtesy and gentleness which are proposed to the children during school
-hours are maintained at home.<br>
-<br>
-Parents should co-operate with the school`s efforts with total involvement to bring
-about maturity in their children. This calls for a real understanding of the school's
-philosophy. It means that parents should strive to become living examples of the
-values taught to and expected of their wards. it means keeping the principal and
-the concerned teacher informed of any special problems or unforeseen circumstances
-necessary for a proper understanding and guidance of their ward. The school desires
-to have your co-operation and close contact with teacher of your child in order
-to develop an atmosphere that is conducive to better and effective education. This
-diary is one of the link which bridges the home and the school. It is an effective
-medium to attain total harmony/rapport between the home and school:-<br>
-<br>
-• A school diary is said to be the mirror of the school. it is a must for each student
-to bring their diaries daily to school.<br>
-<br>
-• This diary has been introduced for you and the school staff to communicate effectively.
-It is essential that you inspect your child`s diary every day.<br>
-<br>
-• All such communication must be counter signed by you so that we know that you
-have read them.<br>
-<br>
-• Do ensure that your ward does not carry any money to school.<br>
-<br>
-• In the event that you wish to communicate with the class teacher, please use the
-ruled pages –parent`s Remarks/Requests.<br>
-<br>
-• Absence of your child from class for attending social function is discouraged
-because it retards the child`s progress and minimizes his/her interest in regular
-school work.<br>
-<br>
-• Children should do their home work by themselves. Parents should not do the home
-work or write in the copy/book of their ward or the work missed during his/her absence.
-it is important that the children develop a habit of studying and working of their
-own.<br>
-<br>
-• Attention of parents is drawn to the fact that criticism of the teacher or school
-in the presence of their children should be scrupulously avoided, because it cause
-the students to loose respect for their teachers with the consequent failure to
-learn from them, it further retards his/her progress. Should you have a legitimate
-complaint, please meet the principal at once or write in a seperate letter addressed
-to her. She will look into these matters personally.<br>
-<br>
-• Any communication made by parents/guardian should be addressed to the principal
-and not to the class teachers and all correspondence between the school and parents
-must be done through the principal.<br>
-<br>
-• Parents are not allowed to see their children or meet the teachers during school
-hours.<br>
-<br>
-• Private tuitions are discouraged.<br>
-<br>
-• As the medium of instruction is English, children should be helped to follow their
-classes easily by a certain amount of regular conversation at home.<br>
-<br>
-• Please see that your ward carries text/exercise book according to the time table
-everyday. No extra books are allowed.<br>
-<br>
-• Kindly ensure that your ward prepares for the class/surprise test /Examination.<br>
-<br>
-• Encourage your ward to take a balanced interest in studies, co-curricular activities
-and sports.<br>
-<br>
-• It is not advisable to bring to school valuable articles like expensive watches,
-fountain pens, transistor, radios, tape recorders, calculator ,and jewellery. In
-case of any loss of valuable or other article the school authorities will try their
-best to trace but shall not undertake my responsibility for the loss.<br>
-<br>
-• Children should be instructed to be careful about his/her possessions. Students
-are not allowed to wear jewellery in school or have mehandi applied. Violation of
-these rules will result in heavy fines.<br>
-<br>
-• If your ward is absent from school, he/she must make up all the works he/she has
-missed.<br>
-<br>
-• Supplementary notices from the school will be placed inside the front cover flap.
-Please acknowledge receipts of these as well.<br>
-<br>
-• It is mandatory that the diary is maintained properly and is carried to school
-every day.<br>
-<br>
-• Students are responsible to the school authorities not only for their conduct
-in school but also for their general behavior outside. Any reported or observed
-objectionable conduct out of the school shall make them liable to disciplinary action.<br>
-<br>
-• The student should be recognized not only by their uniform but also by their conduct
-and behaviour as students of Seth Dwarka Prasad Education Centre.<br>
-<br>
-• Any misconduct by the parents with any staff member in the school may cause dismissal
-of their ward. We might be compelled to stop the entry of said parent in the school
-premises.<br>
-<br>
-• If a student is absent from the school he/she will be allowed to attend the class
-only after the submission of leave application. Students are instructed to use the
-regularity Record-absent column in the school diary.<br>
-<br>
-• Student should at all cost stop writing, carving, scribbling, on wall or furniture.
-Such habits shows a sign of low taste. Any such activity and damage to school property
-may invite a heavy fine and other punishments. <br>
-<br>
-</div>
-
-</div>
-</div>
-</div>
-   </div>
-</div>
-  <%- include('includes/footer.ejs') %>  
-</body>
+    <%- include('includes/footer.ejs') %>
+  </body>
 </html>

@@ -126,6 +126,28 @@
         </div>
     </section>
     </main>
+    
+    <% if (db_stat.success) { %>
+        <% for (const t of result.data) { %>
+          <ul style="display: flex; justify-content: center;">
+            <li><%= t[0] %></li>
+            <li><%= t[1] %></li>
+          </ul>
+        <% } %>
+      <% } else{ %>
+        <ul style="display: flex; justify-content: center;">
+            <li><h1>Database is Offline.</h1></li>
+            
+          </ul>
+
+        <% } %>
+         
+        
+   
   <%- include('includes/footer.ejs') %>  
+  <script>
+    console.log('<%= JSON.stringify(result) %>');
+</script>
+
 </body>
 </html>
