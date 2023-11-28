@@ -4,6 +4,36 @@ const socketIo = require('socket.io');
 const http = require('http');
 const path=require('path');
 const bodyParser = require('body-parser');
+const oracledb = require('oracledb');
+
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+
+
+
+async function run() {
+
+    const connection = await oracledb.getConnection ({
+        user: "system",
+        password: "12345",
+        connectString: "localhost/xe", // Use the correct service name or SID
+        // If you have Oracle Instant Client installed, you don't need to specify port and protocol.
+        // Remove the following line if you're using Instant Client:
+        port: 1521, // Specify the correct port for your Oracle database
+        protocol: "tcp", // Specify the correct protocol for your Oracle database
+    });
+    
+
+    const result = await connection.execute(
+        `SELECT * FROM getting_started`
+    );
+
+    console.log(result.rows);
+    console.log("dhokse")
+    await connection.close();
+    return result;
+}
+
+
 
 
 app.use(express.urlencoded({extended: true}));
@@ -25,8 +55,9 @@ app.post('/setScreenWidth', (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/',function(req,res){
-
+app.get('/',async function(req,res){
+    const det=await run();
+    console.log("dhokse");
     res.redirect('index');
 
 })
