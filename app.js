@@ -6,14 +6,30 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const oracledb = require("oracledb");
 
+////////////////////////file Upload///////////////////////////////
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploadimage");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+////////////////////////////////////File Upload End///////////////////
+
 app.use(express.urlencoded({ extended: true }));
 const server = http.createServer(app);
 const io = socketIo(server);
 app.use(express.static("public"));
-
+app.use(express.static("uploadimage"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
+app.use(express.json());
 var screenWidth;
 
 app.post("/setScreenWidth", (req, res) => {
@@ -27,9 +43,9 @@ app.post("/setScreenWidth", (req, res) => {
 let connectionPool;
 
 const connectionConfig = {
-  user: "c##academia_plus",
+  user: "academia_plus_new",
   password: "12345",
-  connectString: "192.168.1.3:1521/xepdb1",
+  connectString: "192.168.1.2:1521/xepdb1",
 };
 
 async function initializeConnectionPool() {
@@ -42,13 +58,21 @@ async function initializeConnectionPool() {
   }
 }
 
-async function run(query) {
+async function run(query, bindParams) {
   let connection;
 
   try {
     connection = await connectionPool.getConnection();
-    const result = await connection.execute(query);
-    return { success: true, data: result.rows, error: null };
+
+    if (bindParams) {
+      const result = await connection.execute(query, bindParams, {
+        autoCommit: true,
+      });
+      return { success: true, data: result.rows, error: null };
+    } else {
+      const result = await connection.execute(query, [], { autoCommit: true });
+      return { success: true, data: result.rows, error: null };
+    }
   } catch (err) {
     console.error("Error executing query:", err);
     return { success: false, data: null, error: err.message };
@@ -72,7 +96,7 @@ app.get("/", async function (req, res) {
 });
 
 app.get("/index", async function (req, res) {
-  const result = await run('SELECT * FROM "C##ACADEMIA_PLUS"."STUDENTS"');
+  const result = await run('SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS"');
   console.log(result.data);
   if (result.success) {
     console.log(result.data);
@@ -106,7 +130,7 @@ app.get("/governingbody", function (req, res) {
 });
 app.get("/GuidelineforParents", async function (req, res) {
   const gline = await run(
-    'SELECT * FROM "C##ACADEMIA_PLUS"."GUIDELINE_FOR_PARRENTS"'
+    'SELECT * FROM "ACADEMIA_PLUS_NEW"."GUIDELINE_FOR_PARRENTS"'
   );
   console.log(gline.data);
   if (gline.success) {
@@ -155,11 +179,57 @@ app.get("/cocur", function (req, res) {
 app.get("/dress", function (req, res) {
   res.render("dress");
 });
-io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
+app.get("/apply", function (req, res) {
+  res.render("admission/apply");
+});
+app.get("/applicant_dashboard", function (req, res) {
+  res.render("admission/applicant_dashboard");
+});
+
+////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
+
+app.post("/applyform", upload.single("image"), async function (req, res) {
+  const data = req.body;
+  const image_name = req.file.filename;
+
+  const det_id = await run(
+    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+    { phone_no: data.phone_no }
+  );
+  console.log("Det_id:" + det_id);
+  if (det_id && det_id.data && det_id.data.length > 0) {
+    res.json({ reply: false });
+  } else {
+    const det = await run(
+      `
+  INSERT INTO APPLICANTS (
+    APPLICANT_NAME, MOBILE_NO, FATHER_NAME, MOTHER_NAME,
+    P_ADDRESS, C_ADDRESS, DOB, CLASS, IMAGE_ADDRESS
+  ) VALUES (
+    :student_name, :phone_no, :father_name, :mother_name,
+    :present_address, :current_address, TO_DATE(:dob, 'YYYY-MM-DD'),
+    :class, :image
+  )`,
+      {
+        student_name: data.student_name,
+        phone_no: data.phone_no,
+        father_name: data.fathe_name,
+        mother_name: data.mother_name,
+        present_address: data.present_address,
+        current_address: data.current_address,
+        dob: data.dob,
+        class: data.class,
+        image: image_name,
+      }
+    );
+
+    const s_id = await run(
+      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+      { phone_no: data.phone_no }
+    );
+
+    res.json({ reply: det.success, p_no: data.phone_no, a_id: s_id.data });
+  }
 });
 
 app.listen(3000);

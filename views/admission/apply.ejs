@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School/College Management system</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/Home.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+
+    <script src="js/Home.js" defer></script>
+    <script src="js/sideBar.js" defer></script>
+    <script src="js/apply.js" defer></script>
+  </head>
+  <body>
+    <%- include('../includes/header.ejs') %>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <div id="form_div" style="justify-content: center">
+      <form
+        id="applicant-form"
+        style="width: 80%; margin: auto"
+        enctype="multipart/form-data"
+      >
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="student-name">Student"s Name</label>
+            <input name="student_name" class="form-control" id="student-name" required/>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="phone-number">Phone Number</label>
+            <input
+              name="phone_no"
+              value="+880"
+              class="form-control"
+              id="phone-number"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="father-name">Father's Name</label>
+            <input name="father_name" class="form-control" id="father-name" required/>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="mother-name">Mother's Name</label>
+            <input name="mother_name" class="form-control" id="mother-name" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Current Address</label>
+          <input
+            name="current_address"
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="Division/Zilla/Upozilla/Moholla/Street No/House No"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2">Present Address</label>
+          <input
+            name="present_address"
+            type="text"
+            class="form-control"
+            id="inputAddress2"
+            placeholder="Division/Zilla/Upozilla/Moholla/Street No/House No"
+            required
+          />
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputDob">Date Of Birth</label>
+            <input name="dob" type="date" class="form-control" id="inputDob" required />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputClass">Class</label>
+            <select name="class" id="inputClass" class="form-control">
+              <% const words = ['one', 'two', 'three', 'four', 'five', 'six',
+              'seven', 'eight', 'nine', 'ten']; %> <% for (let index = 0; index
+              < 10; index++) { %>
+              <option><%= words[index] %></option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputImage">Image</label>
+            <input
+              name="image"
+              type="file"
+              accept=".jpg,.png,.jpeg"
+              class="form-control"
+              id="inputImage"
+              style="padding: 3px 0 0 3px"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" required/>
+            <label class="form-check-label" for="gridCheck">
+              Are you Sure This Information is Correct?
+            </label>
+          </div>
+        </div>
+        <button id="submit_button" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

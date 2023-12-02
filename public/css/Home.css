@@ -354,6 +354,7 @@ transition: all .3s;
     display: block;
     max-height: 0;
     overflow-x: hidden;
+    box-shadow: none;
     
     
     transition: max-height .5s;
@@ -363,7 +364,6 @@ transition: all .3s;
   
   #main_nav_container.collapsed {
     max-height: 0;
-    box-shadow: none;
   }
   
   #main_nav_container.expanded {
