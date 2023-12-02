@@ -128,6 +128,9 @@ app.get("/message", function (req, res) {
 app.get("/governingbody", function (req, res) {
   res.render("governingbody");
 });
+app.get("/admin", function (req, res) {
+  res.render("admin");
+});
 app.get("/GuidelineforParents", async function (req, res) {
   const gline = await run(
     'SELECT * FROM "ACADEMIA_PLUS_NEW"."GUIDELINE_FOR_PARRENTS"'
