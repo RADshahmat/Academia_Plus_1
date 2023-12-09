@@ -45,7 +45,7 @@ let connectionPool;
 const connectionConfig = {
   user: "academia_plus_new",
   password: "12345",
-  connectString: "192.168.1.2:1521/xepdb1",
+  connectString: "localhost:1521/xe",
 };
 
 async function initializeConnectionPool() {
