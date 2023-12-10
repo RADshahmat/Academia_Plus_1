@@ -24,12 +24,18 @@
 </head>
 <body>
     <%- include('../includes/header.ejs') %>
-       <% for( let index = 0; index < 30; index++ ) { %>
-         <br>
-         <% if (index==14) { %>
-            <h1 style="text-align: center;">Welcome</h1>
-         <% } %>
+       <% for( let index = 0; index < 10; index++ ) { %>
+         <br>      
        <% } %>
+       <div>
+        <ul>
+            <li><a href="#">Instructions.</a></li>
+            <li><a href="exam">Exam.</a></li>
+            <li><a href="#">Result.</a></li>
+            <li><a href="#">Notice.</a></li>
+
+        </ul>
+       </div>
     <%- include('../includes/footer.ejs') %>
 </body>
 </html>
