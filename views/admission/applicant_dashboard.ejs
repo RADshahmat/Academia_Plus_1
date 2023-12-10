@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/Home.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/sidebar.css">
-    
+    <link rel="stylesheet" href="css/clubs.css">
 
     <script src="js/Home.js" defer></script>
     <script src="js/sideBar.js" defer></script>
@@ -28,13 +28,81 @@
          <br>      
        <% } %>
        <div>
-        <ul>
-            <li><a href="#">Instructions.</a></li>
-            <li><a href="exam">Exam.</a></li>
-            <li><a href="#">Result.</a></li>
-            <li><a href="#">Notice.</a></li>
-
-        </ul>
+        <div class="sec-title mb-50 text-center">
+            <h2><strong>Welcome To Dashboard</strong></h2> <br><br><br>
+        </div>
+        <div class="ok" style="display: flex;margin-left: 3rem;">
+            <div class="box-container10">
+                <div class="col-lg-2 col-md-6 col-xs-6 grid-item">
+                    <a href="">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img class="zoom_pic" src="images/instraction.png"style="height: 150px;width:150px" alt="">
+                            </div>
+                            <div class="team-body10">
+                                <a href="#"style="text-decoration:none;color:black;font-weight: bold;"> <h3>Instructions</h3></a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box-container10">
+                <div class="col-lg-2 col-md-6 col-xs-6 grid-item">
+                    <a href="">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img class="zoom_pic" src="images/admitcard.png"style="height: 150px;width:150px" alt="">
+                            </div>
+                            <div class="team-body10"style="margin-left: 30px;">
+                                <a href="" style="text-decoration:none;color:black;font-weight: bold;"> <h3>Admit Card</h3></a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box-container10">
+                <div class="col-lg-2 col-md-6 col-xs-6 grid-item">
+                    <a href="">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img class="zoom_pic" src="images/exam.png"style="height: 150px;width:150px" alt="">
+                            </div>
+                            <div class="team-body10"style="margin-left: 30px;">
+                                <a href="exam"style="text-decoration:none;color:black;font-weight: bold;"> <h3>Exam</h3></a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box-container10">
+                <div class="col-lg-2 col-md-6 col-xs-6 grid-item">
+                    <a href="">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img class="zoom_pic" src="images/result.png"style="height: 150px;width:150px" alt="">
+                            </div>
+                            <div class="team-body10"style="margin-left: 30px;">
+                                <a href="#"style="text-decoration:none;color:black;font-weight: bold;"> <h3>Result</h3></a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box-container10">
+                <div class="col-lg-2 col-md-6 col-xs-6 grid-item">
+                    <a href="">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img class="zoom_pic" src="images/notice.png"style="height: 150px;width:150px" alt="">
+                            </div>
+                            <div class="team-body10"style="margin-left: 30px;">
+                                <a href="#"style="text-decoration:none;color:black;font-weight: bold;"> <h3>Notice</h3></a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
        </div>
     <%- include('../includes/footer.ejs') %>
 </body>

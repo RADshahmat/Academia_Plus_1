@@ -317,7 +317,6 @@ app.post("/login", async function (req, res) {
     'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
     { phone_no: data.phone_no, password: data.password }
   );
-
   if (info.data.length > 0) {
     req.session.user = {
       id: info.data[0][0],
