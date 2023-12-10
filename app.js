@@ -5,6 +5,35 @@ const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
 const oracledb = require("oracledb");
+const session = require("express-session");
+const oracleDbStore = require("express-oracle-session2")(session);
+const MySQLStore = require("express-mysql-session")(session);
+//////////// start of session ////////////////////////////////
+
+const options = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "",
+  database: "academia_plus_session",
+};
+
+const sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    key: "session_cookie_name",
+    secret: "session_cookie_secret",
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
+
+/////////////////////end of session code///////////////////////////
 
 ////////////////////////file Upload///////////////////////////////
 const multer = require("multer");
@@ -90,8 +119,9 @@ async function run(query, bindParams) {
 initializeConnectionPool();
 
 ////////////////////////////////////////////////////////end of bd connection prototype////////////////////////////////////////////////////////
+
+////////////////////////////////////////////All Get Request ////////////////////////////////////////////////////////////////////////////////
 app.get("/", async function (req, res) {
-  await run();
   res.redirect("index");
 });
 
@@ -186,8 +216,54 @@ app.get("/apply", function (req, res) {
   res.render("admission/apply");
 });
 app.get("/applicant_dashboard", function (req, res) {
+  if (!req.session.user.isAuthenticated) {
+    res.redirect("log_in.ejs");
+  }
+  console.log(req.session.user);
   res.render("admission/applicant_dashboard");
 });
+
+app.get("/log_in", async function (req, res) {
+  res.render("log_in");
+});
+
+app.get("/exam", async function (req, res) {
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  let randomNumbers = new Set();
+  
+  while (randomNumbers.size < 10) {
+    let randomNumber = getRandomNumber(1, 19);
+  
+    // Check if the number is not in the set before adding
+    if (!randomNumbers.has(randomNumber)) {
+      randomNumbers.add(randomNumber);
+    }
+  }
+  
+  // Convert the Set to an array if needed
+  let uniqueNumbersArray = Array.from(randomNumbers);
+
+  
+    const query = `
+      SELECT * FROM "ACADEMIA_PLUS_NEW"."ADMISSION_QUESTIONS"
+      WHERE ID IN (${uniqueNumbersArray.join(', ')})`;
+    
+    const result = await run(query);
+
+   
+      const questions = result.data;
+
+      console.log(randomNumbers);
+      
+      res.render("admission/exam", { questions:questions });
+    
+});
+
+
+/////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
 
@@ -232,6 +308,29 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
     );
 
     res.json({ reply: det.success, p_no: data.phone_no, a_id: s_id.data });
+  }
+});
+
+app.post("/login", async function (req, res) {
+  let data = req.body;
+  const info = await run(
+    'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
+    { phone_no: data.phone_no, password: data.password }
+  );
+
+  if (info.data.length > 0) {
+    req.session.user = {
+      id: info.data[0][0],
+      name: info.data[0][1],
+      account_type: "Applicant",
+      isAuthenticated: true,
+    };
+
+    req.session.save(function () {
+      res.json({ reply: info.success, data: info.data });
+    });
+  } else {
+    res.json({ reply: info.success, data: info.data });
   }
 });
 

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
       event.preventDefault();
   
       const formData = new FormData(form);
-  
+       console.log(formData);
       fetch('/applyform', {
         method: 'POST',
         body: formData
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     contentWrapper.appendChild(heading2);
 
     var anchor = document.createElement('a');
-    anchor.href = 'applicant_dashboard';
+    anchor.href = 'log_in';
     anchor.textContent = 'Log In';
     anchor.style.width='fit-content'
     anchor.style.display = 'block'; 
