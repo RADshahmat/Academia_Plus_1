@@ -73,7 +73,7 @@ let connectionPool;
 const connectionConfig = {
   user: "academia_plus_new",
   password: "12345",
-  connectString: "192.168.1.2:1521/xepdb1",
+  connectString: "localhost:1521/xepdb1",
 };
 
 async function initializeConnectionPool() {
@@ -563,7 +563,6 @@ app.post("/login", async function (req, res) {
     'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
     { phone_no: data.phone_no, password: data.password }
   );
-
   if (info.data.length > 0) {
     req.session.user = {
       id: info.data[0][0],

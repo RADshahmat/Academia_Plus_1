@@ -54,3 +54,27 @@ display: inline-block;
     transition: 0.3s;
     text-align: center;
 }
+/*------------------applicant_dashboard------------------*/
+.box-container10 {
+    text-decoration: none;
+    margin-left: 2rem;
+    width: 13rem;
+    height: 18rem;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: 0.3s;
+    text-align: center;
+}
+.box-container10:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+}
+.team-body10 {
+    text-align: center;
+margin-top: 20px;
+margin-left: 5px;
+display: inline-block;
+}
