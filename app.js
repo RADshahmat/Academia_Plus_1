@@ -43,9 +43,9 @@ app.post("/setScreenWidth", (req, res) => {
 let connectionPool;
 
 const connectionConfig = {
-  user: "academia_plus_new",
+  user: "academia_plus",
   password: "12345",
-  connectString: "192.168.1.2:1521/xepdb1",
+  connectString: "localhost:1521/xepdb1",
 };
 
 async function initializeConnectionPool() {
@@ -96,7 +96,7 @@ app.get("/", async function (req, res) {
 });
 
 app.get("/index", async function (req, res) {
-  const result = await run('SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS"');
+  const result = await run('SELECT * FROM "ACADEMIA_PLUS"."APPLICANTS"');
   console.log(result.data);
   if (result.success) {
     console.log(result.data);
@@ -131,9 +131,13 @@ app.get("/governingbody", function (req, res) {
 app.get("/admin", function (req, res) {
   res.render("admin");
 });
+app.get("/student_management", function (req, res) {
+  res.render("admin_control/student_management");
+});
+
 app.get("/GuidelineforParents", async function (req, res) {
   const gline = await run(
-    'SELECT * FROM "ACADEMIA_PLUS_NEW"."GUIDELINE_FOR_PARRENTS"'
+    'SELECT * FROM "ACADEMIA_PLUS"."GUIDELINE_FOR_PARRENTS"'
   );
   console.log(gline.data);
   if (gline.success) {
@@ -189,6 +193,7 @@ app.get("/applicant_dashboard", function (req, res) {
   res.render("admission/applicant_dashboard");
 });
 
+
 ////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
 
 app.post("/applyform", upload.single("image"), async function (req, res) {
@@ -196,7 +201,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
   const image_name = req.file.filename;
 
   const det_id = await run(
-    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
     { phone_no: data.phone_no }
   );
   console.log("Det_id:" + det_id);
@@ -227,7 +232,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
     );
 
     const s_id = await run(
-      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
       { phone_no: data.phone_no }
     );
 
