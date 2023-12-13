@@ -1,0 +1,15 @@
+<% if (logged_in) { %>
+
+    <script>
+        document.getElementById('LogIn').style.display="none";
+    </script>
+    
+   <% }else{ %>
+
+    <script>
+        document.getElementById('LogOut').style.display="none";
+    </script>
+    
+    login()
+
+    <% } %>

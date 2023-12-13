@@ -15,19 +15,40 @@
             crossorigin="anonymous"></script>     
         <link rel="stylesheet" href="css/admin.css">
         <style>
-            @media(max-width:1182px){html{zoom:30%;}}
+            .left_header {
+  display: flex;
+  align-items: center;
+}
+
+.header_logo {
+  max-width: 4rem; /* Ensures the image does not exceed its natural size */
+  height: auto;   /* Ensures the image maintains its aspect ratio */
+  margin-right: 1rem; /* Adjust margin as needed */
+}
+
+#l_header {
+  flex: 1; /* Allows the h1 to take up remaining space */
+}
         </style>
     </head>
 <body>
 <header class="header">
-    <h1 class="left_header"><img class="header_logo" src="images/—Pngtree—school logo design template vector_9104626.png"> School Management System</h1>
+    <div class="left_header" style="display: flex;">
+        <img class="header_logo" src="images/—Pngtree—school logo design template vector_9104626.png">
+        <h1 id="l_header"> School Management System</h1>
+    </div>
+    
     <div class="logout">
         <a href="" class="btn btn-outline-danger">Logout</a>
     </div>
 </header>
 
+
+
 <%- include('includes/admin_sidebar.ejs') %>
+<div id="ham_icon"><img src="images/menu.png" alt=""></div>
 <div class="content" id="content-container">
+    
     <div class="dashboard_container">
 
         <div class="card_contain" style="background-color: rgb(73, 63, 63);">
@@ -92,6 +113,49 @@
         </div>
     </div>
 </div>
+<script>
+   const ham_icon = document.getElementById('ham_icon');
+const side_bar = document.querySelector('.sidebar');
+const content1 = document.querySelector('.content');
 
+
+
+ham_icon.addEventListener('click', function () {
+    if (side_bar.style.display === "none" || side_bar.style.display === "") {
+        side_bar.style.display = "block";
+        content1.style.display = "none";
+    } else {
+        side_bar.style.display = "none";
+        content1.style.display = "block";
+    }
+});
+
+    function adjustHeader() {
+        const header = document.querySelector('.left_header');
+        const logo = document.querySelector('.header_logo');
+        const headerText = document.getElementById('l_header');
+        
+
+        
+        headerText.style.fontSize = window.innerWidth / 30 + 'px'; 
+
+        
+        const maxLogoWidth = 200; 
+        const logoWidth = Math.min(window.innerWidth / 4, maxLogoWidth); 
+        logo.style.width = logoWidth + 'px';
+        header.style.marginLeft = window.innerWidth / 30 + 'px';
+
+        if (window.innerWidth > 600) {
+    content1.style.display = "block";
+}
+
+    }
+
+  
+    adjustHeader();
+
+   
+    window.addEventListener('resize', adjustHeader);
+</script>
 </body>
 </html>

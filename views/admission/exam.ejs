@@ -24,27 +24,37 @@
       integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
       crossorigin="anonymous"
     ></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="css/Home.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
 
-    <script src="js/Home.js" defer></script>
-    <script src="js/sideBar.js" defer></script>
-    <script src="js/apply.js" defer></script>
 
     <style>
-        label{
-            margin-left: .5rem;
-        }
+      label {
+        margin-left: 0.5rem;
+      }
+      #refresh_detector {
+        position: fixed;
+        width: 30rem;
+        text-align: left;
+        background-color: rgb(242, 238, 232);
+        padding: 20px;
+        margin: 5rem 0 0 34%;
+        box-shadow: 1px 1px 4px 4px rgba(114, 114, 114,.4);
+        display: none;
+        
+      }
     </style>
   </head>
   <body>
     <header>
-        <br><br>
+      <br /><br />
       <div><h1>Academia Plus Admission Test.</h1></div>
     </header>
     <br><hr><br>
-    <div id="instructions"style="padding:6rem;margin-top:-2rem;">
+    <div id="instructions">
       <h3>Instructions</h3>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus,
@@ -94,43 +104,11 @@
           facilis dolorum dolores vel nisi.
         </li>
       </ul>
-      <button id="Start_exam">Start Exam.</button>
+      <a href="exam_started"><button class="btn btn-success" id="Start_exam">Start Exam.</button></a>
       <button id="back"style="margin-left:57rem;color:black;"><a href="applicant_dashboard" style="color:black;text-decoration: none;">Back.</a></button>
     </div>
-     <div id="exam_questions" style="display: none; width: 50%; margin: auto;">
-         <% let num=1 %>
-        <% for( const ques of questions ) { %>
-           <h3><%=num++  %>. <%= ques[1] %></h3>
-           <div style="display: flex; ">
-            <div>
-            <input id="<%= ques[0]%>" type="radio" name="<%= ques[0] %>"><label for="<%= ques[0] %>"> A. <%= ques[2] %></label > <br>
-            <input id="<%= ques[0]%>" type="radio" name="<%= ques[0] %>"><label for="<%= ques[0] %>"> B. <%= ques[3] %></label >
-           </div>
-           <div style="width: 10rem;"></div>
-           <div >
-            <input id="<%= ques[0]%>" type="radio" name="<%= ques[0] %>"><label for="<%= ques[0] %>"> C. <%= ques[4] %></label > <br>
-            <input id="<%= ques[0]%>" type="radio" name="<%= ques[0] %>"><label for="<%= ques[0] %>"> D. <%= ques[5] %></label >
-           </div></div>
-           
-             <br>
-        <% } %>
-
-     </div>
-    <script>
-        const start_button=document.getElementById('Start_exam')
-        start_button.addEventListener('click',function(){
-           document.getElementById('instructions').style.display="none";
-           document.getElementById('exam_questions').style.display="block";
-           disableRefresh();
-        });
-
-        function disableRefresh() {
-            window.addEventListener('beforeunload', function (e) {
-                const confirmationMessage = 'Are you sure you want to leave? Your progress will be lost.';
-                e.returnValue = confirmationMessage;
-                return confirmationMessage;
-            });
-        };
-    </script>
+   <br><br><br>
+    
+  
   </body>
 </html>
