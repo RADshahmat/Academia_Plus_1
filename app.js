@@ -152,8 +152,23 @@ app.get("/achievements", function (req, res) {
 app.get("/facultyStaffInfo", function (req, res) {
   res.render("facultyStaffInfo");
 });
-app.get("/message", function (req, res) {
-  res.render("message");
+app.get("/message", async function (req, res) {
+  const gline = await run(
+    'SELECT * FROM "ACADEMIA_PLUS_NEW"."MESSAGE"'
+  );
+  console.log(gline.data);
+  if (gline.success) {
+    console.log(gline.data);
+    res.render("message", {
+      gline: gline.data,
+      db_stat: gline.success,
+    });
+  } else {
+    res.render("message", {
+      gline: gline.data,
+      db_stat: gline.success,
+    });
+  }
 });
 app.get("/governingbody", function (req, res) {
   res.render("governingbody");

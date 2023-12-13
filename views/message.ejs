@@ -30,17 +30,24 @@
         </div>
     </div>
 
-    <div class="col-lg-8 col-md-12">
+    <div class="col-lg-8 col-md-12"><% if (db_stat) { %>
         <p><br>
             </p>
+            
+            <%= gline[0] %>
             <p>
-                Welcome to Notre Dame College, an educational institute founded and administered by the Congregation of Holy Cross which has been serving the nation with a long standing tradition of excellence in academics, the Science, Business and Arts. Education is considered to be the core instrument of human development. Our objective at Notre Dame is the harmonious development of the intellectual, physical, social, moral and spiritual faculties of the students.
 
-<br><br><b>Dr. Father Hemanto Pius Rozario, CSC</b><br>
-Chairman<br>
-Notre Dame College
-            </p>
+
+                <br><br><b>Dr. Father Hemanto Pius Rozario, CSC</b><br>
+                Chairman<br>
+                Notre Dame College
+                            </p>
     </div>
+    <% } else{ %>
+        <br><br>
+<h3>Database is Offline.</h3>
+
+        <% } %>
 </div>
 </div>
 </div>
