@@ -40,13 +40,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   function login(det, data) {
-    if (det && data.data.length > 0) {
-      window.location.href = 'applicant_dashboard'; 
+    console.log('Response:'+ data);
+    
+   console.log('acc_type '+data.data.account_type);
+    if (det && data.data.account_type === 'Applicant') {
+      console.log('Redirecting to applicant_dashboard');
+      window.location.href = 'applicant_dashboard';
+    } else if (det && data.data.account_type === 'Admin') {
+      console.log('Redirecting to admin');
+      window.location.href = 'admin';
     } else {
+      console.log('Login failed. Check credentials.');
       const errorMessage = document.getElementById('error-message');
-      errorMessage.innerText = 'Login failed. Please check your credentials.';
+      errorMessage.innerText =
+        'Login failed. Please check your credentials.';
       errorMessage.style.color = 'red';
     }
   }
+  
+  
   
   
