@@ -3,9 +3,9 @@ const oracledb = require("oracledb");
 let connectionPool;
 
 const connectionConfig = {
-  user: "academia_plus_new",
+  user: "academia_plus",
   password: "12345",
-  connectString: "ratin:1521/xepdb1",
+  connectString: "localhost:1521/xepdb1",
 };
 
 async function initializeConnectionPool() {
