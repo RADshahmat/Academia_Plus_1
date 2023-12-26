@@ -6,7 +6,6 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const { run } = require("./db/db");
 const session = require("express-session");
-const oracleDbStore = require("express-oracle-session2")(session);
 const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -516,6 +515,26 @@ app.get("/admit_card_download", async function (req, res) {
   } catch {
     res.redirect("log_in");
   }
+});
+
+app.get("/students_dashboard", function (req, res) {
+  try {
+    if (
+      !req.session.user.isAuthenticated ||
+      req.session.user.account_type != "Applicant"
+    ) {
+      res.redirect("log_in");
+      return;
+    }
+  } catch {
+    res.redirect("log_in");
+    return;
+  }
+
+  console.log(req.session.user);
+  res.render("students/studentdashboard", {
+    logged_in: req.session.user.isAuthenticated,
+  });
 });
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
 
