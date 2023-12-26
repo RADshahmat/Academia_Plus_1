@@ -153,7 +153,7 @@ app.get("/facultyStaffInfo", function (req, res) {
 });
 
 app.get("/message", async function (req, res) {
-  const gline = await run('SELECT * FROM "ACADEMIA_PLUS"."MESSAGE"');
+  const gline = await run('SELECT * FROM "ACADEMIA_PLUS_NEW"."MESSAGE"');
   console.log(gline.data);
 
   if (gline.success) {
@@ -215,7 +215,7 @@ app.get("/admin", function (req, res) {
 
 app.get("/GuidelineforParents", async function (req, res) {
   const gline = await run(
-    'SELECT * FROM "ACADEMIA_PLUS"."GUIDELINE_FOR_PARRENTS"'
+    'SELECT * FROM "ACADEMIA_PLUS_NEW"."GUIDELINE_FOR_PARRENTS"'
   );
   console.log(gline.data);
 
@@ -456,7 +456,7 @@ app.get("/exam", async function (req, res) {
 app.get("/exam_started", async function (req, res) {
   try {
     const query = `
-      SELECT * FROM "ACADEMIA_PLUS"."ADMISSION_QUESTIONS"
+      SELECT * FROM "ACADEMIA_PLUS_NEW"."ADMISSION_QUESTIONS"
       WHERE ID IN (${uniqueNumbersArray.join(", ")})`;
 
     const result = await run(query);
@@ -474,7 +474,7 @@ app.get("/exam_started", async function (req, res) {
 
 app.get("/result", async function (req, res) {
   const result = await run(
-    'SELECT RESULT FROM "ACADEMIA_PLUS"."ADMISSION_RESULT" WHERE APPLICANT_ID= :applicant_id ORDER BY TIME ASC',
+    'SELECT RESULT FROM "ACADEMIA_PLUS_NEW"."ADMISSION_RESULT" WHERE APPLICANT_ID= :applicant_id ORDER BY TIME ASC',
     { applicant_id: req.session.user.id }
   );
   console.log(result.data);
@@ -501,11 +501,11 @@ app.get("/admit_card_download", async function (req, res) {
       const columns = await run(`
   SELECT COLUMN_NAME
   FROM ALL_TAB_COLUMNS
-  WHERE TABLE_NAME = 'APPLICANTS' AND OWNER = 'ACADEMIA_PLUS'
+  WHERE TABLE_NAME = 'APPLICANTS' AND OWNER = 'ACADEMIA_PLUS_NEW'
 `);
       console.log(columns);
       const result = await run(
-        'SELECT * FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE APPLICANT_ID= :applicant_id',
+        'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE APPLICANT_ID= :applicant_id',
         { applicant_id: req.session.user.id }
       );
       console.log(result.data);
@@ -528,8 +528,8 @@ app.get("/admit_card_download", async function (req, res) {
 app.get("/students_dashboard", function (req, res) {
   try {
     if (
-      !req.session.user.isAuthenticated ||
-      req.session.user.account_type != "Applicant"
+      req.session.user.isAuthenticated ||
+      req.session.user.account_type == "Applicant"
     ) {
       res.redirect("log_in");
       return;
@@ -553,7 +553,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
   const image_name = req.file.filename;
 
   const det_id = await run(
-    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
     { phone_no: data.phone_no }
   );
   console.log("Det_id:" + det_id);
@@ -584,7 +584,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
     );
 
     const s_id = await run(
-      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
       { phone_no: data.phone_no }
     );
 
@@ -596,17 +596,17 @@ app.post("/login", async function (req, res) {
   let data = req.body;
  console.log("data:"+data.password);
   const info = await run(
-    'SELECT * FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
+    'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
     { phone_no: data.phone_no, password: data.password }
   );
-
+console.log(info);
   const admin_info = await run(
     'SELECT * FROM "ACADEMIA_PLUS_NEW"."ADMIN" WHERE ADMIN_EMAIL = :email AND ADMIN_PASSWORD = :password',
     { email: data.phone_no, password: data.password }
   );
-
+  console.log(admin_info);
   let user = null;
-console.log(admin_info)
+ 
   if (info.data.length > 0) {
     user = {
       id: info.data[0][0],
@@ -643,7 +643,7 @@ app.post("/exam_submit", async function (req, res) {
   const values = Object.values(answers);
 
   const query = `
-      SELECT ANSWER FROM "ACADEMIA_PLUS"."ADMISSION_QUESTIONS"
+      SELECT ANSWER FROM "ACADEMIA_PLUS_NEW"."ADMISSION_QUESTIONS"
       WHERE ID IN (${keys.join(", ")})`;
 
   const result = await run(query);
