@@ -204,7 +204,7 @@ app.get("/governingbody", function (req, res) {
 
 app.get("/admin", function (req, res) {
   try {
-    if (!req.session.user.isAuthenticated) {
+    if (req.session.user.isAuthenticated && req.session.user.account_type=="Admin") {
       res.render("admin_control/admin", { logged_in: req.session.user.isAuthenticated });
     } else {
       res.redirect("log_in");
@@ -420,6 +420,14 @@ app.get("/applicant_dashboard", function (req, res) {
 });
 
 app.get("/log_in", async function (req, res) {
+  if(req.session.user.isAuthenticated && req.session.user.account_type=='Applicant'){
+      res.redirect('applicant_dashboard');
+      return;
+
+  }else if(req.session.user.isAuthenticated && req.session.user.account_type=='Admin'){
+    res.redirect('admin');
+    return;
+  }
   res.render("log_in");
 });
 
@@ -567,26 +575,47 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
 
 app.post("/login", async function (req, res) {
   let data = req.body;
+ console.log("data:"+data.password);
   const info = await run(
     'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
     { phone_no: data.phone_no, password: data.password }
   );
-  console.log(info);
+
+  const admin_info = await run(
+    'SELECT * FROM "ACADEMIA_PLUS_NEW"."ADMIN" WHERE ADMIN_EMAIL = :email AND ADMIN_PASSWORD = :password',
+    { email: data.phone_no, password: data.password }
+  );
+
+  let user = null;
+console.log(admin_info)
   if (info.data.length > 0) {
-    req.session.user = {
+    user = {
       id: info.data[0][0],
       name: info.data[0][1],
       account_type: "Applicant",
       isAuthenticated: true,
     };
-
+  } else if (admin_info.data.length > 0) {
+    user = {
+      id: admin_info.data[0][0],
+      name: admin_info.data[0][1],
+      account_type: "Admin",
+      isAuthenticated: true,
+    };
+  }
+console.log("user:"+user)
+  if (user) {
+    req.session.user = user;
+    
     req.session.save(function () {
-      res.json({ reply: info.success, data: info.data });
+      res.json({ reply: true, data: user});
     });
   } else {
-    res.json({ reply: info.success, data: info.data });
+    
+    res.json({ reply: false, data: null});
   }
 });
+
 
 app.post("/exam_submit", async function (req, res) {
   const answers = req.body;

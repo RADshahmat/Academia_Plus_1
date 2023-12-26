@@ -1,0 +1,9 @@
+
+	Instructor First Name	Varchar	255
+	Instructor Last Name	Varchar	255
+	Instructor Gender	Varchar	255
+	Instructor Age	Varchar	255
+	Contact Address	Varchar	255
+	Instructor Email	Varchar	255
+	Instructor Password	Varchar	255
+    Instructor PhoneNumber	Varchar	255
