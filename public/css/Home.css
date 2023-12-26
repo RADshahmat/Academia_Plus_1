@@ -379,7 +379,7 @@ transition: all .3s;
   }
 .nav_ul{
     box-shadow: none;
-    transition: all 1s ease-in-out;
+    transition: all .3s ease-in;
 }
   
   

@@ -4,7 +4,7 @@ const socketIo = require("socket.io");
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
-const oracledb = require("oracledb");
+const { run } = require("./db/db");
 const session = require("express-session");
 const oracleDbStore = require("express-oracle-session2")(session);
 const MySQLStore = require("express-mysql-session")(session);
@@ -68,54 +68,7 @@ const upload = multer({ storage: storage });
 ////////////////////////////////////File Upload End///////////////////
 
 //////////////////////Database Connection Strat/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let connectionPool;
 
-const connectionConfig = {
-  user: "academia_plus_new",
-  password: "12345",
-  connectString: "DESKTOP-J44KCUR:1521/xepdb1",
-};
-
-async function initializeConnectionPool() {
-  try {
-    connectionPool = await oracledb.createPool(connectionConfig);
-    console.log("Connection pool created.");
-  } catch (err) {
-    console.error("Error creating connection pool:", err);
-    throw err;
-  }
-}
-
-async function run(query, bindParams) {
-  let connection;
-
-  try {
-    connection = await connectionPool.getConnection();
-
-    if (bindParams) {
-      const result = await connection.execute(query, bindParams, {
-        autoCommit: true,
-      });
-      return { success: true, data: result.rows, error: null };
-    } else {
-      const result = await connection.execute(query, [], { autoCommit: true });
-      return { success: true, data: result.rows, error: null };
-    }
-  } catch (err) {
-    console.error("Error executing query:", err);
-    return { success: false, data: null, error: err.message };
-  } finally {
-    if (connection) {
-      try {
-        await connection.close();
-      } catch (err) {
-        console.error("Error closing connection:", err);
-      }
-    }
-  }
-}
-
-initializeConnectionPool();
 
 ////////////////////////////////////////////////////////end of bd connection prototype////////////////////////////////////////////////////////
 
@@ -201,9 +154,7 @@ app.get("/facultyStaffInfo", function (req, res) {
 });
 
 app.get("/message", async function (req, res) {
-  const gline = await run(
-    'SELECT * FROM "ACADEMIA_PLUS_NEW"."MESSAGE"'
-  );
+  const gline = await run('SELECT * FROM "ACADEMIA_PLUS_NEW"."MESSAGE"');
   console.log(gline.data);
 
   if (gline.success) {
@@ -254,7 +205,7 @@ app.get("/governingbody", function (req, res) {
 app.get("/admin", function (req, res) {
   try {
     if (!req.session.user.isAuthenticated) {
-      res.render("admin", { logged_in: req.session.user.isAuthenticated });
+      res.render("admin_control/admin", { logged_in: req.session.user.isAuthenticated });
     } else {
       res.redirect("log_in");
     }
@@ -534,9 +485,38 @@ app.get("/result", async function (req, res) {
   }
 });
 app.get("/forgetpass", async function (req, res) {
-  res.render("forgetpass")
-}
-);
+  res.render("forgetpass");
+});
+
+app.get("/admit_card_download", async function (req, res) {
+  try {
+    if (req.session.user.isAuthenticated) {
+      const columns = await run(`
+  SELECT COLUMN_NAME
+  FROM ALL_TAB_COLUMNS
+  WHERE TABLE_NAME = 'APPLICANTS' AND OWNER = 'ACADEMIA_PLUS_NEW'
+`);
+      console.log(columns);
+      const result = await run(
+        'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE APPLICANT_ID= :applicant_id',
+        { applicant_id: req.session.user.id }
+      );
+      console.log(result.data);
+      const columnsWithSpaces = columns.data.map(item => ({
+        0: item[0].replace(/_/g, ' '),
+      }));
+      res.render("admission/admit_card", {
+        columns: columnsWithSpaces,
+        result: result.data,
+        logged_in: req.session.user.isAuthenticated,
+      });
+    } else {
+      res.redirect("log_in");
+    }
+  } catch {
+    res.redirect("log_in");
+  }
+});
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
@@ -546,7 +526,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
   const image_name = req.file.filename;
 
   const det_id = await run(
-    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+    'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
     { phone_no: data.phone_no }
   );
   console.log("Det_id:" + det_id);
@@ -566,7 +546,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
       {
         student_name: data.student_name,
         phone_no: data.phone_no,
-        father_name: data.fathe_name,
+        father_name: data.father_name,
         mother_name: data.mother_name,
         present_address: data.present_address,
         current_address: data.current_address,
@@ -577,7 +557,7 @@ app.post("/applyform", upload.single("image"), async function (req, res) {
     );
 
     const s_id = await run(
-      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+      'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
       { phone_no: data.phone_no }
     );
 
@@ -591,7 +571,7 @@ app.post("/login", async function (req, res) {
     'SELECT * FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO = :phone_no AND APPLICANT_ID = :password',
     { phone_no: data.phone_no, password: data.password }
   );
-  console.log(info)
+  console.log(info);
   if (info.data.length > 0) {
     req.session.user = {
       id: info.data[0][0],

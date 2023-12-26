@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School/College Management system</title>
+
+    <link rel="stylesheet" href="css/admit_card.css" />
+  </head>
+  <body>
+
+    <button class="print_button" onclick="goBack()">
+      Back
+    </button>
+    <button class="print_button" onclick="printAdmitCard()">
+      Print/Download Admit Card
+    </button>
+    <br /><br />
+
+    <div id="admit_card">
+      <div id="header">
+        <div id="logo">
+          <img
+            src="images/—Pngtree—school logo design template vector_9104626.png"
+            alt=""
+          />
+        </div>
+
+        <div style="text-align: left; margin: 0rem 0 0 2rem">
+          <h4 style="font-size: 20px">Academia Plus.</h4>
+          <p style="font-size: 15px">Admission Test</p>
+        </div>
+      </div>
+      <br />
+      <div>
+        <h3 style="font-size: 20px">Print Admitcard</h3>
+        <p>Admission Test Of Class <%= result[0][8] %></p>
+      </div>
+      <br />
+      <div id="main">
+        <div style="display: flex; margin-bottom: 12rem">
+          <div>
+            <ul style="text-align: left">
+              <% for( let i = 0; i < columns.length; i++ ) { %> <% if (i === 5
+              || i === 6 || i === 9) { %> <% continue %> <% } %>
+              <li><%= columns[i][0] %></li>
+              <% } %>
+            </ul>
+          </div>
+
+          <div>
+            <ul style="text-align: left">
+              <% for( let i = 0; i < result[0].length; i++ ) { %> <% if (i === 5
+              || i === 6 || i === 9) { %> <% continue %> <% } %> <% if (i === 7)
+              { %>
+              <li>
+                : &nbsp;<%= result[0][i].toLocaleDateString('en-US', { month:
+                'short', day: 'numeric', year: 'numeric' }) %>
+              </li>
+              <% continue %> <% } %>
+              <li>:&nbsp;<%= result[0][i] %></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+
+        <div id="applicant_pic">
+          <img src="<%= result[0][9] %>" alt="" />
+        </div>
+      </div>
+      <br />
+      <div id="footer">
+        <h3 style="font-size: 20px">General Instruction for Applicants</h3>
+        <ol style="text-align: left; margin-left: 0.5rem">
+          <li>
+            Please print and bring this admit card during the admission test and
+            preserve it for further admission formalities.
+          </li>
+          <li>
+            Carrying mobile phone or any type of digital communication device is
+            strictly prohibited in the examination hall.
+          </li>
+          <li>
+            Candidate shall report to the respective hall of examination 15
+            minutes prior to start of written examination.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script>
+      function printAdmitCard() {
+        window.print();
+      }
+
+      function goBack() {
+        window.location.href = "applicant_dashboard";
+      }
+    </script>
+  </body>
+</html>

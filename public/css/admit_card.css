@@ -1,0 +1,103 @@
+body{
+    text-align: center;
+    background-color: rgba(44, 62, 80, 1);
+}
+
+#logo,#logo img{
+    height: 8rem;
+    
+}
+#admit_card{
+    width: 60%;
+    margin: auto;
+    padding: 3rem;
+    background-color: rgb(255, 255, 255);
+}
+#header {
+    padding: .5rem;
+    display: flex;
+    justify-content: left;
+    border: 1px solid black;
+    text-align: left;
+}
+#main{
+    padding: .5rem;
+    display: flex; 
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+#applicant_pic{
+    height: 12rem;
+    width: 12rem;
+}
+#applicant_pic img{
+    height: 12rem;
+    width: 12rem;
+    object-fit: cover;
+}
+ul{
+    list-style: none;
+}
+li{
+    padding: 3px;
+    font-size: 18px;
+}
+.print_button{
+    padding: 15px;
+    border-radius: 3px;
+    background-color: rgba(40, 167, 69, 1);
+    color:rgba(251, 250, 213, 1);
+    border: none;
+    transition: all .5s;
+    width: 15rem;
+
+}
+.print_button:hover{
+
+    background-color: rgb(36, 144, 61);  
+    cursor: pointer; 
+
+}
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    #admit_card,
+    #admit_card * {
+      visibility: visible;
+    }
+    #admit_card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      padding: 1rem;
+      box-sizing: border-box;
+      font-size: 25px; 
+    }
+  
+    #admit_card,
+    #admit_card * {
+      visibility: visible;
+    }
+  
+    #admit_card {
+      width: 100%;
+      padding: 1rem;
+      box-sizing: border-box;
+      font-size: 12px; 
+    }
+  
+    #applicant_pic {
+      height: 12rem;
+      width: 12rem;
+    }
+  
+    #applicant_pic img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  
