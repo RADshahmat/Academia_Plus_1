@@ -184,3 +184,33 @@
         overflow-y: visible;
     }
 }
+
+/*--------------------------------online admission handler------------------------ */
+
+.admission_segments {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    justify-content: center;
+   
+}
+.segment_contain {
+    background-color: rgb(73, 63, 63);
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s;
+    width: 30rem;
+}
+.segment_contain:hover {
+    transform: scale(1.05);
+}
+.segment_contain h5 {
+    font-size: 18px;
+    margin: 0;
+    color: #e3e2e2;
+    padding: 10px;
+}
