@@ -1,54 +1,53 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('online_exam_status');
-   
-  
-    form.addEventListener('submit', function (event) {
+  var examStatusInput = document.getElementById('examStatus');
+  var toggle_exam_color = document.getElementById('toggle_exam');
+  var toggleButton = document.getElementById('customSwitch1');
 
+  toggleButton.addEventListener('click', function () {
+      toggleButtonState();
+      submitForm();
+  });
 
-      event.preventDefault();
-      let data={
-        online_exam_start:document.getElementById('online_exam_start').value,
-        
+  function toggleButtonState() {
+      if (examStatusInput.value === "0") {
+          examStatusInput.value = "1";
+          toggleButton.innerText = "On";
+          toggle_exam_color.style.backgroundColor="rgb(73, 63, 63)"
+      } else {
+          examStatusInput.value = "0";
+          toggleButton.innerText = "Off";
+          toggle_exam_color.style.backgroundColor="red"
+      }
+  }
+
+  function submitForm() {
+    var examStatusValue
+    if (examStatusInput.value === "0") {
+      examStatusValue = "1";
+    }else {
+      examStatusValue = "0";
     }
-   console.log(data);
-      const formData = new FormData(form);
-  
+
+      let data = {
+          online_exam_start: examStatusValue,
+      };
+
+      const form = document.getElementById('examForm');
+
       fetch('/online_exam_start', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type':'application/json'
-        }
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+              'Content-Type': 'application/json'
+          }
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
-        det=data.reply;
-        login(det,data);
+          console.log('Success:', data);
+          exam_stat(det, data);
       })
       .catch(error => {
-        console.error('Error:', error);
+          console.error('Error:', error);
       });
-    });
-
-     
-  });
-
-
-  function exam_stat(det, data) {
-    console.log('Response:'+ data);
-    
-  
-    if (det) {
-       document.getElementById("online_exam_toggle").style.backgroundColor="red";
-    } else {
-        document.getElementById("online_exam_toggle").style.backgroundColor="green";
-      console.log('Login failed. Check credentials.');
-      
-    }
   }
-  
-  
-  
-  
+});

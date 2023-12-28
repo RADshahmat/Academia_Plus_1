@@ -27,9 +27,10 @@
 }
 
 #l_header {
-  flex: 1; /* Allows the h1 to take up remaining space */
+  flex: 1; 
 }
         </style>
+        <script src="js/admin.js" defer></script>
     </head>
 <body>
 <header class="header">
@@ -55,16 +56,21 @@
     
     <div class="admission_segments">
 
-        <div class="segment_contain" style="background-color: rgb(73, 63, 63);">
+        <div id="toggle_exam" class="segment_contain" style="background-color: rgb(73, 63, 63);">
             <i class="fas fa-user fa-2x"></i> 
                 <div class="container mt-5">
+                    <form id="examForm">
+                        <label>Exam Status:</label>
+                        <input type="hidden" id="examStatus" name="examStatus" value="1">
+                    </form>
+
                     <div class="custom-control custom-switch">
-                        <form>
-                            <label>Exam Status:</label>   
-                            <input type="checkbox" class="custom-control-input" id="customSwitch" value="1" checked>
-                        </form>
-                    <label class="custom-control-label" for="customSwitch">On/Off</label>
-                    </div>
+                        <input  type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+                      </div>
+                
+                   
+                    
                 </div>
 
         </div>
@@ -133,6 +139,11 @@ ham_icon.addEventListener('click', function () {
 
    
     window.addEventListener('resize', adjustHeader);
+
+
+    
 </script>
+
+
 </body>
 </html>

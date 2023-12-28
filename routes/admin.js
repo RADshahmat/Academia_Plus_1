@@ -14,8 +14,9 @@ router.get("/online_admission_handler",async function(req,res){
 
 
 
-router.post("/start_exam", async function(req,res){
-
+router.post("/online_exam_start", async function(req,res){
+  const det=req.body;
+  console.log(det)
 
 })
 
