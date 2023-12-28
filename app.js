@@ -10,6 +10,7 @@ const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
+const admin=require('./routes/admin');
 const io = socketIo(server);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -59,6 +60,9 @@ app.use(
 
 app.use(applicantsRoutes);
 app.use(LoginLogoutApply);
+app.use(admin);
+
+
 
 ////////////////////////////////////File Upload End///////////////////
 
