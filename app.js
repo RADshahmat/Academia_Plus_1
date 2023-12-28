@@ -393,8 +393,8 @@ app.get("/forgetpass", async function (req, res) {
 
 
 
-app.get("/students_dashboard", function (req, res) {
-  try {
+app.get("/studentsdashboard", function (req, res) {
+ /* try {
     if (
       req.session.user.isAuthenticated ||
       req.session.user.account_type == "Applicant"
@@ -406,7 +406,7 @@ app.get("/students_dashboard", function (req, res) {
     res.redirect("log_in");
     return;
   }
-
+*/
   console.log(req.session.user);
   res.render("students/studentdashboard", {
     logged_in: req.session.user.isAuthenticated,
