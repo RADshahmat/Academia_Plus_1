@@ -8,7 +8,7 @@ router.get("/online_admission_handler",async function(req,res){
      
 
 
-    res.render("online_admission_handler");
+    res.render("admin_control/online_admission_handler");
 
 });
 
