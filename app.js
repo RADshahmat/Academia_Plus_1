@@ -10,6 +10,7 @@ const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
+const payment=require('./routes/payment');
 const admin=require('./routes/admin');
 const io = socketIo(server);
 app.use(express.urlencoded({ extended: true }));
@@ -61,6 +62,7 @@ app.use(
 app.use(applicantsRoutes);
 app.use(LoginLogoutApply);
 app.use(admin);
+app.use(payment);
 
 
 
@@ -74,6 +76,9 @@ app.use(admin);
 ////////////////////////////////////////////All Get Request ////////////////////////////////////////////////////////////////////////////////
 app.get("/", async function (req, res) {
   res.redirect("index");
+});
+app.get("/payment", async function (req, res) {
+  res.render("payment_try");
 });
 
 app.get("/index", async function (req, res) {
