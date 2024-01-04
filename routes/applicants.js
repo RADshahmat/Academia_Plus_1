@@ -37,12 +37,7 @@ router.get("/applicant_dashboard", function (req, res) {
 });
 
 router.get("/exam", async function (req, res) {
-
-  const exam_stat=await run("SELECT * FROM EXAM");
-  console.log(exam_stat.data[0][0]);
-
-  if(exam_stat.data[0][0]==="1"){
-    function getRandomNumber(min, max) {
+  function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -60,12 +55,6 @@ router.get("/exam", async function (req, res) {
 
   console.log(uniqueNumbersArray);
   res.render("admission/exam");
-  }else{
-    res.redirect("applicant_dashboard");
-  }
-
-
-  
 });
 
 router.get("/exam_started", async function (req, res) {

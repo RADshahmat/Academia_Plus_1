@@ -3,17 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var toggle_exam_color = document.getElementById('toggle_exam');
   var toggleButton = document.getElementById('customSwitch1');
 
-
-console.log("Value:"+examStatusInput.value)
-  if (examStatusInput.value === "0") {
-    
-    toggleButton.checked = false;
-    toggle_exam_color.style.backgroundColor="rgb(73, 63, 63)"
-} else {
-    
-    toggleButton.checked = true;
-    toggle_exam_color.style.backgroundColor="red"
-}
   toggleButton.addEventListener('click', function () {
       toggleButtonState();
       submitForm();
@@ -22,11 +11,11 @@ console.log("Value:"+examStatusInput.value)
   function toggleButtonState() {
       if (examStatusInput.value === "0") {
           examStatusInput.value = "1";
-          toggleButton.checked = false;
+          toggleButton.innerText = "On";
           toggle_exam_color.style.backgroundColor="rgb(73, 63, 63)"
       } else {
           examStatusInput.value = "0";
-          toggleButton.checked = true;
+          toggleButton.innerText = "Off";
           toggle_exam_color.style.backgroundColor="red"
       }
   }

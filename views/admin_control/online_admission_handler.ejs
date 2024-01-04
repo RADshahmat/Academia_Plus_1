@@ -16,20 +16,21 @@
         <link rel="stylesheet" href="css/admin.css">
         <style>
             .left_header {
-  display: flex;
-  align-items: center;
-}
+                    display: flex;
+                    align-items: center;
+            }
 
-.header_logo {
-  max-width: 4rem; /* Ensures the image does not exceed its natural size */
-  height: auto;   /* Ensures the image maintains its aspect ratio */
-  margin-right: 1rem; /* Adjust margin as needed */
-}
+            .header_logo {
+            max-width: 4rem; 
+            height: auto;  
+            margin-right: 1rem; 
+            }
 
-#l_header {
-  flex: 1; 
-}
+            #l_header {
+            flex: 1; 
+            }
         </style>
+
         <script src="js/admin.js" defer></script>
     </head>
 <body>
@@ -41,27 +42,28 @@
     
     <div class="logout">
         <form action="/logout" method="POST">
-            <button class="btn btn-success" type="submit" id="logOutDropdown">
-              Logout
-            </button>
-          </form>
+            <button class="btn btn-success" type="submit" id="logOutDropdown">Logout</button>
+        </form>
     </div>
 </header>
-
-
 
 <%- include('../includes/admin_sidebar.ejs') %>
 <div id="ham_icon"><img src="images/menu.png" alt=""></div>
 <div class="content" id="content-container">
     
     <div class="admission_segments">
+        <div class="segment_contain" style="background-color: #156588;">
+            <i class="fas fa-chalkboard-teacher fa-2x"></i>
+            <h5>Applicants</h5>
+            <p>Total Applicants: 55</p>
+        </div>
 
         <div id="toggle_exam" class="segment_contain" style="background-color: rgb(73, 63, 63);">
             <i class="fas fa-user fa-2x"></i> 
-                <div class="container mt-5">
+                <div class="container">
                     <form id="examForm">
-                        <label>Exam Status:</label>
-                        <input type="hidden" id="examStatus" name="examStatus" value="<%= exam_stat[0] %>">
+                        <h5>Exam Status:</h5>
+                        <input type="hidden" id="examStatus" name="examStatus" value="1">
                     </form>
 
                     <div class="custom-control custom-switch">
@@ -72,27 +74,25 @@
                    
                     
                 </div>
-
+            </form>
         </div>
-        <div class="segment_contain" style="background-color: #156588;">
-            <i class="fas fa-chalkboard-teacher fa-2x"></i>
-            <h5>Teacher/Staff Management</h5>
-            <p>Total Teacher and Staff: 55</p>
-        </div>
+      
         <div class="segment_contain" style="background-color: #158865;">
             <i class="fas fa-graduation-cap fa-2x"></i>
-            <h5>Students Account</h5>
+            <h5>Admission</h5>
             <p>Total Students: 1005</p>
         </div>
+
         <div class="segment_contain" style="background-color: #927d39" >
             <i class="fas fa-poll fa-2x"></i>
-            <h5>Result Management</h5>
-            <p>Total Students: 1005</p>
+            <h5>Admission Result</h5>
+            <p>Total Passed: 240</p>
         </div>
+
         <div class="segment_contain" style="background-color: rgb(73, 63, 63);">
             <i class="fas fa-money-check-alt fa-2x"></i>
-            <h5>Accounts Management</h5>
-            <p>Total Students: 1005</p>
+            <h5>Admission Payment</h5>
+            <p>Check the payment details who has passed the exam</p>
         </div>
     </div>
 </div>
@@ -118,11 +118,8 @@ ham_icon.addEventListener('click', function () {
         const logo = document.querySelector('.header_logo');
         const headerText = document.getElementById('l_header');
         
-
-        
         headerText.style.fontSize = window.innerWidth / 30 + 'px'; 
 
-        
         const maxLogoWidth = 200; 
         const logoWidth = Math.min(window.innerWidth / 4, maxLogoWidth); 
         logo.style.width = logoWidth + 'px';
@@ -131,17 +128,9 @@ ham_icon.addEventListener('click', function () {
         if (window.innerWidth > 600) {
     content1.style.display = "block";
 }
-
     }
-
-  
     adjustHeader();
-
-   
     window.addEventListener('resize', adjustHeader);
-
-
-    
 </script>
 
 

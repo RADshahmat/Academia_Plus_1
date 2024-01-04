@@ -117,5 +117,18 @@ router.post('/fail',async function(req,res){
       console.log("kaka deleted"+applicant)
 });
 
+router.get("/success",async function(req,res){
+
+  res.render("admission/success");
+
+});
+
+router.get("/failed",async function(req,res){
+
+  res.render("admission/failed");
+
+});
+
 module.exports = router;
+
 

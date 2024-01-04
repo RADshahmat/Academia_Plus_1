@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .success-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2ecc71;
+        }
+
+        p {
+            color: #333;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+
+        .back-to-home {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-home:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../includes/header.ejs') %>
+    <div class="success-container">
+        <div class="success-icon">&#10004;</div>
+        <h1>Success!</h1>
+        <p>Your action/task has been completed successfully.</p>
+        <a href="#" class="back-to-home">Back to Home</a>
+    </div>
+    <%- include('../includes/footer.ejs') %>  
+  <%- include('../includes/swap.ejs') %>
+</body>
+</html>
+
+
