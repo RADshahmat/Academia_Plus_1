@@ -23,7 +23,7 @@ router.get('/init', (req, res) => {
         currency: 'BDT',
         tran_id: 'REF123', // use unique tran_id for each api call
         success_url: `http://localhost:3000/success?student_name=${name}`,
-        fail_url: 'http://localhost:3000/fail?student_name=${name}',
+        fail_url: `http://localhost:3000/fail?student_name=${name}`,
         cancel_url: 'http://localhost:3000/cancel',
         ipn_url: 'http://localhost:3000/ipn',
         shipping_method: 'Courier',
@@ -114,6 +114,7 @@ router.post('/fail',async function(req,res){
         'DELETE FROM "ACADEMIA_PLUS_NEW"."APPLICANTS_BEFORE_PAYMENT" WHERE APPLICANT_ID = :a_id',
         { a_id: a_id }
       );
+      console.log("kaka deleted"+applicant)
 });
 
 module.exports = router;
