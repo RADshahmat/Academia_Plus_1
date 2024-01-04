@@ -5,6 +5,7 @@ const upload = require("../multer/multer");
 
 
 router.get("/log_in", async function (req, res) {
+  try{
     if(req.session.user.isAuthenticated && req.session.user.account_type=='Applicant'){
         res.redirect('applicant_dashboard');
         return;
@@ -13,7 +14,11 @@ router.get("/log_in", async function (req, res) {
       res.redirect('admin');
       return;
     }
+  }catch{
     res.render("log_in");
+  }
+    
+    
   });
 
 
@@ -31,7 +36,7 @@ router.get("/log_in", async function (req, res) {
     } else {
       const det = await run(
         `
-    INSERT INTO APPLICANTS (
+    INSERT INTO APPLICANTS_BEFORE_PAYMENT (
       APPLICANT_NAME, MOBILE_NO, FATHER_NAME, MOTHER_NAME,
       P_ADDRESS, C_ADDRESS, DOB, CLASS, IMAGE_ADDRESS
     ) VALUES (
@@ -53,11 +58,14 @@ router.get("/log_in", async function (req, res) {
       );
   
       const s_id = await run(
-        'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS" WHERE MOBILE_NO= :phone_no',
+        'SELECT APPLICANT_ID FROM "ACADEMIA_PLUS_NEW"."APPLICANTS_BEFORE_PAYMENT" WHERE MOBILE_NO= :phone_no',
         { phone_no: data.phone_no }
       );
   
       res.json({ reply: det.success, p_no: data.phone_no, a_id: s_id.data });
+    
+      
+     
     }
   });
   
