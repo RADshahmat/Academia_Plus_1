@@ -43,7 +43,7 @@ function hide_form(det, get_data) {
   console.log(get_data)
   if (det) {
 
-    const initUrl = `/init?student_name=${get_data[0]}`;
+    const initUrl = `/init?applicant_id=${get_data[0]}`;
     fetch(initUrl)
     .then((response) => {
       if (!response.ok) {
