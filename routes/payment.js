@@ -104,6 +104,8 @@ console.log(formattedDate);
           image:applicant_data[0][9] ,
         }
       );
+
+      res.redirect("success");
     
 });
 
@@ -114,20 +116,21 @@ router.post('/fail',async function(req,res){
         'DELETE FROM "ACADEMIA_PLUS_NEW"."APPLICANTS_BEFORE_PAYMENT" WHERE APPLICANT_ID = :a_id',
         { a_id: a_id }
       );
-      console.log("kaka deleted"+applicant)
+      console.log("kaka deleted"+applicant);
+      res.redirect("failed");
 });
 
 router.get("/success",async function(req,res){
 
-  res.render("admission/success");
-
-});
-
-router.get("/failed",async function(req,res){
-
-  res.render("admission/failed");
-
-});
+    res.render("admission/success");
+  
+  });
+  
+  router.get("/failed",async function(req,res){
+  
+    res.render("admission/failed");
+  
+  });
 
 module.exports = router;
 

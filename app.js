@@ -11,6 +11,7 @@ const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
 const admin=require('./routes/admin');
+const payment=require('./routes/payment');
 const io = socketIo(server);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -61,6 +62,7 @@ app.use(
 app.use(applicantsRoutes);
 app.use(LoginLogoutApply);
 app.use(admin);
+app.use(payment)
 
 
 
@@ -75,7 +77,17 @@ app.use(admin);
 app.get("/", async function (req, res) {
   res.redirect("index");
 });
+app.get("/success",async function(req,res){
 
+  res.render("admission/success");
+
+});
+
+app.get("/failed",async function(req,res){
+
+  res.render("admission/failed");
+
+});
 app.get("/index", async function (req, res) {
   try {
     if (req.session.user.isAuthenticated) {
