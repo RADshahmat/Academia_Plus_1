@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success Page</title>
+    <title>Failed Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             padding: 50px;
         }
 
-        .success-container {
+        .failed-container {
             max-width: 600px;
             margin: 0 auto;
             background-color: #fff;
@@ -22,46 +22,44 @@
         }
 
         h1 {
-            color: #2ecc71;
+            color: #e74c3c;
         }
 
         p {
             color: #333;
         }
 
-        .success-icon {
+        .failed-icon {
             font-size: 48px;
-            color: #2ecc71;
+            color: #e74c3c;
             margin-bottom: 20px;
         }
 
-        .back-to-home {
+        .retry-button {
             margin-top: 20px;
             display: inline-block;
             padding: 10px 20px;
-            background-color: #3498db;
+            background-color: #e74c3c;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .back-to-home:hover {
-            background-color: #2980b9;
+        .retry-button:hover {
+            background-color: #c0392b;
         }
     </style>
 </head>
 <body>
     <%- include('../includes/header.ejs') %>
-    <div class="success-container">
-        <div class="success-icon">&#10004;</div>
-        <h1>Success!</h1>
-        <p>Your action/task has been completed successfully.</p>
-        <a href="#" class="back-to-home">Back to Home</a>
+    <div class="failed-container">
+        <div class="failed-icon">&#10008;</div>
+        <h1>Oops! Something Went Wrong</h1>
+        <p>We're sorry, but there was an error during your request.</p>
+        <a href="#" class="retry-button">Retry</a>
     </div>
     <%- include('../includes/footer.ejs') %>  
-  <%- include('../includes/swap.ejs') %>
+    <%- include('../includes/swap.ejs') %>
 </body>
 </html>
-
-
