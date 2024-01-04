@@ -13,6 +13,8 @@ router.get("/log_in", async function (req, res) {
     }else if(req.session.user.isAuthenticated && req.session.user.account_type=='Admin'){
       res.redirect('admin');
       return;
+    }else{
+      res.render("log_in");
     }
   }catch{
     res.render("log_in");
