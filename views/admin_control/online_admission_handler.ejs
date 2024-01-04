@@ -16,20 +16,22 @@
         <link rel="stylesheet" href="css/admin.css">
         <style>
             .left_header {
-  display: flex;
-  align-items: center;
-}
+                    display: flex;
+                    align-items: center;
+            }
 
-.header_logo {
-  max-width: 4rem; /* Ensures the image does not exceed its natural size */
-  height: auto;   /* Ensures the image maintains its aspect ratio */
-  margin-right: 1rem; /* Adjust margin as needed */
-}
+            .header_logo {
+            max-width: 4rem; 
+            height: auto;  
+            margin-right: 1rem; 
+            }
 
-#l_header {
-  flex: 1; /* Allows the h1 to take up remaining space */
-}
+            #l_header {
+            flex: 1; 
+            }
         </style>
+
+        <script src="js/admin.js" defer></script>
     </head>
 <body>
 <header class="header">
@@ -40,14 +42,10 @@
     
     <div class="logout">
         <form action="/logout" method="POST">
-            <button class="btn btn-success" type="submit" id="logOutDropdown">
-              Logout
-            </button>
-          </form>
+            <button class="btn btn-success" type="submit" id="logOutDropdown">Logout</button>
+        </form>
     </div>
 </header>
-
-
 
 <%- include('../includes/admin_sidebar.ejs') %>
 <div id="ham_icon"><img src="images/menu.png" alt=""></div>
@@ -60,15 +58,21 @@
             <p>Total Applicants: 55</p>
         </div>
 
-        <div class="segment_contain" style="background-color: rgb(73, 63, 63);">
+        <div id="toggle_exam" class="segment_contain" style="background-color: rgb(73, 63, 63);">
             <i class="fas fa-user fa-2x"></i> 
-            <form>
-                <h5>Exam Status:</h5> 
                 <div class="container">
+                    <form id="examForm">
+                        <h5>Exam Status:</h5>
+                        <input type="hidden" id="examStatus" name="examStatus" value="1">
+                    </form>
+
                     <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch">
-                    <label class="custom-control-label" for="customSwitch">On/Off</label>
-                    </div>
+                        <input  type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+                      </div>
+                
+                   
+                    
                 </div>
             </form>
         </div>
@@ -114,11 +118,8 @@ ham_icon.addEventListener('click', function () {
         const logo = document.querySelector('.header_logo');
         const headerText = document.getElementById('l_header');
         
-
-        
         headerText.style.fontSize = window.innerWidth / 30 + 'px'; 
 
-        
         const maxLogoWidth = 200; 
         const logoWidth = Math.min(window.innerWidth / 4, maxLogoWidth); 
         logo.style.width = logoWidth + 'px';
@@ -127,14 +128,11 @@ ham_icon.addEventListener('click', function () {
         if (window.innerWidth > 600) {
     content1.style.display = "block";
 }
-
     }
-
-  
     adjustHeader();
-
-   
     window.addEventListener('resize', adjustHeader);
 </script>
+
+
 </body>
 </html>
