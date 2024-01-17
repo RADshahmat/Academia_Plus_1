@@ -30,26 +30,20 @@
 
   <div class="forgot-password-box">
     <h2 class="text-center">Forget Password</h2>
-    <p class="text-muted text-center">Enter your phone number to receive an OTP and reset your password.</p>
-    <form id="forgotPasswordForm">
+    <p class="text-muted text-center">Here your phone number's coresponding Email to send an OTP and show your password.</p>
+    
+      <form action="/sendmail" method="POST">
       <div class="form-group">
-        <label for="email">Phone Number</label>
-        <input name="email" type="email" class="form-control" id="email" required>
+        <label for="email">Email Address</label>
+        <input name="email" type="email" class="form-control" id="email" value="<%= email && email.length > 0 ? email[0] : '' %>" required>
       </div>
       <div id="error-message"></div>
 
       <div class="form-group">
-        <button type="button" class="btn btn-primary btn-block" onclick="sendOTP()">Send OTP</button>
+       <button type="submit" class="btn btn-primary btn-block" onclick="sendOTP()">Send OTP</button>
       </div>
-
-      <div class="form-group">
-        <label for="otp">Enter OTP</label>
-        <input name="otp" type="text" class="form-control" id="otp" required>
-      </div>
-
-      <button type="submit" class="btn btn-success btn-block">Reset Password</button>
-    </form>
-    <p class="text-center mt-3"><a href="login.html">Back to Login</a></p>
+    </form> 
+    <p class="text-center mt-3"><a href="log_in">Back to Login</a></p>
   </div>
 
   <!-- Bootstrap JS and jQuery (Add them at the end of the body for better performance) -->

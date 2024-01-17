@@ -40,11 +40,11 @@ router.get("/log_in", async function (req, res) {
         `
     INSERT INTO APPLICANTS_BEFORE_PAYMENT (
       APPLICANT_NAME, MOBILE_NO, FATHER_NAME, MOTHER_NAME,
-      P_ADDRESS, C_ADDRESS, DOB, CLASS, IMAGE_ADDRESS
+      P_ADDRESS, C_ADDRESS, DOB, CLASS, IMAGE_ADDRESS, EMAIL
     ) VALUES (
       :student_name, :phone_no, :father_name, :mother_name,
       :present_address, :current_address, TO_DATE(:dob, 'YYYY-MM-DD'),
-      :class, :image
+      :class, :image, :email
     )`,
         {
           student_name: data.student_name,
@@ -56,6 +56,7 @@ router.get("/log_in", async function (req, res) {
           dob: data.dob,
           class: data.class,
           image: image_name,
+          email:data.email_address
         }
       );
   

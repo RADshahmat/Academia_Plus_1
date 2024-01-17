@@ -46,7 +46,7 @@
     <% for( let index = 0; index < 15; index++ ) { %>
       <br>
       <% if (index==8) { %>
-        <div class="login-box"style="width:30rem;">
+        <div class="login-box" style="width:30rem;">
           <h2 class="text-center">Login</h2>
           <form id="loginForm">
             <div class="form-group">
@@ -58,19 +58,36 @@
               <input name="password" type="password" class="form-control" id="password">
             </div>
             <div id="error-message"></div>
-      <div style="display: flex;justify-content: space-around;">
-            <div class="form-group form-check">
-              <input onclick="togglePw()" type="checkbox" class="form-check-input" id="showPassword">
-              <label class="form-check-label" for="showPassword">Show Password</label>
+            <div style="display: flex;justify-content: space-around;">
+              <div class="form-group form-check">
+                <input onclick="togglePw()" type="checkbox" class="form-check-input" id="showPassword">
+                <label class="form-check-label" for="showPassword">Show Password</label>
+              </div>
+        
+              <a href="javascript:void(0)" class="text-muted" id="forgotPasswordLink" onclick="checkPhoneNumber()">Forgot Password?</a>
+        
             </div>
-      
-              <a href="forgetpass" class="text-muted">Forgot Password?</a>
-
-      </div>
-            <button type="submit" class="btn btn-primary"style="margin-left: 15rem;">login</button>
+            <button type="submit" class="btn btn-primary" style="margin-left: 15rem;">Login</button>
           </form>
-        </div>
-      
+        
+          <script>
+            function checkPhoneNumber() {
+              var phoneNumber = document.getElementById("phoneNo").value;
+        
+              // You can add your logic to check if the phone number exists in your system
+              // Check if the length of the phone number is 14 characters
+      var phoneNumberLengthValid = phoneNumber.length === 14;
+        
+              if (phoneNumberLengthValid) {
+                // Enable the forgot password link
+                window.location.href = `forgetpass?phonenum=${phoneNumber}`;
+              } else {
+                // Display an error message or take appropriate action
+                alert("Phone number does not exist. Please check your input.");
+              }
+            }
+          </script>
+        </div>        
         <!-- Bootstrap JS and jQuery (Add them at the end of the body for better performance) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

@@ -6,6 +6,7 @@ const f_name = document.querySelector("#father-name");
 const m_name = document.querySelector("#mother-name");
 const c_address = document.querySelector("#inputAddress");
 const p_address = document.querySelector("#inputAddress2");
+const e_address = document.querySelector("#inputEmail");
 const dob = document.querySelector("#inputDob");
 const classinput = document.querySelector("#inputClass");
 const image = document.querySelector("#inputImage");
