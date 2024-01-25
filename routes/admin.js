@@ -30,7 +30,9 @@ router.get("/library_management",async function(req,res){
 res.render("admin_control/library_management");
 
 });
-
+router.get("/sms", async function (req, res) {
+  res.render("admin_control/sms");
+});
 router.get("/book_management",async function(req,res){
 const data= await run(`select * from BOOKS`);
 console.log(data);

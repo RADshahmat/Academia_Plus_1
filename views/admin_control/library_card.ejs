@@ -51,38 +51,54 @@
         <button class="btn btn-secondary mt-3" onclick="printCard()">Print Card</button>
     </div>
 </div>
-    <script>
-        function generateCard() {
-            var name = document.getElementById('name').value;
-            var id = document.getElementById('id').value;
-            var className = document.getElementById('class').value;
-            var session = document.getElementById('session').value;
+<script>
+    var cardGenerated = false;
 
-            var cardContainer = document.getElementById('cardContainer');
-            cardContainer.innerHTML = '';
+    function generateCard() {
+        var name = document.getElementById('name').value;
+        var id = document.getElementById('id').value;
+        var className = document.getElementById('class').value;
+        var session = document.getElementById('session').value;
 
-            var cardHTML = `
-                <div class="card">
-                    <h4>Name: ${name}</h4>
-                    <p>ID: ${id}</p>
-                    <p>Class: ${className}</p>
-                    <p>Session: ${session}</p>
-                </div>
-            `;
-
-            cardContainer.innerHTML = cardHTML;
+        // Check if any of the required fields are empty
+        if (!name || !id || !className || !session) {
+            alert('Please fill in all required fields before generating the card.');
+            return;
         }
 
-        function printCard() {
-            var cardContainer = document.getElementById('cardContainer');
-            var printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Library Card</title></head><body>');
-            printWindow.document.write(cardContainer.innerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+        var cardContainer = document.getElementById('cardContainer');
+        cardContainer.innerHTML = '';
+
+        var cardHTML = `
+            <div class="card">
+                <h4>Name: ${name}</h4>
+                <p>ID: ${id}</p>
+                <p>Class: ${className}</p>
+                <p>Session: ${session}</p>
+            </div>
+        `;
+
+        cardContainer.innerHTML = cardHTML;
+        cardGenerated = true;
+    }
+
+    function printCard() {
+        var cardContainer = document.getElementById('cardContainer');
+
+        // Check if there is content in the card container
+        if (!cardGenerated || !cardContainer.innerHTML.trim()) {
+            alert('Please generate a card before trying to print.');
+            return;
         }
-    </script>
+
+        var printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>Library Card</title></head><body>');
+        printWindow.document.write(cardContainer.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>
 
 
 <script src="js/admin_ham_responsive.js" defer></script>
