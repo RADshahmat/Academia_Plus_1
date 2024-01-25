@@ -33,7 +33,7 @@
 
     <div class="form-group">
       <label for="link">Class Link:</label>
-      <input type="text" id="link" class="form-control" placeholder="Enter the class link">
+      <input type="text" id="link" class="form-control" placeholder="Enter the class link" value="https://academia-plus-video-call.onrender.com/396cbdcd-b16b-42c9-96f3-80009f03557e">
     </div>
 
     <div class="form-group">
@@ -70,9 +70,10 @@
         document.getElementById("error-message").innerText = "Please fill in all fields.";
         return;
       }
-
+      window.location.href = link;
       // You can implement logic to redirect or handle joining the class
       console.log("Joining Class - Link:", link, "Date:", classDate, "Time:", classTime);
+      
     }
   </script>
 </body>
