@@ -453,6 +453,7 @@ app.get("/studentsdashboard", function (req, res) {
 */
   console.log(req.session.user);
   res.render("students/studentdashboard", {
+    
     logged_in: req.session.user.isAuthenticated,
   });
 });
@@ -508,7 +509,11 @@ app.get("/classroom", function (req, res) {
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
+app.post('/online_class',async function(req,res){
 
+res.redirect('https://academia-plus-video-call.onrender.com/396cbdcd-b16b-42c9-96f3-80009f03557e')
+
+})
 
 
 
