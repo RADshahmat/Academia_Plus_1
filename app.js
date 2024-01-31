@@ -9,6 +9,7 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
+const student=require('./routes/student');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
 const admin=require('./routes/admin');
 const payment=require('./routes/payment');
@@ -65,7 +66,7 @@ app.use(LoginLogoutApply);
 app.use(admin);
 app.use(payment)
 app.use(sendmail)
-
+app.use(student)
 
 ////////////////////////////////////File Upload End///////////////////
 
@@ -436,76 +437,6 @@ app.post("/otpverify", async function (req, res) {
  console.log(flag)
 console.log(det);
 });
-
-app.get("/studentsdashboard", function (req, res) {
- /* try {
-    if (
-      req.session.user.isAuthenticated ||
-      req.session.user.account_type == "Applicant"
-    ) {
-      res.redirect("log_in");
-      return;
-    }
-  } catch {
-    res.redirect("log_in");
-    return;
-  }
-*/
-  console.log(req.session.user);
-  res.render("students/studentdashboard", {
-    
-    logged_in: req.session.user.isAuthenticated,
-  });
-});
-app.get("/student_management", function (req, res) {
-  /* try {
-     if (
-       req.session.user.isAuthenticated ||
-       req.session.user.account_type == "Applicant"
-     ) {
-       res.redirect("log_in");
-       return;
-     }
-   } catch {
-     res.redirect("log_in");
-     return;
-   }
- */
-   console.log(req.session.user);
-   res.render("admin_control/student_management", {
-     logged_in: req.session.user.isAuthenticated,
-   });
- });
- app.get("/loginadtc", function (req, res) {
-  try {
-    if (req.session.user.isAuthenticated) {
-      res.render("loginadtc", { logged_in: req.session.user.isAuthenticated });
-    } else {
-      res.render("loginadtc", { logged_in: false });
-    }
-  } catch {
-    res.render("loginadtc", { logged_in: false });
-  }
-});
-app.get("/classroom", function (req, res) {
-  /* try {
-     if (
-       req.session.user.isAuthenticated ||
-       req.session.user.account_type == "Applicant"
-     ) {
-       res.redirect("log_in");
-       return;
-     }
-   } catch {
-     res.redirect("log_in");
-     return;
-   }
- */
-   console.log(req.session.user);
-   res.render("students/classroom", {
-     logged_in: req.session.user.isAuthenticated,
-   });
- });
 
 
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
