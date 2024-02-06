@@ -90,7 +90,7 @@ router.get("/studentsdashboard", function (req, res) {
         logged_in: req.session.user.isAuthenticated,
       });
     });
-    router.get("/libraryStudent", function (req, res) {
+    router.get("/libraryStudent",async function (req, res) {
      /* try {
         if (
           req.session.user.isAuthenticated ||
@@ -104,9 +104,11 @@ router.get("/studentsdashboard", function (req, res) {
         return;
       }
     */
+      const data= await run(`select * from BOOKS`);
+      console.log(data);
       console.log(req.session.user);
       res.render("students/libraryStudent", {
-        logged_in: req.session.user.isAuthenticated,
+        logged_in: req.session.user.isAuthenticated,books_info:data.data
       });
     });
     module.exports = router;
