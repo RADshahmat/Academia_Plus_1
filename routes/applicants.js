@@ -92,9 +92,16 @@ router.get("/result", async function (req, res) {
     'SELECT RESULT FROM "ACADEMIA_PLUS_NEW"."ADMISSION_RESULT" WHERE APPLICANT_ID= :applicant_id ORDER BY TIME ASC',
     { applicant_id: req.session.user.id }
   );
+
+  const result_start=await run("SELECT * FROM RESULTSTATUS");
+  
   console.log(result.data);
   try {
     if (req.session.user.isAuthenticated) {
+      if(result_start.data[0][0]==="0"){
+        res.redirect("/applicant_dashboard")
+        return 
+      }
       res.render("admission/result", {
         result: result.data,
         logged_in: req.session.user.isAuthenticated,

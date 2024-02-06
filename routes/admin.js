@@ -23,7 +23,14 @@ router.post("/online_exam_start", async function(req,res){
     const result = await run(`UPDATE EXAM SET EXAM_STAT = ${det.online_exam_start}`);
 
 })
+router.post("/result_start", async function(req,res){
+  const det=req.body;
+  
+  console.log(det.result_start);
 
+    const result = await run(`UPDATE RESULTSTATUS SET RESULT_START = ${det.result_start}`);
+
+})
 router.get("/library_management",async function(req,res){
 
 
