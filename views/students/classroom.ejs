@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Google Classroom Meet</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .classroom-meet-box {
+      width: 50%;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+    }
+
+    #error-message {
+      color: #dc3545;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="classroom-meet-box">
+    <h2 class="text-center">Google Classroom Meet</h2>
+
+    <div class="form-group">
+      <label for="link">Class Link:</label>
+      <input type="text" id="link" class="form-control" placeholder="Enter the class link" value="https://academia-plus-video-call.onrender.com/396cbdcd-b16b-42c9-96f3-80009f03557e">
+    </div>
+
+    <div class="form-group">
+      <label for="classDate">Class Date:</label>
+      <input type="date" id="classDate" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="classTime">Class Time:</label>
+      <input type="time" id="classTime" class="form-control">
+    </div>
+
+    <div id="error-message"></div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary btn-block" onclick="joinClass()">Join Class</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and jQuery (Add them at the end of the body for better performance) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    function joinClass() {
+      // Fetch values from input fields
+      const link = document.getElementById("link").value;
+      const classDate = document.getElementById("classDate").value;
+      const classTime = document.getElementById("classTime").value;
+
+      // Validate input values (you can add more validation as needed)
+      if (!link || !classDate || !classTime) {
+        document.getElementById("error-message").innerText = "Please fill in all fields.";
+        return;
+      }
+      window.location.href = link;
+      // You can implement logic to redirect or handle joining the class
+      console.log("Joining Class - Link:", link, "Date:", classDate, "Time:", classTime);
+      
+    }
+  </script>
+</body>
+</html>

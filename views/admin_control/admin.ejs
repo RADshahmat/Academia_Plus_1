@@ -14,48 +14,17 @@
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
             crossorigin="anonymous"></script>     
         <link rel="stylesheet" href="css/admin.css">
-        <style>
-            .left_header {
-  display: flex;
-  align-items: center;
-}
-
-.header_logo {
-  max-width: 4rem; /* Ensures the image does not exceed its natural size */
-  height: auto;   /* Ensures the image maintains its aspect ratio */
-  margin-right: 1rem; /* Adjust margin as needed */
-}
-
-#l_header {
-  flex: 1; /* Allows the h1 to take up remaining space */
-}
-        </style>
     </head>
 <body>
-<header class="header">
-    <div class="left_header" style="display: flex;">
-        <img class="header_logo" src="images/—Pngtree—school logo design template vector_9104626.png">
-        <h1 id="l_header"> School Management System</h1>
-    </div>
-    
-    <div class="logout">
-        <form action="/logout" method="POST">
-            <button class="btn btn-success" type="submit" id="logOutDropdown">
-              Logout
-            </button>
-          </form>
-    </div>
-</header>
-
-
+    <%- include('../includes/cp_header.ejs') %>
 
 <%- include('../includes/admin_sidebar.ejs') %>
-<div id="ham_icon"><img src="images/menu.png" alt=""></div>
+
 <div class="content" id="content-container">
     
     <div class="dashboard_container">
 
-        <div class="card_contain" style="background-color: rgb(73, 63, 63);">
+        <div class="card_contain" style="background-color: #158865;">
             <i class="fas fa-user fa-2x"></i> 
             <h5>Student Management</h5>
             <p>Total Students: 1005</p>
@@ -65,101 +34,59 @@
             <h5>Teacher/Staff Management</h5>
             <p>Total Teacher and Staff: 55</p>
         </div>
-        <div class="card_contain" style="background-color: #158865;">
+        <div class="card_contain" style="background-color: #d65465;">
             <i class="fas fa-graduation-cap fa-2x"></i>
             <h5>Students Account</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain" style="background-color: #927d39" >
+        <div class="card_contain" style="background-color: #d68136" >
             <i class="fas fa-poll fa-2x"></i>
             <h5>Result Management</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain" style="background-color: rgb(73, 63, 63);">
+        <div class="card_contain" style="background-color: #8454eb;">
             <i class="fas fa-money-check-alt fa-2x"></i>
             <h5>Accounts Management</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain" style="background-color: #156588;">
+        <div class="card_contain" style="background-color: #8dc24e;">
             <i class="fas fa-box fa-2x"></i> 
             <h5>Inventory Management</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain" style="background-color: #158865;">
+        <div class="card_contain" style="background-color: #66b10b;">
             <i class="fas fa-book fa-2x"></i>
-            <h5>Library Management</h5>
+            <h5 ><a href="library_management" class="sidebar-link"style="color:white;text-decoration:none;">Library Management</a></h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain" style="background-color: #927d39" >
+        <div class="card_contain" style="background-color: #b360a6" >
             <i class="fas fa-wrench fa-2x"></i>
             <h5>Website Maintenance</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain fa-2x" style="background-color: #156588;">
+        <div class="card_contain fa-2x" style="background-color: #19aff0;">
             <i class="fas fa-users"></i> 
             <h5>User Management</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain fa-2x" style="background-color: #158865;">
+        <div class="card_contain fa-2x" style="background-color: #a11a8b;">
             <i class="fas fa-cogs"></i>
             <h5>System Settings</h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain fa-2x" style="background-color: #927d39" >
+        <div class="card_contain fa-2x" style="background-color: #d1b044" >
             <i class="fas fa-sms"></i> 
-            <h5>SMS Gateway</h5>
+            <h5><a href="sms" class="sidebar-link"style="color:white;text-decoration:none;">SMS Gateway</a></h5>
             <p>Total Students: 1005</p>
         </div>
-        <div class="card_contain fa-2x" style="background-color: #927d39" >
+        <div class="card_contain fa-2x" style="background-color: #c53612" >
             <i class="fas fa-file-signature"></i>
             <h5>Online Admission</h5>
             <p>Total Students: 1005</p>
         </div>
     </div>
 </div>
-<script>
-   const ham_icon = document.getElementById('ham_icon');
-const side_bar = document.querySelector('.sidebar');
-const content1 = document.querySelector('.content');
+<script src="js/admin_ham_responsive.js" defer></script>
 
-
-
-ham_icon.addEventListener('click', function () {
-    if (side_bar.style.display === "none" || side_bar.style.display === "") {
-        side_bar.style.display = "block";
-        content1.style.display = "none";
-    } else {
-        side_bar.style.display = "none";
-        content1.style.display = "block";
-    }
-});
-
-    function adjustHeader() {
-        const header = document.querySelector('.left_header');
-        const logo = document.querySelector('.header_logo');
-        const headerText = document.getElementById('l_header');
-        
-
-        
-        headerText.style.fontSize = window.innerWidth / 30 + 'px'; 
-
-        
-        const maxLogoWidth = 200; 
-        const logoWidth = Math.min(window.innerWidth / 4, maxLogoWidth); 
-        logo.style.width = logoWidth + 'px';
-        header.style.marginLeft = window.innerWidth / 30 + 'px';
-
-        if (window.innerWidth > 600) {
-    content1.style.display = "block";
-}
-
-    }
-
-  
-    adjustHeader();
-
-   
-    window.addEventListener('resize', adjustHeader);
-</script>
 </body>
 </html>

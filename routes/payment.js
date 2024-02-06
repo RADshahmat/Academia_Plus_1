@@ -85,11 +85,11 @@ console.log(formattedDate);
         `
     INSERT INTO APPLICANTS (
       APPLICANT_ID,APPLICANT_NAME, MOBILE_NO, FATHER_NAME, MOTHER_NAME,
-      P_ADDRESS, C_ADDRESS, DOB, CLASS, IMAGE_ADDRESS
+      P_ADDRESS, C_ADDRESS, DOB, CLASS, IMAGE_ADDRESS,EMAIL
     ) VALUES (
       :student_id,:student_name, :phone_no, :father_name, :mother_name,
       :present_address, :current_address, TO_DATE(:dob, 'YYYY-MM-DD'),
-      :class, :image
+      :class, :image, :email
     )`,
         {
           student_id:applicant_data[0][0]  ,
@@ -102,6 +102,7 @@ console.log(formattedDate);
           dob:formattedDate,
           class:applicant_data[0][8],
           image:applicant_data[0][9] ,
+          email:applicant_data[0][10]
         }
       );
 

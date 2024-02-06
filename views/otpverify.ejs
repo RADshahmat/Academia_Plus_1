@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="js/otp.js"defer></script>
+  <title>Forgot Password</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .forgot-password-box {
+      width: 50%;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+    }
+    #showpassword {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #d4edda; /* Light green background color */
+      border: 1px solid #c3e6cb; /* Green border color */
+      border-radius: 5px;
+    }
+    #error-message {
+      color: #dc3545;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="forgot-password-box">
+    <h2 class="text-center">Forget Password</h2>
+    <p class="text-muted text-center">Here your phone number's coresponding Email to send an OTP and show your password.</p>
+    <form id="forgotPasswordForm">
+      <div class="form-group">
+        <label for="otp">Enter OTP</label>
+        <input name="otp" type="text" class="form-control" id="otp" required>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-block">Show Password</button>
+    </form>
+    <div id="showpassword">
+
+    </div>
+    <p class="text-center mt-3"><a href="log_in">Back to Login</a></p>
+  </div>
+
+  <!-- Bootstrap JS and jQuery (Add them at the end of the body for better performance) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    function sendOTP() {
+      // You can implement the logic to send OTP to the provided email address here
+      alert("OTP sent to your email address");
+    }
+  </script>
+</body>
+</html>

@@ -9,9 +9,11 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
+const student=require('./routes/student');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
 const admin=require('./routes/admin');
 const payment=require('./routes/payment');
+const sendmail=require('./routes/sendmail');
 const io = socketIo(server);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -63,8 +65,8 @@ app.use(applicantsRoutes);
 app.use(LoginLogoutApply);
 app.use(admin);
 app.use(payment)
-
-
+app.use(sendmail)
+app.use(student)
 
 ////////////////////////////////////File Upload End///////////////////
 
@@ -404,54 +406,47 @@ let uniqueNumbersArray = [0, 0];
 
 
 app.get("/forgetpass", async function (req, res) {
-  res.render("forgetpass");
+  const pnum=req.query.phonenum;
+  const email=await run(`select email from applicants where MOBILE_NO=${pnum}`)
+  console.log(email)
+  res.render("forgetpass",{email : email.data});
 });
-
-
-
-app.get("/studentsdashboard", function (req, res) {
- /* try {
-    if (
-      req.session.user.isAuthenticated ||
-      req.session.user.account_type == "Applicant"
-    ) {
-      res.redirect("log_in");
-      return;
-    }
-  } catch {
-    res.redirect("log_in");
-    return;
-  }
-*/
-  console.log(req.session.user);
-  res.render("students/studentdashboard", {
-    logged_in: req.session.user.isAuthenticated,
+app.get("/otpverify", async function (req, res) {
+  res.render("otpverify");
+});
+app.post("/otpverify", async function (req, res) {
+  const email=req.query.email;
+  const data=req.body;
+  const otp=data.otp;
+  console.log(email+otp)
+  const det = await run(`SELECT * FROM OTP WHERE EMAIL = :email AND OTP = :otp`, {
+    email: email,
+    otp: otp
   });
+  const flag=det.data[0];
+  if(flag.length>0){
+    const password=await run(`SELECT APPLICANT_ID FROM APPLICANTS WHERE EMAIL = :email`,{
+      email:email
+    })
+    console.log(password)
+    res.json({ reply: true, data: password.data});
+  }
+  else{
+    res.json({ reply: true, data: password.data});
+  }
+ console.log(flag)
+console.log(det);
 });
 
-app.get("/student_management", function (req, res) {
-  /* try {
-     if (
-       req.session.user.isAuthenticated ||
-       req.session.user.account_type == "Applicant"
-     ) {
-       res.redirect("log_in");
-       return;
-     }
-   } catch {
-     res.redirect("log_in");
-     return;
-   }
- */
-   console.log(req.session.user);
-   res.render("admin_control/student_management", {
-     logged_in: req.session.user.isAuthenticated,
-   });
- });
+
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
+app.post('/online_class',async function(req,res){
 
+res.redirect('https://academia-plus-video-call.onrender.com/396cbdcd-b16b-42c9-96f3-80009f03557e')
+
+})
 
 
 

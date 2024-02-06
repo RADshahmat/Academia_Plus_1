@@ -44,36 +44,34 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: rgb(39, 81, 79);
+        background-color: #7bcfff;
         padding: 1px 0px;
         box-sizing: border-box;
         z-index: 1000;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
     }
-    .left_header{
+    .left_header {
         display: flex;
         align-items: center;
-        width: fit-content;
-        margin-left: 50px;
-        
-        
-    }
+      }
+      
     #l_header{
-        font-size: 2rem;font-weight: 900;
+        font-size: 1.5rem;
+        font-weight: 800;
         color: rgb(255, 251, 251);
+        flex: 1;
     }
-    .header_logo{
-        height: auto;
-        max-width: 4rem;
-        padding: 8px;
-        
-    }
+    .header_logo {
+        max-width: 4rem; /* Ensures the image does not exceed its natural size */
+        height: auto;   /* Ensures the image maintains its aspect ratio */
+        margin-right: 1rem; /* Adjust margin as needed */
+      }
     /* Sidebar Styles */
     .sidebar {
         top: 0;
         height: 900px;
         width: 270px;
-        background-color: #333;
+        background-color: #2c3e50;
         color: #fff;
         position: fixed;
         overflow-y: auto;
@@ -118,8 +116,8 @@
     /*-------------- Page Content Styles------------------ */
     .content {
         padding: 20px;
-        margin-left: 250px;
-        margin-top: 40px;
+        margin-left: 270px;
+        margin-top: 60px;
     }
     
     
@@ -187,7 +185,7 @@
 
 /*--------------------------------online admission handler------------------------ */
 
-.admission_segments {
+.segments {
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
