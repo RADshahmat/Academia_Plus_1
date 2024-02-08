@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resources</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Student Resources</h1>
+    </header>
+
+    <main>
+        <h2>Available Resources</h2>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> ID</th>
+                        <th>Resource Name</th>
+                        <th>Type</th>
+                        <th>Author</th>
+                        <th>File</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let index = 0; index < resources_info.length; index++ ) { %>
+                    <tr>
+                        <% for( let i = 0; i < resources_info[index].length; i++ ) { %>
+                        <td><%= resources_info[index][i] %></td>
+                        <% } %>
+                        <td><button type="button" class="btn btn-outline-success">Download</button></td>
+                    </tr>
+                    <% } %>
+                
+                </tbody>
+            </table>
+        </div>
+        
+
+    </main>
+
+
+</body>
+</html>

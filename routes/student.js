@@ -111,4 +111,25 @@ router.get("/studentsdashboard", function (req, res) {
         logged_in: req.session.user.isAuthenticated,books_info:data.data
       });
     });
+    router.get("/resourceclass1",async function (req, res) {
+      /* try {
+         if (
+           req.session.user.isAuthenticated ||
+           req.session.user.account_type == "Applicant"
+         ) {
+           res.redirect("log_in");
+           return;
+         }
+       } catch {
+         res.redirect("log_in");
+         return;
+       }
+     */
+       const data= await run(`select * from RESOURCES`);
+       console.log(data);
+       console.log(req.session.user);
+       res.render("students/resourceclass1", {
+         logged_in: req.session.user.isAuthenticated,resources_info:data.data
+       });
+     });
     module.exports = router;

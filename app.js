@@ -10,6 +10,7 @@ const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
 const student=require('./routes/student');
+const teacher=require('./routes/teacher');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
 const admin=require('./routes/admin');
 const payment=require('./routes/payment');
@@ -67,7 +68,7 @@ app.use(admin);
 app.use(payment)
 app.use(sendmail)
 app.use(student)
-
+app.use(teacher)
 ////////////////////////////////////File Upload End///////////////////
 
 //////////////////////Node Mailer Start/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
