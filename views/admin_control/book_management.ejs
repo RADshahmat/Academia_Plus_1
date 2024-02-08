@@ -46,7 +46,14 @@
                     <tr>
                         <% for( let i = 0; i < books_info[index].length; i++ ) { %>
                         <td><%= books_info[index][i] %></td>
+                        
                         <% } %>
+                        <td>
+                            <form action="/delete_books" method="POST">
+                              <input type="hidden" name="book_name" value="<%= books_info[index][4] %>">
+                              <button type="submit" class="btn btn-outline-success">Delete</button>
+                            </form>
+                            </td>
                     </tr>
                     <% } %>
                 

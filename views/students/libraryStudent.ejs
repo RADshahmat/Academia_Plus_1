@@ -53,7 +53,12 @@
                     <% for( let i = 0; i < books_info[index].length; i++ ) { %>
                     <td><%= books_info[index][i] %></td>
                     <% } %>
-                    <td><button type="button" class="btn btn-outline-success">Download</button></td>
+                    <td>
+                      <form action="/download_books" method="POST">
+                        <input type="hidden" name="book_name" value="<%= books_info[index][4] %>">
+                        <button type="submit" class="btn btn-outline-success">Download</button>
+                      </form>
+                      </td>
                 </tr>
                 
                 <% } %>
