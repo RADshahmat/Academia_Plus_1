@@ -16,17 +16,17 @@
     <link rel="stylesheet" href="css/Home.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/chatbot_Rad.css">
 
     <script src="js/Home.js" defer></script>
     <script src="js/sideBar.js" defer></script>
-    <script src="js/chatbot.js" defer></script>
+    <script src="js/chatbot_Rad.js" defer></script>
 </head>
 <body>
    
   <%- include('includes/header.ejs') %>
   
-  <%- include('includes/chatbot.ejs') %>
+  <%- include('includes/chatbot_Rad.ejs') %>
 
 
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -117,16 +117,11 @@
             <div class="notice-container"> 
                 <ul class="notice-list">   
                     <!-- eta database theke fetch hobe loop chaliye -->
-                    <li class="notice-item"><a href="#" class="notice-link">15-11-2023 : ২০২৪ শিক্ষাবর্ষে  ৩য় শ্রেণিতে  শিক্ষার্থী ভর্তির জন্য অনলাইন ফরম পূরণের সময়সীমা বৃ্দ্ধিকরণ সংক্রান্ত।</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">03-11-2023 : নতুন শিক্ষাক্রম নিয়ে অপপ্রচার বিষয়ে ব্যাখ্যা মাঠ পর্যায়ে প্রেরণ সংক্রান্ত।</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">31-10-2023 : সরকারি মাধ্যমিক বিদ্যালয়ে শিক্ষার্থী ভর্তি নীতিমালা, ২০২৩</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">21-10-2023 : ২০২৪ শিক্ষাবর্ষে তৃতীয় শ্রেণিতে শিক্ষার্থী ভর্তি বিজ্ঞপ্তি</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">21-10-2023 : ২০২৪ শিক্ষাবর্ষে  ৩য় শ্রেণিতে  শিক্ষার্থী ভর্তির জন্য অনলাইন ফরম পূরণের সময়সীমা বৃ্দ্ধিকরণ সংক্রান্ত।</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">11-10-2023 : বার্ষিক মিলাদ-২০২৩</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">17-08-2021 : ২০২১ সালের এস.এস.সি পরীক্ষায়র্থীদের জন্য অ্যাসাইনমেন্ট (পঞ্চম সপ্তাহ)</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">21-10-2023 : ২০২৪ শিক্ষাবর্ষে ৩য় শ্রেণিতে শিক্ষার্থী ভর্তির বিজ্ঞপ্তি ও নিয়মাবলী।</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">21-10-2023 : ২০২৪ শিক্ষাবর্ষে তৃতীয় শ্রেণিতে শিক্ষার্থী ভর্তি বিজ্ঞপ্তি</a></li>
-                    <li class="notice-item"><a href="#" class="notice-link">10-10-2023 : সাংস্কৃতিক প্রতিযোগিতা-২০২৩</a></li>
+                    <% for( let index = 0; index < notices_info.length; index++ ) { %>
+                        <li class="notice-item">
+                            <a href="#" class="notice-link"><%= notices_info[index][0] %> : <%= notices_info[index][1] %></a>
+                        </li>
+                            <% } %>
                 </ul>
             </div>
         </div>

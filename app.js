@@ -9,6 +9,7 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
+const student=require('./routes/student');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
 const admin=require('./routes/admin');
 const payment=require('./routes/payment');
@@ -65,14 +66,14 @@ app.use(LoginLogoutApply);
 app.use(admin);
 app.use(payment)
 app.use(sendmail)
-
+app.use(student)
 
 ////////////////////////////////////File Upload End///////////////////
 
-//////////////////////Database Connection Strat/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////Node Mailer Start/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////////end of bd connection prototype////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////Node mailer End////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////All Get Request ////////////////////////////////////////////////////////////////////////////////
 app.get("/", async function (req, res) {
@@ -90,14 +91,17 @@ app.get("/failed",async function(req,res){
 
 });
 app.get("/index", async function (req, res) {
+  const notices = await run(`select TO_CHAR(PUBLICATION_DATE, 'DD-MM-YYYY') AS PUBLICATION_DATE,NOTICE_TITLE from NOTICES`);
+  console.log(notices);
+
   try {
     if (req.session.user.isAuthenticated) {
-      res.render("index", { logged_in: req.session.user.isAuthenticated });
+      res.render("index", { logged_in: req.session.user.isAuthenticated , notices_info: notices.data });
     } else {
-      res.render("index", { logged_in: false });
+      res.render("index", { logged_in: false , notices_info: notices.data});
     }
   } catch {
-    res.render("index", { logged_in: false });
+    res.render("index", { logged_in: false , notices_info: notices.data});
   }
 });
 
@@ -287,16 +291,27 @@ app.get("/clubs", function (req, res) {
   }
 });
 
-app.get("/notice", function (req, res) {
+app.get("/notice", async function (req, res) {
+  const notices = await run(`select NOTICE_FILE,NOTICE_TITLE,TO_CHAR(PUBLICATION_DATE, 'DD Month, YYYY Day') AS publication_date from NOTICES`);
+  console.log(notices);
   try {
     if (req.session.user.isAuthenticated) {
-      res.render("notice", { logged_in: req.session.user.isAuthenticated });
+      res.render("notice", { logged_in: req.session.user.isAuthenticated , notices_info: notices.data });
     } else {
-      res.render("notice", { logged_in: false });
+      res.render("notice", { logged_in: false,notices_info: notices.data });
     }
   } catch {
-    res.render("notice", { logged_in: false });
+    res.render("notice", { logged_in: false,notices_info: notices.data });
   }
+});
+
+
+app.get('/pdfs/:filename', (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, 'uploadimage', filename); // Adjust the path if necessary
+
+  // Serve the PDF file
+  res.sendFile(filePath);
 });
 
 app.get("/contact", function (req, res) {
@@ -436,76 +451,6 @@ app.post("/otpverify", async function (req, res) {
  console.log(flag)
 console.log(det);
 });
-
-app.get("/studentsdashboard", function (req, res) {
- /* try {
-    if (
-      req.session.user.isAuthenticated ||
-      req.session.user.account_type == "Applicant"
-    ) {
-      res.redirect("log_in");
-      return;
-    }
-  } catch {
-    res.redirect("log_in");
-    return;
-  }
-*/
-  console.log(req.session.user);
-  res.render("students/studentdashboard", {
-    
-    logged_in: req.session.user.isAuthenticated,
-  });
-});
-app.get("/student_management", function (req, res) {
-  /* try {
-     if (
-       req.session.user.isAuthenticated ||
-       req.session.user.account_type == "Applicant"
-     ) {
-       res.redirect("log_in");
-       return;
-     }
-   } catch {
-     res.redirect("log_in");
-     return;
-   }
- */
-   console.log(req.session.user);
-   res.render("admin_control/student_management", {
-     logged_in: req.session.user.isAuthenticated,
-   });
- });
- app.get("/loginadtc", function (req, res) {
-  try {
-    if (req.session.user.isAuthenticated) {
-      res.render("loginadtc", { logged_in: req.session.user.isAuthenticated });
-    } else {
-      res.render("loginadtc", { logged_in: false });
-    }
-  } catch {
-    res.render("loginadtc", { logged_in: false });
-  }
-});
-app.get("/classroom", function (req, res) {
-  /* try {
-     if (
-       req.session.user.isAuthenticated ||
-       req.session.user.account_type == "Applicant"
-     ) {
-       res.redirect("log_in");
-       return;
-     }
-   } catch {
-     res.redirect("log_in");
-     return;
-   }
- */
-   console.log(req.session.user);
-   res.render("students/classroom", {
-     logged_in: req.session.user.isAuthenticated,
-   });
- });
 
 
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
