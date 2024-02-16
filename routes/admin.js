@@ -140,5 +140,11 @@ router.post("/delete_notice", async (req, res) => {
   res.redirect("/notice_control");
   console.log(filePath);
 });
+router.post("/result_start", async (req, res) => {
+  const data=req.body
+  console.log(data)
+  const result=await run(`UPDATE RESULTSTATUS
+  SET result_start = :resultStart`,{resultStart:data.result_start})
+});
 //-----------------------------------------------
 module.exports = router;
