@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #4285f4;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .assignment {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4285f4;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Assignment Page</h1>
+    </header>
+
+    <main>
+        <h2>Create Assignment</h2>
+
+        <form id="add_assignment" method="POST" action="/add_assignments">
+            <label for="courseTitle">Course Title:</label>
+            <input type="text" id="courseTitle" name="courseTitle" required>
+            <label for="assignmentTitle">Assignment Title:</label>
+            <input type="text" id="assignmentTitle" name="assignmentTitle" required>
+            <label for="instructions">Instructions:</label>
+            <textarea id="instructions" name="instructions" rows="4" required></textarea>
+            <label for="class">Class:</label>
+    <select id="class" name="class" required style="margin-left: 4rem;margin-bottom: 2rem;">
+        <!-- Add your class options dynamically or manually -->
+        <option value="class1">Class 1</option>
+        <option value="class2">Class 2</option>
+        <option value="class3">Class 3</option>
+        <option value="class4">Class 4</option>
+        <option value="class5">Class 5</option>
+        <option value="class6">Class 6</option>
+        <option value="class7">Class 7</option>
+        <option value="class8">Class 8</option>
+        <option value="class9">Class 9</option>
+        <option value="class10">Class 10</option>
+        <!-- Add more options as needed -->
+    </select>
+    
+            <label for="submissionDate">Submission Date:</label>
+            <input type="date" id="submissionDate" name="submissionDate" required>
+
+            <button type="submit">Create Assignment</button>
+        </form>
+
+        <h2>Assignments</h2>
+
+        <div class="assignment">
+            <h3>Math Assignment</h3>
+            <p>Complete the exercises from Chapter 5 by next Monday.</p>
+            <p>Submission Deadline: 2024-02-14</p>
+        </div>
+
+        <a href="teachersdashboard" style="display: block; text-align: center; margin-top: 20px; text-decoration: none;">
+            <button style="background-color: #4285f4; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+                Back
+            </button>
+        </a>
+
+    </main>
+
+</body>
+</html>

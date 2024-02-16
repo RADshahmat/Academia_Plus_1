@@ -49,16 +49,25 @@
             </form>
         </div>
       
-        <div class="segment_contain" style="background-color: #158865;">
+        <div id="toggle_result" class="segment_contain" style="background-color: rgb(27, 219, 43)" >
+            <i class="fas fa-poll fa-2x"></i>
+            <div class="container">
+                <form id="resultForm">
+                    <h5>Result Status:</h5>
+                    <input type="hidden" id="resultStatus" name="resultStatus" value="1">
+                </form>
+
+                <div class="custom-control custom-switch">
+                    <input  type="checkbox" class="custom-control-input" id="customSwitch2">
+                    <label class="custom-control-label" for="customSwitch2">Toggle this switch element</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="segment_contain" style="background-color: rgb(219, 130, 27)">
             <i class="fas fa-graduation-cap fa-2x"></i>
             <h5>Admission</h5>
             <p>Total Students: 1005</p>
-        </div>
-
-        <div class="segment_contain" style="background-color: #927d39" >
-            <i class="fas fa-poll fa-2x"></i>
-            <h5>Admission Result</h5>
-            <p>Total Passed: 240</p>
         </div>
 
         <div class="segment_contain" style="background-color: rgb(73, 63, 63);">

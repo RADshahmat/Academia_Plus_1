@@ -45,7 +45,9 @@
             <% for (const r of result) { %>
               <h6 style="padding: 0 10px;"><%= r[0] %></h6>
             <% } %> 
+           
           </div>
+
         </div>
       
         <div>
@@ -53,10 +55,9 @@
           <% if (result.length>0) { %>
            <h6><%= result[result.length - 1][0] %></h6>
           <% } %>
-          
         </div>
       </div>
-      
+     <a href="registration"> <button style="background-color: rgb(17, 172, 17);margin-left: 15rem;">apply here</button></a>
      
     <%- include('../includes/footer.ejs') %>
     <%- include('../includes/swap.ejs') %>
