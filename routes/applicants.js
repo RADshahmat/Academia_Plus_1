@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const axios = require('axios');
 const { run } = require("../db/db");
+const upload = require("../multer/multer");
 
 router.get("/apply", function (req, res) {
   try {
@@ -191,6 +193,52 @@ router.post("/exam_submit", async function (req, res) {
   res.redirect("/result");
 });
 
+router.post('/final_registration',upload.single("image"),async function(req,res){
+  const image_name = req.file.filename;
+ 
+const applicant_id=req.session.user.id;
 
+
+
+const data=req.body;
+const d_data= await run('DELETE FROM "ACADEMIA_PLUS_NEW"."STUDENTS_BEFORE_REGISTRATION" WHERE ID= :a_id',
+{ a_id: applicant_id });
+
+const det = await run(
+  `
+INSERT INTO STUDENTS_BEFORE_REGISTRATION (
+ID,C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14
+) VALUES (
+:id,:student_name1,:student_name2,:phone_no,:father_name, :mother_name,
+:present_address, :permanent_address, TO_DATE(:dob, 'YYYY-MM-DD'),
+:class, :image, :email ,:city , :state, :zipcode
+)`,
+  {
+    id:applicant_id  ,
+    student_name1:data.first_name ,
+    student_name2:data.last_name ,
+    phone_no:data.phone_no ,
+    father_name:data.father_name,
+    mother_name:data.mother_name ,
+    present_address:data.present_address ,
+    permanent_address:data.permanent_address ,
+    dob:data.dob,
+    class:data.class,
+    image:image_name ,
+    email:data.email,
+    city:data.city,
+    state:data.state,
+    zipcode:data.zip_code
+  }
+);
+
+
+console.log(applicant_id,image_name,data);
+ const response=await axios.get(`http://localhost:3000/init?id=${applicant_id}&payment_type=final_admission`);
+
+ console.log(response.data.body)
+ res.redirect(response.data.body)
+
+});
 
 module.exports = router;

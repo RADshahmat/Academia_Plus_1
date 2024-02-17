@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      .form-container {
+        margin-left: 12rem;
+        border: 1px solid #8d8989;
+        border-radius: 8px;
+        padding: 2rem;
+        width: 1000px;
+        height: 800px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); /* Added box-shadow */
+      }
+    </style>
+    
+  </head>
+  <body>
+    <div class="form-container" id="form_div">
+      <h2 style="text-align: center">Student Information</h2>
+      <form
+        class="row g-3"
+        action="/final_registration"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="col-md-4">
+          <label for="validationCustom01" class="form-label">First name</label>
+          <input
+          name="first_name"
+            type="text"
+            class="form-control"
+            id="firstname"
+            placeholder="enter your first name"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom02" class="form-label">Last name</label>
+          <input
+          name="last_name"
+            type="text"
+            class="form-control"
+            id="lastname"
+            placeholder="enter your last name"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="col-md-5">
+          <label for="validationCustom01" class="form-label"
+            >Father's name</label
+          >
+          <input
+          name="father_name"
+            type="text"
+            class="form-control"
+            id="father_name"
+            placeholder="enter your father name"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="col-md-5">
+          <label for="validationCustom02" class="form-label"
+            >Mother's name</label
+          >
+          <input
+          name="mother_name"
+            type="text"
+            class="form-control"
+            id="mother_name"
+            placeholder="enter your mather name"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input
+            name="email"
+            placeholder="enter your email @gmail.com"
+            class="form-control"
+            id="email"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Phone No</label>
+          <input
+            name="phone_no"
+            value="+880"
+            class="form-control"
+            id="phone-number"
+            oninput="validatePhoneNumber(this)"
+            required
+          />
+        </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Present Address</label>
+          <input
+          name="present_address"
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="1234 Main St"
+          />
+        </div>
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label"
+            >Permanent Address</label
+          >
+          <input
+          name="permanent_address"
+            type="text"
+            class="form-control"
+            id="inputAddress2"
+            placeholder="Apartment, studio, or floor"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">City</label>
+          <input name="city" type="text" class="form-control" id="inputCity" />
+        </div>
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">State</label>
+          <select name="state" id="inputState" class="form-select">
+            <option selected>Choose...</option>
+            <option>Dhaka</option>
+            <option>Khulna</option>
+            <option>Rajshahi</option>
+            <option>Barishal</option>
+            <option>Shelet</option>
+            <option>Rangpur</option>
+            <option>Chittagong</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="inputZip" class="form-label">Zip</label>
+          <input name="zip_code" type="text" class="form-control" id="inputZip" />
+        </div>
+        <div class="form-row" style="display: flex">
+          <div class="form-group col-md-6">
+            <label for="inputDob">Date Of Birth</label>
+            <input
+              name="dob"
+              type="date"
+              class="form-control"
+              id="inputDob"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputClass">Class</label>
+            <select name="class" id="inputClass" class="form-control">
+              <% const words = ['one', 'two', 'three', 'four', 'five', 'six',
+              'seven', 'eight', 'nine', 'ten']; %> <% for (let index = 0; index
+              < 10; index++) { %>
+              <option><%= words[index] %></option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputImage">Image</label>
+            <input
+              name="image"
+              type="file"
+              accept=".jpg,.png,.jpeg"
+              class="form-control"
+              id="inputImage"
+              style="padding: 3px 0 0 3px"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" />
+            <label class="form-check-label" for="gridCheck">
+              Are you Sure This Information is Correct?
+            </label>
+          </div>
+        </div>
+        <div class="col-12" style="display: flex">
+          <a href="result"
+            ><button type="button" class="btn btn-primary">Back</button></a
+          >
+        </div>
+        <div class="col-12" style="margin-left: 50rem; margin-top: -2.6rem">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+</body>
+<script>
+  function validatePhoneNumber(input) {
+      // Remove non-numeric characters from the input value
+      var phoneNumber = input.value.replace(/\D/g, '');
+
+      // Check if the phone number has exactly 11 digits
+      if (phoneNumber.length === 11) {
+          // Valid phone number, you can update the input value if needed
+          input.setCustomValidity('');
+      } else {
+          // Invalid phone number, set a custom validation message
+          input.setCustomValidity('Phone number must be 11 digits.');
+      }
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</html>

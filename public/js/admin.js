@@ -66,15 +66,6 @@ console.log("Value:"+examStatusInput.value)
 
 
   console.log("Value:"+resultStatusInput.value)
-  if (resultStatusInput.value === "0") {
-    
-    toggleButton1.checked = false;
-    toggle_result_color.style.backgroundColor="rgb(222, 4, 4)"
-} else {
-    
-    toggleButton1.checked = true;
-    toggle_result_color.style.backgroundColor="green"
-}
   toggleButton1.addEventListener('click', function () {
       toggleButtonState1();
       submitForm1();

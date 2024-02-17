@@ -50,14 +50,10 @@
             <!-- Toggle Button for Teacher/Student -->
             <div class="form-group">
                 <label>Select :</label>
-                <div class="btn-group btn-group-toggle btn-toggle" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="role" id="teacherRadio" autocomplete="off" checked> Teacher
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="role" id="studentRadio" autocomplete="off"> Student
-                    </label>
-                </div>
+                <select id="inputState" class="form-select">
+                    <option selected>Choose...</option>
+                    <option>Everyone</option><option>Teacher</option><option>Student</option><option>Selected</option>
+                  </select>
             </div>
 
             <!-- Send Button -->
@@ -75,38 +71,54 @@
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
             crossorigin="anonymous"></script>
 
-    <script>
-function sendMessage() {
-    var message = document.getElementById('message').value;
-    var phoneNumber = document.getElementById('phoneNumber').value;
-    var role = document.getElementById('teacherRadio').checked ? 'Teacher' : 'Student';
-
-    // Check if message and phone number are not blank
-    if (message.trim() === '' || phoneNumber.trim() === '') {
-        alert('Please fill in both message and phone number before sending.');
-        return; // Exit the function if fields are blank
-    }
-
-    // Check if phone number has exactly 11 digits
-    if (!(/^\d{11}$/.test(phoneNumber))) {
-        alert('Phone number must be 11 digits.');
-        return; // Exit the function if phone number is not 11 digits
-    }
-
-    // Simulate sending message (replace with actual API call)
-    alert(`Message Sent!\n\nMessage: ${message}\nPhone Number: ${phoneNumber}\nRole: ${role}`);
-
-    // Reset the form fields after sending the message
-    document.getElementById('message').value = '';
-    document.getElementById('phoneNumber').value = '';
-}
-
-
-
-        function goBack() {
-            window.location.href = 'admin';
-        }
-    </script>
+    
+            <script>
+                function togglePhoneNumberInput() {
+                    var selectedOption = document.getElementById('inputState').value;
+                    var phoneNumberGroup = document.getElementById('phoneNumberGroup');
+        
+                    // Toggle visibility based on the selected option
+                    phoneNumberGroup.style.display = (selectedOption === 'Selected') ? 'block' : 'none';
+                }
+        
+                function sendMessage() {
+                    var message = document.getElementById('message').value;
+                    var phoneNumber = document.getElementById('phoneNumber').value;
+                    var selectedOption = document.getElementById('inputState').value;
+        
+                    // Check if message is not blank
+                    if (message.trim() === '') {
+                        alert('Please fill in the message before sending.');
+                        return; // Exit the function if the message is blank
+                    }
+        
+                    // Check if phone number is required and validate it
+                    if (selectedOption === 'Selected') {
+                        if (phoneNumber.trim() === '') {
+                            alert('Please enter the phone number.');
+                            return; // Exit the function if phone number is blank
+                        }
+                        if (!(/^\d{11}$/.test(phoneNumber))) {
+                            alert('Phone number must be 11 digits.');
+                            return; // Exit the function if phone number is not 11 digits
+                        }
+                    } else {
+                        // Reset phone number if not required
+                        phoneNumber = '';
+                    }
+        
+                    // Simulate sending message (replace with actual API call)
+                    alert(`Message Sent!\n\nMessage: ${message}\nPhone Number: ${phoneNumber}\nSelected Option: ${selectedOption}`);
+        
+                    // Reset the form fields after sending the message
+                    document.getElementById('message').value = '';
+                    document.getElementById('phoneNumber').value = '';
+                }
+        
+                function goBack() {
+                    window.location.href = 'admin';
+                }
+            </script>
     
     <!-- Bootstrap JS and Popper.js -->
     <script src="js/admin_ham_responsive.js" defer></script>

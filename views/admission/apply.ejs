@@ -53,6 +53,7 @@
               value="+880"
               class="form-control"
               id="phone-number"
+              oninput="validatePhoneNumber(this)"
               required
             />
           </div>
@@ -145,4 +146,19 @@
     <%- include('../includes/footer.ejs') %>
     <%- include('../includes/swap.ejs') %>
   </body>
+  <script>
+    function validatePhoneNumber(input) {
+        // Remove non-numeric characters from the input value
+        var phoneNumber = input.value.replace(/\D/g, '');
+
+        // Check if the phone number has exactly 11 digits
+        if (phoneNumber.length === 11) {
+            // Valid phone number, you can update the input value if needed
+            input.setCustomValidity('');
+        } else {
+            // Invalid phone number, set a custom validation message
+            input.setCustomValidity('Phone number must be 11 digits.');
+        }
+    }
+</script>
 </html>

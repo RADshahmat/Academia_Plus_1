@@ -44,7 +44,7 @@ function hide_form(det, get_data) {
   console.log(get_data)
   if (det) {
 
-    const initUrl = `/init?applicant_id=${get_data[0]}`;
+    const initUrl = `/init?id=${get_data[0]}&payment_type=apply_fee`;
     fetch(initUrl)
     .then((response) => {
       if (!response.ok) {
