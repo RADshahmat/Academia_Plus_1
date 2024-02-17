@@ -106,37 +106,6 @@ router.get("/libraryStudent", async function (req, res) {
         return;
       }
     */
-<<<<<<< HEAD
-      const data= await run(`select * from BOOKS`);
-      console.log(data);
-      console.log(req.session.user);
-      res.render("students/libraryStudent", {
-        logged_in: req.session.user.isAuthenticated,books_info:data.data
-      });
-    });
-    router.get("/resourceclass1",async function (req, res) {
-      /* try {
-         if (
-           req.session.user.isAuthenticated ||
-           req.session.user.account_type == "Applicant"
-         ) {
-           res.redirect("log_in");
-           return;
-         }
-       } catch {
-         res.redirect("log_in");
-         return;
-       }
-     */
-       const data= await run(`select * from RESOURCES`);
-       console.log(data);
-       console.log(req.session.user);
-       res.render("students/resourceclass1", {
-         logged_in: req.session.user.isAuthenticated,resources_info:data.data
-       });
-     });
-    module.exports = router;
-=======
   const data = await run(`select * from BOOKS`);
   console.log(data);
   console.log(req.session.user);
@@ -162,4 +131,3 @@ router.post("/download_books", (req, res) => {
   fileStream.pipe(res);
 });
 module.exports = router;
->>>>>>> fd7e61f0f4adb37e60744e942f305de16a761dbc

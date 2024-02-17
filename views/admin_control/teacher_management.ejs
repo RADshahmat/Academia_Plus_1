@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>School/College Management system</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>  
+        
+        <link rel="stylesheet" href="css/admin.css">
+        <script src="js/admin.js" defer></script>
+    </head>
+<body>
+    <%- include('../includes/cp_header.ejs') %>
+    <%- include('../includes/admin_sidebar.ejs') %>
+
+        <div class="content" id="content-container">
+            <div class="row mt-3">
+                <div class="col ml-5 text-center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeacherModal">
+                        Add Teacher
+                    </button>
+                </div>
+            </div>
+
+        
+                <!-- Display Notices -->
+                    <div class="table-container mt-3">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Teacher Image</th>
+                                    <th>Teacher Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let index = 0; index < teachers_info.length; index++) { %>            
+                                    <tr>
+                                        <td><%= teachers_info[index][0] %></td>
+                                        <td>
+                                            <!-- Display the teacher image -->
+                                            <img src="<%= teachers_info[index][1] %>" alt="Teacher Image" class="teacher_image">
+                                        </td>
+                                        <td><%= teachers_info[index][2] %> &nbsp <%= teachers_info[index][3] %></td>
+                                        <td style="text-align: center;">
+                                                <a href="view_teacher/<%= teachers_info[index][0] %>" class="btn btn-info btn-sm view-teacher" 
+                                                    data-teacher-firstname="<%= teachers_info[index][2] %>"
+                                                    data-teacher-lastname="<%= teachers_info[index][3] %>"
+                                                    data-teacher-dob="<%= teachers_info[index][4] %>"
+                                                    data-teacher-gender="<%= teachers_info[index][5] %>"
+                                                    data-teacher-address="<%= teachers_info[index][6] %>"
+                                                    data-teacher-phone="<%= teachers_info[index][7] %>"
+                                                    data-teacher-email="<%= teachers_info[index][8] %>"
+                                                    data-toggle="modal" data-target="#viewTeacherModal">View</a>
+                                                <a href="edit_teacher/<%= teachers_info[index][0] %>" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="delete_teacher/<%= teachers_info[index][0] %>/<%= teachers_info[index][1] %>" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
+        
+            <!-- view teacher Modal -->
+            <div class="modal fade" id="viewTeacherModal" tabindex="-1" role="dialog" aria-labelledby="viewTeacherModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewTeacherModalLabel">Teacher Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="teacher-firstname">First Name</label>
+                                <input type="text" class="form-control" id="teacher_firstname" name="teacher_firstname" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-lastname">Last Name</label>
+                                <input type="text" class="form-control" id="teacher_lastname" name="teacher_lastname" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-dob">Date of Birth</label>
+                                <input type="text" class="form-control" id="teacher_dob" name="teacher_dob" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-gender">Gender</label>
+                                <input type="text" class="form-control" id="teacher_gender"  name="teacher_gender" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-address">Address</label>
+                                <input type="text" class="form-control" id="teacher_address" name="teacher_address" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-phone">Phone Number</label>
+                                <input type="text" class="form-control" id="teacher_phone" name="teacher_phone" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-email">Email</label>
+                                <input type="email" class="form-control" id="teacher_email" name="teacher_email" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <!--------------add_teacher modal------------------>
+
+            <div class="modal fade" id="addTeacherModal" tabindex="-1" role="dialog" aria-labelledby="addTeacherModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addTeacherModalLabel">Add New Teacher</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="add_teacher" action="/add_teacher" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="teacher-firstname">First Name</label>
+                                <input type="text" class="form-control" id="teacher_firstname" name="teacher_firstname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-lastname">Last Name</label>
+                                <input type="text" class="form-control" id="teacher_lastname" name="teacher_lastname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-dob">Date of Birth</label>
+                                <input type="date" class="form-control" id="teacher_dob" name="teacher_dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-gender">Gender</label>
+                                <select class="form-control"  required>
+                                    <input type="text" class="form-control" id="teacher_gender"  name="teacher_gender" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-address">Address</label>
+                                <input type="text" class="form-control" id="teacher_address" name="teacher_address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-phone">Phone Number</label>
+                                <input type="text" class="form-control" id="teacher_phone" name="teacher_phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-email">Email</label>
+                                <input type="email" class="form-control" id="teacher_email" name="teacher_email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacher-image">Teacher Image</label>
+                                <input type="file" class="form-control-file" id="teacher_image" name="teacher_image" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+        
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="js/admin_ham_responsive.js" defer></script>
+    <script>
+        $(document).ready(function() {
+            // Handle click event on view teacher button
+            $('.view-teacher').click(function() {
+                // Get the teacher's details from the button's data attributes
+                var teacherFirstName = $(this).data('teacher-firstname');
+                var teacherLastName = $(this).data('teacher-lastname');
+                var teacherDOB = $(this).data('teacher-dob');
+                var teacherGender = $(this).data('teacher-gender');
+                var teacherAddress = $(this).data('teacher-address');
+                var teacherPhone = $(this).data('teacher-phone');
+                var teacherEmail = $(this).data('teacher-email');
+                
+                // Set the values in the modal window
+                $('#teacher_firstname').val(teacherFirstName);
+                $('#teacher_lastname').val(teacherLastName);
+                $('#teacher_dob').val(teacherDOB);
+                $('#teacher_gender').val(teacherGender).selected;
+                $('#teacher_address').val(teacherAddress);
+                $('#teacher_phone').val(teacherPhone);
+                $('#teacher_email').val(teacherEmail);
+    
+                // Show the modal window
+                $('#viewTeacherModal').modal('show');
+            });
+        });
+    </script>
+</body>
+</html>
