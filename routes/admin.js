@@ -152,10 +152,10 @@ router.post("/result_start", async (req, res) => {
 
 //----------------------teacher_management---------------------------------------------------------
 
-// Define a route to fetch and display all teachers
+
 router.get("/teacher_management", async function (req, res) {
   try {
-      const teachers = await run(`SELECT TEACHERID, TEACHER_IMAGE, TEACHERFIRSTNAME, TEACHERLASTNAME, TO_CHAR(TEACHERDATEOFBIRTH, \'DD-MM-YYYY\') AS DOB,TEACHERGENDER,TEACHERADDRESS,TEACHERPHONENUMBER,TEACHEREMAIL FROM TEACHERS`);
+      const teachers = await run(`SELECT TEACHERID, TEACHER_IMAGE, TEACHERFIRSTNAME, TEACHERLASTNAME, TO_CHAR(TEACHERDATEOFBIRTH, \'YYYY-MM-DD\') AS DOB,TEACHERGENDER,TEACHERADDRESS,TEACHERPHONENUMBER,TEACHEREMAIL FROM TEACHERS`);
 
       res.render("admin_control/teacher_management", { teachers_info: teachers.data });
   } catch (error) {
@@ -166,7 +166,6 @@ router.get("/teacher_management", async function (req, res) {
 
 
 
-// Define a route to handle adding teachers
 router.post("/add_teacher", upload.single("teacher_image"), async function (req, res) {
   try {
       const teacherData = req.body;
@@ -200,7 +199,7 @@ router.post("/add_teacher", upload.single("teacher_image"), async function (req,
   }
 });
 
-// Define a route to handle the deletion of a teacher
+
 router.get("/delete_teacher/:id/:imageFilename", async function (req, res) {
   try {
       const teacherId = req.params.id;
@@ -227,9 +226,72 @@ router.get("/delete_teacher/:id/:imageFilename", async function (req, res) {
   }
 });
 
+//---------------------------------------edit_teacher--------------------------
 
+router.post("/edit_teacher_form", upload.single("teacher_image"), async function (req, res) {
+  try {
+    const teacherId = req.body.teacher_id;
+    const teacherData = req.body;
+    const teacherImage = req.file ? req.file.filename : null; // Check if a new image is uploaded
 
+    const currentTeacherDetails = await run(`SELECT TEACHER_IMAGE FROM TEACHERS WHERE TEACHERID = :teacher_id`, {
+      teacher_id: teacherId
+    });
 
+    const currentTeacherImage = currentTeacherDetails.data[0]; // Current image filename
+    console.log(currentTeacherImage);
+
+    // Build the update query based on the provided data
+    let updateQuery = `UPDATE TEACHERS SET 
+      TEACHERFIRSTNAME = :teacher_firstname,
+      TEACHERLASTNAME = :teacher_lastname,
+      TEACHERDATEOFBIRTH = TO_DATE(:teacher_dob, 'YYYY-MM-DD'),
+      TEACHERGENDER = :teacher_gender,
+      TEACHERADDRESS = :teacher_address,
+      TEACHERPHONENUMBER = :teacher_phone,
+      TEACHEREMAIL = :teacher_email`;
+
+    // Add image update to the query if a new image is uploaded
+    if (teacherImage) {
+      updateQuery += `, TEACHER_IMAGE = :teacher_image`;
+    }
+
+    updateQuery += ` WHERE TEACHERID = :teacher_id`;
+
+    const queryParams = {
+      teacher_firstname: teacherData.teacher_firstname,
+      teacher_lastname: teacherData.teacher_lastname,
+      teacher_dob: teacherData.teacher_dob,
+      teacher_gender: teacherData.teacher_gender,
+      teacher_address: teacherData.teacher_address,
+      teacher_phone: teacherData.teacher_phone,
+      teacher_email: teacherData.teacher_email,
+      teacher_id: teacherId
+    };
+
+    // Add image parameter if a new image is uploaded
+    if (teacherImage) {
+      queryParams.teacher_image = teacherImage;
+      // If a new image is uploaded, unlink the previous image
+      if (currentTeacherImage) {
+        const previousImagePath = path.join(__dirname, "..", "uploadimage", currentTeacherImage[0]);
+        if (fs.existsSync(previousImagePath)) {
+          fs.unlinkSync(previousImagePath);
+          console.log(`Previous image ${currentTeacherImage} unlinked successfully.`);
+        } else {
+          console.log(`Previous image ${currentTeacherImage} not found.`);
+        }
+      }
+    }
+
+    const result = await run(updateQuery, queryParams);
+
+    res.redirect("/teacher_management");
+  } catch (error) {
+    console.error("Error editing teacher:", error);
+    res.status(500).send("Error editing teacher");
+  }
+});
 
 
 //-----------------------------------------------

@@ -120,10 +120,15 @@ router.post("/success", async function (req, res) {
     var formattedDate = year + "-" + month + "-" + day;
     console.log(formattedDate);
 
-    if(applicant_data[0].length>0){
-      res.redirect("studentsdashboard");
-      return
-    }
+    const applicant_exist = await run(
+      'SELECT * FROM "ACADEMIA_PLUS_NEW"."STUDENTS" WHERE ID= :a_id',
+      { a_id: a_id }
+    );
+  console.log(applicant_data[0])
+  if (applicant_exist && applicant_exist[0] && applicant_exist[0].length > 0) {
+    res.redirect("studentsdashboard");
+    return;
+  }
 
     const det = await run(
       `

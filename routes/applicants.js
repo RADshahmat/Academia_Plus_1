@@ -146,6 +146,11 @@ router.get("/admit_card_download", async function (req, res) {
   }
 });
 
+router.get("/registration", async function (req, res) {
+res.render("students/registration");
+});
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 router.post("/exam_submit", async function (req, res) {
