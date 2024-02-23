@@ -86,9 +86,10 @@ router.get("/log_in", async function (req, res) {
     );
     console.log(admin_info);
     const student = await run(
-      'SELECT * FROM "ACADEMIA_PLUS_NEW"."STUDENTS" WHERE MOBILE_NO = :phone_no AND ID = :password',
+      'SELECT * FROM "ACADEMIA_PLUS_NEW"."STUDENTS" WHERE PHONE_NO = :phone_no AND ID = :password',
       { phone_no: data.phone_no, password: data.password }
     );
+    console.log(student.data)
     const teacher = await run(
       'SELECT * FROM "ACADEMIA_PLUS_NEW"."TEACHERS" WHERE TEACHEREMAIL = :email AND TEACHERID = :password',
       { email: data.phone_no, password: data.password }

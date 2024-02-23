@@ -9,7 +9,9 @@ router.get("/studentsdashboard", function (req, res) {
          req.session.user.isAuthenticated ||
          req.session.user.account_type == "student"
        ) {
-         res.redirect("log_in");
+         res.render("students/studentsdashboard", {
+    logged_in: req.session.user.isAuthenticated,
+  });
          return;
        }
      } catch {
@@ -18,7 +20,7 @@ router.get("/studentsdashboard", function (req, res) {
      }
    
   console.log(req.session.user);
-  res.render("students/studentdashboard", {
+  res.render("students/studentsdashboard", {
     logged_in: req.session.user.isAuthenticated,
   });
 });
@@ -58,7 +60,9 @@ router.get("/classroom", function (req, res) {
           req.session.user.isAuthenticated ||
           req.session.user.account_type == "student"
         ) {
-          res.redirect("log_in");
+          res.render("students/classroom", {
+            logged_in: req.session.user.isAuthenticated,
+          });
           return;
         }
       } catch {
@@ -78,7 +82,9 @@ router.get("/chatbot", function (req, res) {
           req.session.user.isAuthenticated ||
           req.session.user.account_type == "student"
         ) {
-          res.redirect("log_in");
+          res.render("students/chatbot", {
+            logged_in: req.session.user.isAuthenticated,
+          });
           return;
         }
       } catch {
@@ -224,9 +230,28 @@ router.get("/libraryStudent", async function (req, res) {
     router.post("/submit_assignment", upload.single("fileUpload"), async function (req, res) {
       const data = req.body;
       const image_name = req.file.filename;
-    
-      console.log(data,image_name)
+    const student_id =req.session.user.id;
+    console.log(student_id)
+    const class_stu=await run(`select CLASS from STUDENTS where ID=:student`,{student:student_id})
+      console.log(data,image_name,class_stu.data[0][0])
+const det =await run(`insert into SUB_ASSIGNMENTS (ID,UPLOADED_FILE,TURNIN,CLASS,ASSIGNMENT_ID) values(
+  :student_id, :file_name, :tin, :class, :aid  
+)`, {
+  student_id:student_id,
+  file_name:image_name,
+  tin:"0",
+  class:class_stu.data[0][0],
+  aid:data.assignmentId
+})
     });
-    
+router.post("/turnIn",async function(req,res){
+const det=req.body
+console.log(det)
+const response = await run(`UPDATE SUB_ASSIGNMENTS SET TURNIN = :1 WHERE ASSIGNMENT_ID = :2 AND ID = :3`, {
+  1: det.turnIn,
+  2: det.assignmentId,
+  3: req.session.user.id,
+});
+})
   
     module.exports = router;

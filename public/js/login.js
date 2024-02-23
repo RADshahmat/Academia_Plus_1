@@ -49,7 +49,16 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (det && data.data.account_type === 'Admin') {
       console.log('Redirecting to admin');
       window.location.href = 'admin';
-    } else {
+    } 
+    else if (det && data.data.account_type === 'student') {
+      console.log('Redirecting to student');
+      window.location.href = 'studentsdashboard';
+    }
+    else if (det && data.data.account_type === 'teacher') {
+      console.log('Redirecting to teacher');
+      window.location.href = 'teachersdashboard';
+    }
+    else {
       console.log('Login failed. Check credentials.');
       const errorMessage = document.getElementById('error-message');
       errorMessage.innerText =
