@@ -23,7 +23,7 @@ function submit(event, index) {
           console.log("Success:", data);
           det = data.reply;
           console.log(data);
-          hide_form(det, data.a_id);
+          submit_button[index].innerHTML = "UnSubmit";
         
       })
         .catch((error) => {
