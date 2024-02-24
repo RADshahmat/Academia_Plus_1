@@ -1,67 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School/College Management System - Student Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <style>
-        /* Your existing styles */
-
-        /* Additional styles for student management page */
-        .student-container {
-            margin-top: 20px;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <div class="left_header" style="display: flex;">
-            <img class="header_logo" src="images/—Pngtree—school logo design template vector_9104626.png">
-            <h1 id="l_header"> School Management System</h1>
-        </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>School/College Management system</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>  
         
-        <div class="logout">
-            <a href="" class="btn btn-outline-danger">Logout</a>
-        </div>
-    </header>    
-
+        <link rel="stylesheet" href="css/admin.css">
+        <script src="js/admin.js" defer></script>
+    </head>
+<body>
+    <%- include('../includes/cp_header.ejs') %>
     <%- include('../includes/admin_sidebar.ejs') %>
-    <div id="ham_icon"><img src="images/menu.png" alt=""></div>
-            <div class="content" id="content-container">
-                <h2>Student Information</h2>
-                <div class="form-outline mb-4" data-mdb-input-init>
-                    <input type="search" class="form-control" id="datatable-search-input">
-                    <label class="form-label" for="datatable-search-input">Search</label>
-                  </div>
-                  <div id="datatable">
-                  </div>
-            </div>
-    
-</body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <div class="content" id="content-container">
+      <div class="row mt-3">
+          <div class="col-md-4">
+              <div class="input-group">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">
+                      Add Student
+                  </button>
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <label class="input-group-text" for="batchSelect">View Students:</label>
+                  </div>
+                  <select class="custom-select" id="batchSelect">
+                      <option selected disabled>Select Class</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                      <option value="4">Four</option>
+                      <option value="5">Five</option>
+                      <option value="6">Six</option>
+                      <option value="7">Seven</option>
+                      <option value="8">Eight</option>
+                      <option value="9">Nine</option>
+                      <option value="10">Ten</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">Search:</span>
+                  </div>
+                  <input type="text" class="form-control search_st" name="search_st">
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+    <!------------add student---------------------------->
+
+    <!-- Add Student Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="add_student_form" action="/add_student" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="student_name1">First Name</label>
+              <input type="text" class="form-control" id="student_name1" name="student_name1" required>
+            </div>
+            <div class="form-group">
+              <label for="student_name2">Last Name</label>
+              <input type="text" class="form-control" id="student_name2" name="student_name2">
+            </div>
+            <div class="form-group">
+              <label for="phone_no">Phone Number</label>
+              <input type="text" class="form-control" id="phone_no" name="phone_no" required>
+            </div>
+            <div class="form-group">
+              <label for="father_name">Father's Name</label>
+              <input type="text" class="form-control" id="father_name" name="father_name" required>
+            </div>
+            <div class="form-group">
+              <label for="mother_name">Mother's Name</label>
+              <input type="text" class="form-control" id="mother_name" name="mother_name" required>
+            </div>
+            <div class="form-group">
+              <label for="present_address">Present Address</label>
+              <input type="text" class="form-control" id="present_address" name="present_address" required>
+            </div>
+            <div class="form-group">
+              <label for="permanent_address">Permanent Address</label>
+              <input type="text" class="form-control" id="permanent_address" name="permanent_address" required>
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" class="form-control" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+              <label for="class">Class</label>
+              <input type="text" class="form-control" id="class" name="class" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" class="form-control" id="state" name="state" required>
+            </div>
+            <div class="form-group">
+              <label for="zipcode">Zipcode</label>
+              <input type="text" class="form-control" id="zipcode" name="zipcode" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" class="form-control-file" id="image" name="image" required>
+              </div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+    <script src="js/admin_ham_responsive.js" defer></script>
+</body>
 </html>

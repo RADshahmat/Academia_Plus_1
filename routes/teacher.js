@@ -4,10 +4,10 @@ const {run}=require ("../db/db")
 const upload = require("../multer/multer");
 const { Console } = require("console");
 router.get("/teachersdashboard", function (req, res) {
-    /* try {
+     try {
        if (
          req.session.user.isAuthenticated ||
-         req.session.user.account_type == "Applicant"
+         req.session.user.account_type == "teacher"
        ) {
          res.redirect("log_in");
          return;
@@ -16,7 +16,7 @@ router.get("/teachersdashboard", function (req, res) {
        res.redirect("log_in");
        return;
      }
-   */
+   
      console.log(req.session.user);
      res.render("teacher/teachersdashboard", {
        
@@ -24,10 +24,10 @@ router.get("/teachersdashboard", function (req, res) {
      });
    });
    router.get("/courseoverview", function (req, res) {
-    /* try {
+    try {
        if (
          req.session.user.isAuthenticated ||
-         req.session.user.account_type == "Applicant"
+         req.session.user.account_type == "teacher"
        ) {
          res.redirect("log_in");
          return;
@@ -36,38 +36,86 @@ router.get("/teachersdashboard", function (req, res) {
        res.redirect("log_in");
        return;
      }
-   */
+   
      console.log(req.session.user);
      res.render("teacher/courseoverview", {
        
        logged_in: req.session.user.isAuthenticated,
      });
    });
-   router.get("/class1overview", function (req, res) {
-    /* try {
-       if (
-         req.session.user.isAuthenticated ||
-         req.session.user.account_type == "Applicant"
-       ) {
-         res.redirect("log_in");
-         return;
-       }
-     } catch {
-       res.redirect("log_in");
-       return;
-     }
-   */
-     console.log(req.session.user);
-     res.render("teacher/class1overview", {
-       
-       logged_in: req.session.user.isAuthenticated,
-     });
+   router.get("/class1overview", async function (req, res) {
+    const gline = await run('SELECT OVERVIEW FROM "ACADEMIA_PLUS_NEW"."COURSEOVERVIEW" WHERE CLASS = \'1\'');
+  console.log(gline.data);
+
+  if (gline.success) {
+    try {
+      res.render("teacher/class1overview", {
+        gline: gline.data,
+        db_stat1: gline.success,
+        logged_in: req.session.user.isAuthenticated,
+      });
+    } catch {
+      res.render("teacher/class1overview", {
+        gline: gline.data,
+        db_stat1: gline.success,
+        logged_in: false,
+      });
+    }
+  } else {
+    try {
+      res.render("class1overview", {
+        gline: gline.data,
+        db_stat: gline.success,
+        logged_in: req.session.user.isAuthenticated,
+      });
+    } catch {
+      res.render("class1overview", {
+        gline: gline.data,
+        db_stat: gline.success,
+        logged_in: false,
+      });
+    }
+  }
+   });
+   router.get("/class2overview", async function (req, res) {
+    const gline = await run('SELECT OVERVIEW FROM "ACADEMIA_PLUS_NEW"."COURSEOVERVIEW" WHERE CLASS = \'2\'');
+  console.log(gline.data);
+
+  if (gline.success) {
+    try {
+      res.render("teacher/class2overview", {
+        gline: gline.data,
+        db_stat1: gline.success,
+        logged_in: req.session.user.isAuthenticated,
+      });
+    } catch {
+      res.render("teacher/class2overview", {
+        gline: gline.data,
+        db_stat1: gline.success,
+        logged_in: false,
+      });
+    }
+  } else {
+    try {
+      res.render("class2overview", {
+        gline: gline.data,
+        db_stat: gline.success,
+        logged_in: req.session.user.isAuthenticated,
+      });
+    } catch {
+      res.render("class2overview", {
+        gline: gline.data,
+        db_stat: gline.success,
+        logged_in: false,
+      });
+    }
+  }
    });
    router.get("/resource", function (req, res) {
-    /* try {
+     try {
        if (
          req.session.user.isAuthenticated ||
-         req.session.user.account_type == "Applicant"
+         req.session.user.account_type == "teacher"
        ) {
          res.redirect("log_in");
          return;
@@ -76,7 +124,7 @@ router.get("/teachersdashboard", function (req, res) {
        res.redirect("log_in");
        return;
      }
-   */
+   
      console.log(req.session.user);
      res.render("teacher/resource", {
        
@@ -84,10 +132,10 @@ router.get("/teachersdashboard", function (req, res) {
      });
    });
    router.get("/class1resource", async function (req, res) {
-    /* try {
+    try {
        if (
          req.session.user.isAuthenticated ||
-         req.session.user.account_type == "Applicant"
+         req.session.user.account_type == "teacher"
        ) {
          res.redirect("log_in");
          return;
@@ -96,7 +144,7 @@ router.get("/teachersdashboard", function (req, res) {
        res.redirect("log_in");
        return;
      }
-   */
+   
      const data= await run(`select * from RESOURCES`);
      console.log(data);
      console.log(req.session.user);
@@ -125,10 +173,10 @@ router.get("/teachersdashboard", function (req, res) {
     
     });  
     router.get("/class1assignment", async function (req, res) {
-      /* try {
+      try {
          if (
            req.session.user.isAuthenticated ||
-           req.session.user.account_type == "Applicant"
+           req.session.user.account_type == "teacher"
          ) {
            res.redirect("log_in");
            return;
@@ -137,7 +185,7 @@ router.get("/teachersdashboard", function (req, res) {
          res.redirect("log_in");
          return;
        }
-     */
+     
        const data= await run(`select * from ASSIGNMENTS`);
        console.log(data);
        console.log(req.session.user);
@@ -147,10 +195,10 @@ router.get("/teachersdashboard", function (req, res) {
   
      });
      router.get("/assignment", async function (req, res) {
-      /* try {
+       try {
          if (
            req.session.user.isAuthenticated ||
-           req.session.user.account_type == "Applicant"
+           req.session.user.account_type == "teacher"
          ) {
            res.redirect("log_in");
            return;
@@ -159,7 +207,7 @@ router.get("/teachersdashboard", function (req, res) {
          res.redirect("log_in");
          return;
        }
-     */
+     
        const data= await run(`select * from RESOURCES`);
        console.log(data);
        console.log(req.session.user);
@@ -173,16 +221,17 @@ router.get("/teachersdashboard", function (req, res) {
       console.log(data)
       const feedback = await run(`
         INSERT INTO ASSIGNMENTS (
-          COURSE_TITLE, ASSIGNMENT_TITLE, INSTRUCTIONS, SUB_DATE,CLASS
+          COURSE_TITLE, ASSIGNMENT_TITLE, INSTRUCTIONS, SUB_DATE,CLASS,ID
         ) VALUES (
-          :book_name, :author, :type,TO_DATE(:book_file,'YYYY-MM-DD') , :class
+          :book_name, :author, :type,TO_DATE(:book_file,'YYYY-MM-DD') , :class,:id
         )`,
           {
               book_name: data.courseTitle,
               author: data.assignmentTitle,
               type: data.instructions,
               book_file: data.submissionDate,
-              class: data.class, // Fix here
+              class: data.class, 
+              id:data.assignmentID// Fix here
           });
           console.log(feedback)
       res.redirect("class1assignment");

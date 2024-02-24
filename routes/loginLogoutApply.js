@@ -85,6 +85,15 @@ router.get("/log_in", async function (req, res) {
       { email: data.phone_no, password: data.password }
     );
     console.log(admin_info);
+    const student = await run(
+      'SELECT * FROM "ACADEMIA_PLUS_NEW"."STUDENTS" WHERE PHONE_NO = :phone_no AND ID = :password',
+      { phone_no: data.phone_no, password: data.password }
+    );
+    console.log(student.data)
+    const teacher = await run(
+      'SELECT * FROM "ACADEMIA_PLUS_NEW"."TEACHERS" WHERE TEACHEREMAIL = :email AND TEACHERID = :password',
+      { email: data.phone_no, password: data.password }
+    );
     let user = null;
    
     if (info.data.length > 0) {
@@ -99,6 +108,22 @@ router.get("/log_in", async function (req, res) {
         id: admin_info.data[0][0],
         name: admin_info.data[0][1],
         account_type: "Admin",
+        isAuthenticated: true,
+      };
+    }
+    else if (student.data.length > 0) {
+      user = {
+        id: student.data[0][0],
+        name: student.data[0][1],
+        account_type: "student",
+        isAuthenticated: true,
+      };
+    }
+    else if (teacher.data.length > 0) {
+      user = {
+        id: teacher.data[0][0],
+        name: teacher.data[0][1],
+        account_type: "teacher",
         isAuthenticated: true,
       };
     }

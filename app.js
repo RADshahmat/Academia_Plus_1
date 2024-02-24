@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const app = express();
 const socketIo = require("socket.io");
 const http = require("http");
@@ -25,15 +26,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(cors()); 
-var screenWidth;
 
-app.post("/setScreenWidth", (req, res) => {
-  screenWidth = req.body.screenWidth;
-  console.log("Received screen width:", screenWidth);
 
-  res.sendStatus(200);
-});
+
 //////////// start of session ////////////////////////////////
 
 const options = {
@@ -461,14 +456,58 @@ console.log(det);
 /////////////////////////////////////////////All Get Request///////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////All Post Req////////////////////////////////////////////////////////////////////
-app.post('/online_class',async function(req,res){
+app.post("/chatbot_rad",async function(req,res){ 
+  try { 
+        const userInput=req.body.userInput; 
 
-res.redirect('https://academia-plus-video-call.onrender.com/396cbdcd-b16b-42c9-96f3-80009f03557e')
+        
+         
+        const response = await axios.post('http://localhost:5000/predict', { user_input: userInput }); 
+        console.log(response.data) 
 
-})
+        if(response.data.answer==="1802070"){ 
+         
+          const API_URL = "https://api.openai.com/v1/chat/completions"; 
+          const apiKey = "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"; 
+       
+           
+               
+              const response = await axios.post(API_URL, { 
+                  model: "gpt-3.5-turbo", 
+                  messages: [{ role: "user", content: userInput }], 
+              }, { 
+                  headers: { 
+                      "Content-Type": "application/json", 
+                      "Authorization": `Bearer ${apiKey}` 
+                  }, 
+              }); 
+       
+              
+              const content = response.data.choices[0].message.content.trim(); 
+               
+              
+               
+          const chatg={ 
+            answer: content 
+          } 
+         
+        
+          res.json(chatg); 
+           await axios.post('http://localhost:5000/train_new', { user_input: userInput,open_ai_res: content }); 
+
+        }else{ 
+
+           
+          res.json(response.data) 
+        } 
 
 
-
+          
+         
+    } catch (error) { 
+       
+    } 
+});
 
 
 app.listen(3000);

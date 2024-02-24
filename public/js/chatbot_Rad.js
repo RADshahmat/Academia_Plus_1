@@ -1,91 +1,88 @@
-class Chatbox {
-    constructor() {
-        this.args = {
-            openButton: document.querySelector('.chatbox__button'),
-            chatBox: document.querySelector('.chatbox__support'),
-            sendButton: document.querySelector('.send__button')
-        }
+const chatbotForm = document.getElementById('chatbotReq');
 
-        this.state = false;
-        this.messages = [];
+chatbotForm.addEventListener('submit', function (event) {
+    event.preventDefault(); 
+    sendMessage();
+});
+
+const sendButton = document.getElementById('chatSendButton');
+
+sendButton.addEventListener('click', function () {
+    sendMessage();
+});
+
+function sendMessage() {
+    const userInput = document.getElementById('userInput').value;
+    document.getElementById('userInput').value = '';
+    displayMessage(userInput, 'user');
+
+    fetch('/chatbot_rad', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userInput: userInput }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        displayMessage(data.answer, 'chatbot');
+        
+    })
+    .catch(error => {
+        console.error('Error making API call:', error);
+    });
+}
+
+function displayMessage(message, sender) {
+    const chatbotBody = document.getElementById('chatbot_body');
+
+    
+    const messageElement = document.createElement('p');
+
+
+    messageElement.className = sender === 'user' ? 'user-message' : 'chatbot-message';
+
+
+    if (sender === 'user') {
+        messageElement.classList.add('align-right');
     }
 
-    display() {
-        const {openButton, chatBox, sendButton} = this.args;
+    messageElement.textContent = message;
 
-        openButton.addEventListener('click', () => this.toggleState(chatBox))
+    const backgroundColor = sender === 'user' ? '#ccc' : '#a2d2a3 ';
+    const margin = sender === 'user' ? '83px' : '5px';
 
-        sendButton.addEventListener('click', () => this.onSendButton(chatBox))
+    messageElement.style.backgroundColor = backgroundColor;
+    messageElement.style.left = margin;
 
-        const node = chatBox.querySelector('input');
-        node.addEventListener("keyup", ({key}) => {
-            if (key === "Enter") {
-                this.onSendButton(chatBox)
-            }
-        })
-    }
+    chatbotBody.appendChild(messageElement);
 
-    toggleState(chatbox) {
-        this.state = !this.state;
-
-        // show or hides the box
-        if(this.state) {
-            chatbox.classList.add('chatbox--active')
-        } else {
-            chatbox.classList.remove('chatbox--active')
-        }
-    }
-
-    onSendButton(chatbox) {
-        var textField = chatbox.querySelector('input');
-        let text1 = textField.value
-        if (text1 === "") {
-            return;
-        }
-
-        let msg1 = { name: "User", message: text1 }
-        this.messages.push(msg1);
-
-        fetch('http://127.0.0.1:5000/predict', {
-            method: 'POST',
-            body: JSON.stringify({ message: text1 }),
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-          })
-          .then(r => r.json())
-          .then(r => {
-            let msg2 = { name: "Rad Shahmat", message: r.answer };
-            this.messages.push(msg2);
-            this.updateChatText(chatbox)
-            textField.value = ''
-
-        }).catch((error) => {
-            console.error('Error:', error);
-            this.updateChatText(chatbox)
-            textField.value = ''
-          });
-    }
-
-    updateChatText(chatbox) {
-        var html = '';
-        this.messages.slice().reverse().forEach(function(item, index) {
-            if (item.name === "Rad Shahmat")
-            {
-                html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
-            }
-            else
-            {
-                html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
-            }
-          });
-
-        const chatmessage = chatbox.querySelector('.chatbox__messages');
-        chatmessage.innerHTML = html;
-    }
+    setTimeout(() => {
+        chatbotBody.scrollTo(0, chatbotBody.scrollHeight);
+    }, 100);
 }
 
 
-const chatbox = new Chatbox();
-chatbox.display();
+//------------------
+
+
+
+      const chatbotContainer = document.getElementById('chatbot-container'); 
+      const chatbotIcon = document.getElementById('chatbot_icon') 
+      let isExpanded = false; 
+ 
+       
+      function toggleIframeSize() { 
+           
+          if(chatbotContainer.style.display=='none'){ 
+            chatbotContainer.style.display='block' 
+          }else{ 
+            chatbotContainer.style.display='none' 
+          } 
+      } 
+ 
+       
+      chatbotIcon.addEventListener('click', function () { 
+          toggleIframeSize(); 
+      }); 
