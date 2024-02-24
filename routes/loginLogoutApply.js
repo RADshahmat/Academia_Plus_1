@@ -13,6 +13,14 @@ router.get("/log_in", async function (req, res) {
     }else if(req.session.user.isAuthenticated && req.session.user.account_type=='Admin'){
       res.redirect('admin');
       return;
+    }
+    else if(req.session.user.isAuthenticated && req.session.user.account_type=='teacher'){
+      res.redirect('teachersdashboard');
+      return;
+    }
+    else if(req.session.user.isAuthenticated && req.session.user.account_type=='student'){
+      res.redirect('studentsdashboard');
+      return;
     }else{
       res.render("log_in");
     }
