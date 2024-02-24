@@ -3,6 +3,7 @@ const app = express();
 const socketIo = require("socket.io");
 const http = require("http");
 const path = require("path");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const { run } = require("./db/db");
 const session = require("express-session");
@@ -10,6 +11,7 @@ const MySQLStore = require("express-mysql-session")(session);
 const server = http.createServer(app);
 const applicantsRoutes=require('./routes/applicants');
 const student=require('./routes/student');
+const flutter=require('./flutter/get1');
 const teacher=require('./routes/teacher');
 const LoginLogoutApply=require('./routes/loginLogoutApply');
 const admin=require('./routes/admin');
@@ -23,6 +25,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cors()); 
 var screenWidth;
 
 app.post("/setScreenWidth", (req, res) => {
@@ -69,6 +72,7 @@ app.use(payment)
 app.use(sendmail)
 app.use(student)
 app.use(teacher)
+app.use(flutter);
 ////////////////////////////////////File Upload End///////////////////
 
 //////////////////////Node Mailer Start/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
