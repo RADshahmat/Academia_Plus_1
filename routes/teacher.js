@@ -122,7 +122,9 @@ router.get("/resource", authenticateUser, (req, res) => {
   });
 });
 
-router.get("/class1resource", authenticateUser, async (req, res) => {
+router.get("/class1resource?class=One", authenticateUser, async (req, res) => {
+  const cls = req.query.class;
+console.log(cls);
   const data = await run(`select * from RESOURCES`);
   console.log(data);
   console.log(req.session.user);
@@ -138,24 +140,25 @@ router.post("/add_resources", authenticateUser, upload.single("fileInput"), asyn
   console.log(data, file_name);
   const feedback = await run(`
     INSERT INTO RESOURCES (
-      RESOURCE_NAME, AUTHOR, TYPE, RESOURCE_FILE
+      RESOURCE_NAME, AUTHOR, TYPE, RESOURCE_FILE,CLASS
     ) VALUES (
-      :book_name, :author, :type, :book_file
+      :book_name, :author, :type, :book_file ,:class
     )`,
     {
       book_name: data.bookTitle,
       author: data.author,
       type: data.type,
       book_file: file_name,
+      class:data.class
     });
   res.redirect("class1resource");
 });
 
-router.get("/class1assignment", authenticateUser, async (req, res) => {
+router.get("/classassignment", authenticateUser, async (req, res) => {
   const data = await run(`select * from ASSIGNMENTS`);
   console.log(data);
   console.log(req.session.user);
-  res.render("teacher/class1assignment", {
+  res.render("teacher/classassignment", {
     logged_in: req.session.user.isAuthenticated,
     resources_info: data.data,
   });
