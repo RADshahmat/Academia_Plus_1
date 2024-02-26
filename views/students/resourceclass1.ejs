@@ -28,7 +28,43 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
+        h2 {
+            color: #333;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        p {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -48,21 +84,23 @@
                         <th>Type</th>
                         <th>Author</th>
                         <th>File</th>
-                        
+                        <th>Class</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <% for( let index = 0; index < resources_info.length; index++ ) { %>
-                    <tr>
-                        <% for( let i = 0; i < resources_info[index].length; i++ ) { %>
-                        <td><%= resources_info[index][i] %></td>
-                        <% } %>
-                        <td><button type="button" class="btn btn-outline-success">Download</button></td>
-                    </tr>
-                    <% } %>
                 
-                </tbody>
             </table>
+            <% if (db_stat1) { %>
+                <p ><br>
+                    </p>
+                    
+                    <%= gline[0] %>
+<button>download</button>
+            </div>
+            <% } else{ %>
+                <br><br>
+        <h3>Database is Offline.</h3>
+        
+                <% } %>
         </div>
         
 

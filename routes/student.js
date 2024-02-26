@@ -119,25 +119,50 @@ router.get("/libraryStudent", async function (req, res) {
       });
     });
     router.get("/resourceclass1",async function (req, res) {
-      try {
-         if (
-           req.session.user.isAuthenticated ||
-           req.session.user.account_type == "student"
-         ) {
-           res.redirect("log_in");
-           return;
-         }
-       } catch {
-         res.redirect("log_in");
-         return;
-       }
-     
-       const data= await run(`select * from RESOURCES`);
-       console.log(data);
-       console.log(req.session.user);
-       res.render("students/resourceclass1", {
-         logged_in: req.session.user.isAuthenticated,resources_info:data.data
-       });
+      const userId = req.session.user.id; 
+
+      const userClass = await run(`select CLASS from STUDENTS where id= '${userId}'`);
+  
+      const gline = await run(
+        `SELECT * FROM "ACADEMIA_PLUS_NEW"."RESOURCES" WHERE CLASS = '${userClass.data[0]}'`
+      );
+      const userClass1 = userClass.data[0];
+  console.log(userClass1);
+      console.log(gline.data);
+  
+        if (gline.success) {
+          try {
+            res.render("students/resourceclass1", {
+              userClass: userClass,
+              gline: gline.data,
+              db_stat1: gline.success,
+              logged_in: req.session.user.isAuthenticated,
+            });
+          } catch {
+            res.render("students/resourceclass1", {
+              userClass: userClass,
+              gline: gline.data,
+              db_stat1: gline.success,
+              logged_in: false,
+            });
+          }
+        } else {
+          try {
+            res.render("students/resourceclass1", {
+              userClass: userClass,
+              gline: gline.data,
+              db_stat1: gline.success,
+              logged_in: req.session.user.isAuthenticated,
+            });
+          } catch {
+            res.render("students/resourceclass1", {
+              userClass: userClass,
+              gline: gline.data,
+              db_stat1: gline.success,
+              logged_in: false,
+            });
+          }
+        }
      });
      router.get("/registration", function (req, res) {
       try {
@@ -158,19 +183,29 @@ router.get("/libraryStudent", async function (req, res) {
         logged_in: req.session.user.isAuthenticated,
       });
     });
-    router.get("/overviewclass1", async function (req, res) {
-      const gline = await run('SELECT OVERVIEW FROM "ACADEMIA_PLUS_NEW"."COURSEOVERVIEW" WHERE CLASS = \'1\'');
-      console.log(gline.data);
-    
+    router.get("/overviewclass", async function (req, res) {
+      const userId = req.session.user.id; 
+
+    const userClass = await run(`select CLASS from STUDENTS where id= '${userId}'`);
+
+    const gline = await run(
+      `SELECT OVERVIEW FROM "ACADEMIA_PLUS_NEW"."COURSEOVERVIEW" WHERE CLASS = '${userClass.data[0]}'`
+    );
+    const userClass1 = userClass.data[0];
+console.log(userClass1);
+    console.log(gline.data);
+
       if (gline.success) {
         try {
-          res.render("students/overviewclass1", {
+          res.render("students/overviewclass", {
+            userClass: userClass,
             gline: gline.data,
             db_stat1: gline.success,
             logged_in: req.session.user.isAuthenticated,
           });
         } catch {
-          res.render("students/overviewclass1", {
+          res.render("students/overviewclass", {
+            userClass: userClass,
             gline: gline.data,
             db_stat1: gline.success,
             logged_in: false,
@@ -178,54 +213,53 @@ router.get("/libraryStudent", async function (req, res) {
         }
       } else {
         try {
-          res.render("students/overviewclass1", {
+          res.render("students/overviewclass", {
+            userClass: userClass,
             gline: gline.data,
-            db_stat: gline.success,
+            db_stat1: gline.success,
             logged_in: req.session.user.isAuthenticated,
           });
         } catch {
-          res.render("students/overviewclass1", {
+          res.render("students/overviewclass", {
+            userClass: userClass,
             gline: gline.data,
-            db_stat: gline.success,
+            db_stat1: gline.success,
             logged_in: false,
           });
         }
       }
     });
 
-    router.get("/assignmentclass1", async function (req, res) {
-      const gline = await run('SELECT * FROM "ACADEMIA_PLUS_NEW"."ASSIGNMENTS" WHERE CLASS = \'class2\'');
-      console.log(gline.data);
+    router.get("/assignmentclass", async function (req, res) {
+      const det= await run(`select TURNIN,ASSIGNMENT_ID from SUB_ASSIGNMENTS where ID=:s_id order by ASSIGNMENT_ID ASC`,{
+        s_id:req.session.user.id,
+      })
+      console.log(det.data)
+      const userId = req.session.user.id; 
+
+    const userClass = await run(`select CLASS from STUDENTS where id= '${userId}'`);
+      const gline = await run(
+        `SELECT * FROM "ACADEMIA_PLUS_NEW"."ASSIGNMENTS" WHERE CLASS = '${userClass.data[0]}'`
+      );
+      
+       try{
+        if(req.session.user.isAuthenticated==false||req.session.user.account_type!='student'){
     
-      if (gline.success) {
-        try {
-          res.render("students/assignmentclass1", {
+          res.redirect('log_in')
+          return
+        }
+    
+       }catch{
+        res.redirect('log_in')
+        return
+       }
+          res.render("students/assignmentclass", {
             gline: gline.data,
             db_stat2: gline.success,
             logged_in: req.session.user.isAuthenticated,
+            det:det.data
           });
-        } catch {
-          res.render("students/assignmentclass1", {
-            gline: gline.data,
-            db_stat2: gline.success,
-            logged_in: false,
-          });
-        }
-      } else {
-        try {
-          res.render("students/assignmentclass1", {
-            gline: gline.data,
-            db_stat2: gline.success,
-            logged_in: req.session.user.isAuthenticated,
-          });
-        } catch {
-          res.render("students/assignmentclass1", {
-            gline: gline.data,
-            db_stat2: gline.success,
-            logged_in: false,
-          });
-        }
-      }
+        
     });
     router.post("/submit_assignment", upload.single("fileUpload"), async function (req, res) {
       const data = req.body;
