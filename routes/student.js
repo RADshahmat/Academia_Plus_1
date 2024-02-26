@@ -122,11 +122,12 @@ router.get("/libraryStudent", async function (req, res) {
       const userId = req.session.user.id; 
 
       const userClass = await run(`select CLASS from STUDENTS where id= '${userId}'`);
-  
-      const gline = await run(
-        `SELECT * FROM "ACADEMIA_PLUS_NEW"."RESOURCES" WHERE CLASS = '${userClass.data[0]}'`
-      );
+      console.log(userClass.data)
       const userClass1 = userClass.data[0];
+      const gline = await run(
+        `SELECT * FROM "ACADEMIA_PLUS_NEW"."RESOURCES" WHERE CLASS ='${userClass1[0]}'`
+      );
+      
   console.log(userClass1);
       console.log(gline.data);
   

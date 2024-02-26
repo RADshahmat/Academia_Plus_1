@@ -23,10 +23,6 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-
-
-
-
 router.get("/teachersdashboard", authenticateUser, (req, res) => {
   console.log(req.session.user);
   res.render("teacher/teachersdashboard", {
@@ -41,79 +37,9 @@ router.get("/courseoverview", authenticateUser, (req, res) => {
   });
 });
 
-router.get("/class1overview", authenticateUser, async (req, res) => {
-  const gline = await run(
-    'SELECT OVERVIEW FROM "ACADEMIA_PLUS_NEW"."COURSEOVERVIEW" WHERE CLASS = \'1\''
-  );
-  console.log(gline.data);
 
-  if (gline.success) {
-    try {
-      res.render("teacher/class1overview", {
-        gline: gline.data,
-        db_stat1: gline.success,
-        logged_in: req.session.user.isAuthenticated,
-      });
-    } catch {
-      res.render("teacher/class1overview", {
-        gline: gline.data,
-        db_stat1: gline.success,
-        logged_in: false,
-      });
-    }
-  } else {
-    try {
-      res.render("class1overview", {
-        gline: gline.data,
-        db_stat: gline.success,
-        logged_in: req.session.user.isAuthenticated,
-      });
-    } catch {
-      res.render("class1overview", {
-        gline: gline.data,
-        db_stat: gline.success,
-        logged_in: false,
-      });
-    }
-  }
-});
 
-router.get("/class2overview", authenticateUser, async (req, res) => {
-  const gline = await run(
-    'SELECT OVERVIEW FROM "ACADEMIA_PLUS_NEW"."COURSEOVERVIEW" WHERE CLASS = \'2\''
-  );
-  console.log(gline.data);
 
-  if (gline.success) {
-    try {
-      res.render("teacher/class2overview", {
-        gline: gline.data,
-        db_stat1: gline.success,
-        logged_in: req.session.user.isAuthenticated,
-      });
-    } catch {
-      res.render("teacher/class2overview", {
-        gline: gline.data,
-        db_stat1: gline.success,
-        logged_in: false,
-      });
-    }
-  } else {
-    try {
-      res.render("class2overview", {
-        gline: gline.data,
-        db_stat: gline.success,
-        logged_in: req.session.user.isAuthenticated,
-      });
-    } catch {
-      res.render("class2overview", {
-        gline: gline.data,
-        db_stat: gline.success,
-        logged_in: false,
-      });
-    }
-  }
-});
 
 router.get("/resource", authenticateUser, (req, res) => {
   console.log(req.session.user);
@@ -122,17 +48,7 @@ router.get("/resource", authenticateUser, (req, res) => {
   });
 });
 
-router.get("/class1resource?class=One", authenticateUser, async (req, res) => {
-  const cls = req.query.class;
-console.log(cls);
-  const data = await run(`select * from RESOURCES`);
-  console.log(data);
-  console.log(req.session.user);
-  res.render("teacher/class1resource", {
-    logged_in: req.session.user.isAuthenticated,
-    resources_info: data.data,
-  });
-});
+
 
 router.post("/add_resources", authenticateUser, upload.single("fileInput"), async (req, res) => {
   const data = req.body;
@@ -193,6 +109,15 @@ router.post("/add_assignments", authenticateUser, async (req, res) => {
     });
   console.log(feedback)
   res.redirect("class1assignment");
+});
+
+router.post("/courseoverview", authenticateUser, async (req, res) => {
+  const det=req.body.cls
+  console.log(det)
+  const result= await run(`select OVERVIEW from COURSEOVERVIEW where CLASS='${det}'`)
+  console.log(result)
+
+  res.json({ reply: true, data: result.data});
 });
 
 module.exports = router;
