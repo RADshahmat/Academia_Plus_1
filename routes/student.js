@@ -23,25 +23,7 @@ router.get("/studentsdashboard", function (req, res) {
     logged_in: req.session.user.isAuthenticated,
   });
 });
-router.get("/student_management", function (req, res) {
-  /* try {
-        if (
-          req.session.user.isAuthenticated ||
-          req.session.user.account_type == "Applicant"
-        ) {
-          res.redirect("log_in");
-          return;
-        }
-      } catch {
-        res.redirect("log_in");
-        return;
-      }
-    */
-  console.log(req.session.user);
-  res.render("admin_control/student_management", {
-    logged_in: req.session.user.isAuthenticated,
-  });
-});
+
 router.get("/loginadtc", function (req, res) {
   try {
     if (req.session.user.isAuthenticated) {
