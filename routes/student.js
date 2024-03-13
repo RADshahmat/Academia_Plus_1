@@ -100,13 +100,14 @@ router.get("/chatbot", function (req, res) {
 router.get("/libraryStudent", async function (req, res) {
    try {
         if (
-          req.session.user.isAuthenticated ||
-          req.session.user.account_type == "student"
+          req.session.user.isAuthenticated == false ||
+          req.session.user.account_type != "student"
         ) {
           res.redirect("log_in");
           return;
         }
-      } catch {
+      } 
+      catch(e) { console.log(e)
         res.redirect("log_in");
         return;
       }
@@ -289,4 +290,6 @@ const response = await run(`UPDATE SUB_ASSIGNMENTS SET TURNIN = :1 WHERE ASSIGNM
 });
 })
   
+
+
     module.exports = router;
