@@ -300,27 +300,25 @@ router.post("/edit_teacher_form", upload.single("teacher_image"), async function
   }
 });
 
-
-// Import necessary modules and define your router
-
-// Handle POST request to fetch students based on selected batch
-router.post('/fetch_students', async (req, res) => {
-  const selectedBatch = req.body.batch;
-
-  // Query the database to retrieve students for the selected batch
-  try {
-    // Your database query logic here to retrieve students based on the selected batch
-    // Example:
-    // const students = await Student.find({ batch: selectedBatch });
-    // Render the student list view with retrieved data
-    res.render('student_list', { students: students });
-  } catch (error) {
-    console.error('Error fetching students:', error);
-    res.status(500).send('Error fetching students');
-  }
+router.get("/student_management", function (req, res) {
+  /* try {
+        if (
+          req.session.user.isAuthenticated ||
+          req.session.user.account_type == "Applicant"
+        ) {
+          res.redirect("log_in");
+          return;
+        }
+      } catch {
+        res.redirect("log_in");
+        return;
+      }
+    */
+  console.log(req.session.user);
+  res.render("admin_control/student_management", {
+    logged_in: req.session.user.isAuthenticated,
+  });
 });
-
-
 //-----------------------------------------------
 
 

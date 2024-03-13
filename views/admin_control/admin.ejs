@@ -24,69 +24,96 @@
     
     <div class="dashboard_container">
 
-        <div class="card_contain" style="background-color: #158865;">
+        <div class="card_contain" id="studentCard"style="background-color: #158865;">
             <i class="fas fa-user fa-2x"></i> 
-            <h5>Student Management</h5>
-            <p>Total Students: 1005</p>
+            <a href="student_management" style="text-decoration: none;"><h5>Student Management</h5></a>
+            <p id="totalStudents1">Total Students: <span id="count1">0</span></p>
         </div>
         <div class="card_contain" style="background-color: #156588;">
             <i class="fas fa-chalkboard-teacher fa-2x"></i>
-            <h5>Teacher/Staff Management</h5>
-            <p>Total Teacher and Staff: 55</p>
+           <a href="teacher_management" style="text-decoration: none;"><h5>Teacher/Staff Management</h5></a>
+           <p id="totalStudents2">Total Teacher and Staff: <span id="count2">0</span></p>
+            
         </div>
         <div class="card_contain" style="background-color: #d65465;">
             <i class="fas fa-graduation-cap fa-2x"></i>
             <h5>Students Account</h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents3">Total Students: <span id="count3">0</span></p>
         </div>
         <div class="card_contain" style="background-color: #d68136" >
             <i class="fas fa-poll fa-2x"></i>
             <h5>Result Management</h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents4">Total Students: <span id="count4">0</span></p>
         </div>
         <div class="card_contain" style="background-color: #8454eb;">
             <i class="fas fa-money-check-alt fa-2x"></i>
             <h5>Accounts Management</h5>
-            <p>Total Students: 1005</p>
-        </div>
-        <div class="card_contain" style="background-color: #8dc24e;">
-            <i class="fas fa-box fa-2x"></i> 
-            <h5>Inventory Management</h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents5">Total Students: <span id="count5">0</span></p>
         </div>
         <div class="card_contain" style="background-color: #66b10b;">
             <i class="fas fa-book fa-2x"></i>
             <h5 ><a href="library_management" class="sidebar-link"style="color:white;text-decoration:none;">Library Management</a></h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents6">Total Students: <span id="count6">0</span></p>
         </div>
         <div class="card_contain" style="background-color: #b360a6" >
             <i class="fas fa-wrench fa-2x"></i>
             <h5>Website Maintenance</h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents7">Total Students: <span id="count7">0</span></p>
         </div>
         <div class="card_contain fa-2x" style="background-color: #19aff0;">
             <i class="fas fa-users"></i> 
             <h5>User Management</h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents1">Total Students: <span id="count8">0</span></p>
         </div>
         <div class="card_contain fa-2x" style="background-color: #a11a8b;">
             <i class="fas fa-cogs"></i>
             <h5>System Settings</h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents1">Total Students: <span id="count9">0</span></p>
         </div>
         <div class="card_contain fa-2x" style="background-color: #d1b044" >
             <i class="fas fa-sms"></i> 
             <h5><a href="sms" class="sidebar-link"style="color:white;text-decoration:none;">SMS Gateway</a></h5>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents1">Total Students: <span id="count10">0</span></p>
         </div>
         <div class="card_contain fa-2x" style="background-color: #c53612" >
             <i class="fas fa-file-signature"></i>
             <a href="online_admission_handler" style="text-decoration: none;"><h5>Online Admission</h5></a>
-            <p>Total Students: 1005</p>
+            <p id="totalStudents1">Total Students: <span id="count11">0</span></p>
         </div>
     </div>
 </div>
 <script src="js/admin_ham_responsive.js" defer></script>
+<script>
+   function countToTotal(cardId, totalStudents, intervalSpeed) {
+            const countSpan = document.getElementById(`count${cardId}`);
+            let count = 0;
+
+            const interval = setInterval(() => {
+                count++;
+                countSpan.textContent = count;
+
+                if (count === totalStudents) {
+                    clearInterval(interval); // Stop counting when reach the total
+                }
+            }, intervalSpeed); // Adjust the interval for speed
+        }
+
+        // Call the counting functions when the page is loaded
+        window.onload = function () {
+            countToTotal(1, 1005, 20); // For Card 1
+            countToTotal(2, 900, 20);  // For Card 2
+            countToTotal(3, 1005, 20);
+            countToTotal(4, 1005, 20);
+            countToTotal(5, 1005, 20);
+            countToTotal(6, 1005, 20);
+            countToTotal(7, 1005, 20);
+            countToTotal(8, 1005, 20);
+            countToTotal(9, 1005, 20);
+            countToTotal(10, 1005, 20);
+            countToTotal(11, 1005, 20);
+            // Add similar calls for other cards
+        };
+</script>
 
 </body>
 </html>
