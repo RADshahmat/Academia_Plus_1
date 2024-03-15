@@ -100,7 +100,14 @@ router.post("/delete_books", async (req, res) => {
   res.redirect("/book_management");
   console.log(filePath);
 });
+//------------------------------Student_management------------------
 
+router.get("/student_management", function (req, res) {
+  console.log(req.session.user);
+  res.render("admin_control/student_management", {
+    logged_in: req.session.user.isAuthenticated,
+  });
+});
 // -----------------------notice_control-----------------------
 router.post(
   "/add_notice",
