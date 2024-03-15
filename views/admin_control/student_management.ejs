@@ -73,14 +73,7 @@
                       </tr>
                   </thead>
                   <tbody id="studentTableBody">
-                    <% students.forEach(function(student) { %>
-                      <tr>
-                        <td><%= student.student_id %></td>
-                        <td><%= student.student_name %></td>
-                        <td><%= student.phone_no %></td>
-                        <!-- Add more columns as needed -->
-                      </tr>
-                    <% }); %>
+      
                     
                   </tbody>
               </table>
@@ -169,34 +162,52 @@
   
 
     <script src="js/admin_ham_responsive.js" defer></script>
-<!-- Add the following script after including jQuery -->
+
 
 <script>
-  $(document).ready(function() {
-    // Handle batch selection change event
-    $('#batchSelect').change(function() {
-      var selectedBatch = $(this).val();
-      if (selectedBatch) {
-        fetchStudents(selectedBatch);
-      }
-    });
-
-    // Function to fetch students based on the selected batch
-    function fetchStudents(selectedBatch) {
-      $.ajax({
-        url: '/fetch_students', // Endpoint to handle fetching students
-        method: 'POST',
-        data: { batch: selectedBatch }, // Send selected batch to backend
-        success: function(response) {
-          $('#studentTableBody').html(response); // Update student list with received data
-        },
-        error: function(xhr, status, error) {
-          console.error(error);
-          // Handle error if needed
-        }
-      });
+$(document).ready(function() {
+  $('#batchSelect').change(function() {
+    var selectedBatch = $(this).val();
+    if (selectedBatch) {
+      fetchStudents(selectedBatch);
     }
   });
+
+  function fetchStudents(selectedBatch) {
+    $.ajax({
+      url: '/fetch_students', // Route to fetch students from the backend
+      method: 'POST',
+      data: { batch: selectedBatch },
+      success: function(response) {
+        try {
+          renderStudentTable(response); // Pass the response directly to render function
+        } catch (error) {
+          console.error('Error rendering students table:', error);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error('Error fetching students:', error);
+      }
+    });
+  }
+function renderStudentTable(students) {
+  $('#studentTableBody').empty();
+  if (students.length > 0) {
+    var student = students[0];
+    var row = $('<tr>');
+    row.append($('<td>').text(student[0]));
+      row.append($('<td>').text(student[1] + ' ' + student[2])); 
+    row.append($('<td>').text(student[3]));
+    row.append($('<td>').html('<button class="btn btn-info btn-sm">View</button> <button class="btn btn-warning btn-sm">Edit</button> <button  class="btn btn-danger btn-sm">Delete</button>'));
+    $('#studentTableBody').append(row);
+  } else {
+    $('#studentTableBody').append($('<tr>').append($('<td>').attr('colspan', '4').text('No students found')));
+  }
+}
+
+});
+
+
 </script>
 
     

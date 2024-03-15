@@ -228,7 +228,7 @@
                             <div class="form-group">
                                 <label for="teacher-image">Teacher Image</label>
                                 <input type="file" class="form-control-file" id="teacher_image" name="teacher_image" required>
-                            </div>
+                            </div> 
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
@@ -242,9 +242,7 @@
     <script src="js/admin_ham_responsive.js" defer></script>
     <script>
         $(document).ready(function() {
-            // Handle click event on view teacher button
             $('.view-teacher').click(function() {
-                // Get the teacher's details from the button's data attributes
 
                 var teacherFirstName = $(this).data('teacher-firstname');
                 var teacherLastName = $(this).data('teacher-lastname');
@@ -264,8 +262,7 @@
                 $('#teacher_phone').val(teacherPhone);
                 $('#teacher_email').val(teacherEmail);
 
-    
-                // Show the modal window
+
                 $('#viewTeacherModal').modal('show');
             });
         });

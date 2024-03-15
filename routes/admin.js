@@ -301,25 +301,31 @@ router.post("/edit_teacher_form", upload.single("teacher_image"), async function
 });
 
 router.get("/student_management", function (req, res) {
-  /* try {
-        if (
-          req.session.user.isAuthenticated ||
-          req.session.user.account_type == "Applicant"
-        ) {
-          res.redirect("log_in");
-          return;
-        }
-      } catch {
-        res.redirect("log_in");
-        return;
-      }
-    */
   console.log(req.session.user);
   res.render("admin_control/student_management", {
     logged_in: req.session.user.isAuthenticated,
   });
 });
 //-----------------------------------------------
+router.post('/fetch_students', async (req, res) => {
+  const selectedBatch = req.body.batch;
+  if (!selectedBatch) {
+    return res.status(400).json({ error: 'No batch selected' });
+  }
+
+  try {
+    const result = await run(
+      `SELECT * FROM STUDENTS WHERE CLASS = :batch`, // Select only necessary columns
+      { batch: selectedBatch }
+     
+    );
+    console.log(result);
+    res.json(result.data); // Send only the data array, assuming the result object contains the data array
+  } catch (error) {
+    console.error('Error fetching students:', error);
+    res.status(500).json({ error: 'Error fetching students' });
+  }
+});
 
 
 module.exports = router;
