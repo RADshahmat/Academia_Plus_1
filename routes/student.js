@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const fs = require('fs');
 const upload=require("../multer/multer")
 const { run } = require("../db/db");
 router.get("/studentsdashboard", function (req, res) {
@@ -263,6 +264,31 @@ console.log(userClass1);
           });
         
     });
+    router.post("/download_books", async function(req, res) {
+      try {
+          
+          const bookName = req.body.book_name;
+          
+          const filePath = path.join(__dirname, '..', 'uploadimage', bookName);
+
+          console.log(filePath)
+  
+          if (fs.existsSync(filePath)) {
+  
+              res.setHeader('Content-disposition', `attachment; filename=${bookName}`);
+              res.setHeader('Content-type', 'application/pdf'); 
+  
+              const fileStream = fs.createReadStream(filePath);
+
+              fileStream.pipe(res);
+          } else {
+              res.status(404).send('File not found');
+          }
+      } catch (error) {
+          console.error('Error downloading book:', error);
+          res.status(500).send('Internal Server Error');
+      }
+  });
     router.post("/submit_assignment", upload.single("fileUpload"), async function (req, res) {
       const data = req.body;
       const image_name = req.file.filename;

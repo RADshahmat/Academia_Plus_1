@@ -18,7 +18,7 @@ router.get("/apply", function (req, res) {
   }
 });
 
-router.get("/applicant_dashboard", function (req, res) {
+router.get("/applicant_dashboard",async function (req, res) {
   try {
     if (
       !req.session.user.isAuthenticated ||
@@ -32,9 +32,11 @@ router.get("/applicant_dashboard", function (req, res) {
     return;
   }
 
-  console.log(req.session.user);
+
+  const data=await run(`select * from applicants where APPLICANT_ID='${req.session.user.id}'`)
+      console.log(data, req.session.user.id)
   res.render("admission/applicant_dashboard", {
-    logged_in: req.session.user.isAuthenticated,
+    logged_in: req.session.user.isAuthenticated,data:data.data
   });
 });
 
