@@ -421,7 +421,11 @@ let uniqueNumbersArray = [0, 0];
 
 app.get("/forgetpass", async function (req, res) {
   const pnum=req.query.phonenum;
-  const email=await run(`select email from applicants where MOBILE_NO=${pnum}`)
+  const email=await run(`select email from applicants where MOBILE_NO='${pnum}'
+  UNION
+        SELECT teacheremail FROM TEACHERS WHERE TEACHERPHONENUMBER = '${pnum}'
+        UNION
+        SELECT email FROM STUDENTS WHERE PHONE_NO = '${pnum}'`)
   console.log(email)
   res.render("forgetpass",{email : email.data});
 });
@@ -439,7 +443,11 @@ app.post("/otpverify", async function (req, res) {
   });
   const flag=det.data[0];
   if(flag.length>0){
-    const password=await run(`SELECT APPLICANT_ID FROM APPLICANTS WHERE EMAIL = :email`,{
+    const password=await run(`SELECT APPLICANT_ID FROM APPLICANTS WHERE EMAIL = :email
+    UNION
+        SELECT TEACHERID FROM TEACHERS WHERE EMAIL = :email
+        UNION
+        SELECT ID FROM STUDENTS WHERE EMAIL = :email`,{
       email:email
     })
     console.log(password)

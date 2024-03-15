@@ -202,25 +202,25 @@ router.post("/courseoverview", authenticateUser, async (req, res) => {
 
   res.json({ reply: true, data: result.data});
 });
-router.get("/libraryStudent", async function (req, res) {
+router.get("/libraryTeacher", async function (req, res) {
   try {
-       if (
-         req.session.user.isAuthenticated == false ||
-         req.session.user.account_type != "student"
-       ) {
-         res.redirect("log_in");
-         return;
-       }
-     } 
-     catch(e) { console.log(e)
-       res.redirect("log_in");
-       return;
-     }
+    if (
+      req.session.user.isAuthenticated == false ||
+      req.session.user.account_type != "teacher" 
+    ) {
+      res.redirect("log_in");
+      return;
+    }
+  } 
+  catch(e) { console.log(e)
+    res.redirect("log_in");
+    return;
+  }
    
      const data= await run(`select * from BOOKS`);
      console.log(data);
      console.log(req.session.user);
-     res.render("students/libraryStudent", {
+     res.render("teacher/libraryTeacher", {
        logged_in: req.session.user.isAuthenticated,books_info:data.data
      });
    });

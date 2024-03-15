@@ -49,7 +49,12 @@ router.get("/notice_control", async function (req, res) {
 router.get("/library_card", async function (req, res) {
   res.render("admin_control/library_card");
 });
+router.get("/calendar_control", async function (req, res) {
+  const notices = await run(`select NOTICE_ID,NOTICE_FILE,NOTICE_TITLE,TO_CHAR(PUBLICATION_DATE, 'YYYY-MM-DD Day HH24:MI:SS') AS publication_date from NOTICES`);
+  console.log(notices);
 
+  res.render("admin_control/notice_control", { notices_info: notices.data });
+});
 router.post(
   "/add_books",
   upload.single("fileInput"),
