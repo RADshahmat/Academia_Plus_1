@@ -271,7 +271,7 @@ transition: all .3s;
     position: relative;
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 20px 0 0 0;
 }
 
@@ -687,4 +687,107 @@ top:7px;
     border-radius: 4px;
     cursor: pointer;
     outline: none;
+}
+#bekash {
+    margin-top: 3rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+}
+.knowIteam {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+#videoGallarySection {
+    background-image: url('../images/VideoGallaryBg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 50px 0;
+    color: #ddd;
+}
+.applyButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+}
+.gallary {
+    width: 25%; /* Set image width to 100% of its container */
+    height: auto; /* Maintain aspect ratio */
+}
+.apps-download p {
+    line-height: 32px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+.apps-download h3 {
+    padding-top: 65px;
+    color: #5358b2;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    padding-bottom: 15px;
+}
+
+/* Style for the section */
+.rs-counter {
+    background-color: #f2f2f2; /* Adjust background color as needed */
+}
+
+/* Style for the title */
+.counter-title {
+    color: #333; /* Adjust text color as needed */
+    font-size: 24px; /* Adjust font size as needed */
+    margin-bottom: 20px; /* Adjust margin bottom as needed */
+}
+
+/* Style for the paragraph */
+.rs-counter p {
+    color: #666; /* Adjust text color as needed */
+    font-size: 16px; /* Adjust font size as needed */
+   
+}
+
+/* Style for the counter number */
+.counter-number {
+    color:black; /* Adjust text color as needed */
+    font-size: 36px; /* Adjust font size as needed */
+    margin-bottom: 5px; /* Adjust margin bottom as needed */
+}
+
+/* Style for the counter description */
+.counter-desc {
+    color: black; /* Adjust text color as needed */
+    font-size: 18px; /* Adjust font size as needed */
+}
+
+/* Style for the image */
+.counter-img img {
+    width: 100%; /* Adjust image width as needed */
+    border-radius: 5px; /* Add border radius as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect as needed */
+}
+
+/* Style for the counter list */
+.rs-counter-list {
+    margin-bottom: 20px; /* Adjust margin bottom as needed */
+    color: #333;
+}
+
+/* Add any additional styles as needed */
+.counter-box {
+    text-align: center;
+    width: 6rem;
+    background-color: white; 
+    border: 2px solid rgb(59, 56, 56); 
+    border-radius: 10px; 
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
