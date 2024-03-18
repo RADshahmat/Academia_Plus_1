@@ -317,7 +317,36 @@ const response = await run(`UPDATE SUB_ASSIGNMENTS SET TURNIN = :1 WHERE ASSIGNM
   3: req.session.user.id,
 });
 })
-  
+router.get("/calendar", async function (req, res) {
+  const calendar = await run(`select ID,CALENDAR_FILE,CALENDAR_TITTLE,PUBLICATION_DATE from CALENDAR`);
+  console.log(calendar);
 
+  res.render("students/calendar", { calendar_info: calendar.data });
+});
+router.post("/download_calendar", async function(req, res) {
+  try {
+      
+      const bookName = req.body.notice_file_name;
+      
+      const filePath = path.join(__dirname, '..', 'uploadimage', bookName);
+
+      console.log(filePath)
+
+      if (fs.existsSync(filePath)) {
+
+          res.setHeader('Content-disposition', `attachment; filename=${bookName}`);
+          res.setHeader('Content-type', 'application/pdf'); 
+
+          const fileStream = fs.createReadStream(filePath);
+
+          fileStream.pipe(res);
+      } else {
+          res.status(404).send('File not found');
+      }
+  } catch (error) {
+      console.error('Error downloading book:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
 
     module.exports = router;

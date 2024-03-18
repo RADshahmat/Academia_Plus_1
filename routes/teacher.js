@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { run } = require("../db/db");
 const upload = require("../multer/multer");
+const path = require('path');
+const fs = require('fs');
 
 
 
@@ -211,28 +213,85 @@ router.post("/courseoverview", authenticateUser, async (req, res) => {
 
   res.json({ reply: true, data: result.data});
 });
-router.get("/libraryStudent", async function (req, res) {
+router.get("/libraryTeacher", async function (req, res) {
   try {
-       if (
-         req.session.user.isAuthenticated == false ||
-         req.session.user.account_type != "student"
-       ) {
-         res.redirect("log_in");
-         return;
-       }
-     } 
-     catch(e) { console.log(e)
-       res.redirect("log_in");
-       return;
-     }
+    if (
+      req.session.user.isAuthenticated == false ||
+      req.session.user.account_type != "teacher" 
+    ) {
+      res.redirect("log_in");
+      return;
+    }
+  } 
+  catch(e) { console.log(e)
+    res.redirect("log_in");
+    return;
+  }
    
      const data= await run(`select * from BOOKS`);
      console.log(data);
      console.log(req.session.user);
-     res.render("students/libraryStudent", {
+     res.render("teacher/libraryTeacher", {
        logged_in: req.session.user.isAuthenticated,books_info:data.data
      });
    });
+   router.post("/download_books", async function(req, res) {
+    try {
+        
+        const bookName = req.body.book_name;
+        
+        const filePath = path.join(__dirname, '..', 'uploadimage', bookName);
+
+        console.log(filePath)
+
+        if (fs.existsSync(filePath)) {
+
+            res.setHeader('Content-disposition', `attachment; filename=${bookName}`);
+            res.setHeader('Content-type', 'application/pdf'); 
+
+            const fileStream = fs.createReadStream(filePath);
+
+            fileStream.pipe(res);
+        } else {
+            res.status(404).send('File not found');
+        }
+    } catch (error) {
+        console.error('Error downloading book:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+router.post("/download_calendar", async function(req, res) {
+  try {
+      
+      const bookName = req.body.notice_file_name;
+      
+      const filePath = path.join(__dirname, '..', 'uploadimage', bookName);
+
+      console.log(filePath)
+
+      if (fs.existsSync(filePath)) {
+
+          res.setHeader('Content-disposition', `attachment; filename=${bookName}`);
+          res.setHeader('Content-type', 'application/pdf'); 
+
+          const fileStream = fs.createReadStream(filePath);
+
+          fileStream.pipe(res);
+      } else {
+          res.status(404).send('File not found');
+      }
+  } catch (error) {
+      console.error('Error downloading book:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+router.get("/calendarTeacher", async function (req, res) {
+  const calendar = await run(`select ID,CALENDAR_FILE,CALENDAR_TITTLE,PUBLICATION_DATE from CALENDAR`);
+  console.log(calendar);
+
+  res.render("teacher/calendarTeacher", { calendar_info: calendar.data });
+});
+   
 
 
    router.post("/view_assignment_details", authenticateUser, async (req, res) => {
