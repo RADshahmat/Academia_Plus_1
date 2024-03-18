@@ -163,6 +163,15 @@ router.get("/classassignment", authenticateUser, async (req, res) => {
     resources_info: data.data,
   });
 });
+router.get("/show_assignments", authenticateUser, async (req, res) => {
+  const data = await run(`select * from ASSIGNMENTS where TEACHER_ID='${req.session.user.id}'`);
+  console.log(data);
+  console.log(req.session.user);
+  res.render("teacher/show_assignments", {
+    logged_in: req.session.user.isAuthenticated,
+    resources_info: data.data,
+  });
+});
 
 router.get("/assignment", authenticateUser, async (req, res) => {
   const data = await run(`select * from RESOURCES`);
@@ -179,7 +188,7 @@ router.post("/add_assignments", authenticateUser, async (req, res) => {
   console.log(data)
   const feedback = await run(`
     INSERT INTO ASSIGNMENTS (
-      COURSE_TITLE, ASSIGNMENT_TITLE, INSTRUCTIONS, SUB_DATE, CLASS, ASSIGNMENT_ID
+      COURSE_TITLE, ASSIGNMENT_TITLE, INSTRUCTIONS, SUB_DATE, CLASS, TEACHER_ID
     ) VALUES (
       :book_name, :author, :type, TO_DATE(:book_file, 'YYYY-MM-DD'), :class, :id
     )`,
@@ -189,10 +198,10 @@ router.post("/add_assignments", authenticateUser, async (req, res) => {
       type: data.instructions,
       book_file: data.submissionDate,
       class: data.class,
-      id: data.assignmentID,
+      id: req.session.user.id,
     });
   console.log(feedback)
-  res.redirect("class1assignment");
+  res.redirect("classassignment");
 });
 router.post("/courseoverview", authenticateUser, async (req, res) => {
   const det=req.body.cls
@@ -224,6 +233,19 @@ router.get("/libraryStudent", async function (req, res) {
        logged_in: req.session.user.isAuthenticated,books_info:data.data
      });
    });
+
+
+   router.post("/view_assignment_details", authenticateUser, async (req, res) => {
+    const det=req.body.a_id;
+    console.log(det)
+    const result= await run(`select * from assignments where assignment_id='${det}'`)
+    const students=await run(`select ID,uploaded_file from sub_assignments where assignment_id='${det}' and turnin='1'`)
+    const students1=await run(`select ID,uploaded_file from sub_assignments where assignment_id='${det}' and turnin='0'`)
+    console.log(result)
+    console.log(students)
+  
+    res.json({ reply: true, data1: result.data, data2:students.data, data3:students1.data});
+  });
 module.exports = router;
 
 

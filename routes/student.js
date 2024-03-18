@@ -101,8 +101,9 @@ router.get("/chatbot", function (req, res) {
 router.get("/libraryStudent", async function (req, res) {
    try {
         if (
-          req.session.user.isAuthenticated == false ||
-          req.session.user.account_type != "student"
+          req.session.user.isAuthenticated == false &&
+          (req.session.user.account_type != "student" ||
+          req.session.user.account_type != "teacher")
         ) {
           res.redirect("log_in");
           return;
@@ -242,7 +243,7 @@ console.log(userClass1);
 
     const userClass = await run(`select CLASS from STUDENTS where id= '${userId}'`);
       const gline = await run(
-        `SELECT * FROM "ACADEMIA_PLUS_NEW"."ASSIGNMENTS" WHERE CLASS = '${userClass.data[0]}'`
+        `SELECT * FROM "ACADEMIA_PLUS_NEW"."ASSIGNMENTS" WHERE CLASS = 'class1'`
       );
       
        try{
@@ -292,6 +293,7 @@ console.log(userClass1);
     router.post("/submit_assignment", upload.single("fileUpload"), async function (req, res) {
       const data = req.body;
       const image_name = req.file.filename;
+      console.log(image_name)
     const student_id =req.session.user.id;
     console.log(student_id)
     const class_stu=await run(`select CLASS from STUDENTS where ID=:student`,{student:student_id})
