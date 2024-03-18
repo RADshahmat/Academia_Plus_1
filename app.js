@@ -94,7 +94,7 @@ app.get("/index", async function (req, res) {
   const notices = await run(`select TO_CHAR(PUBLICATION_DATE, 'DD-MM-YYYY') AS PUBLICATION_DATE,NOTICE_TITLE from NOTICES`);
   console.log(notices);
 
-  console.log(req.session.user.isAuthenticated,req.session.user.account_type)
+  
 
   try {
     if (req.session.user.isAuthenticated && req.session.user.account_type=='student') {

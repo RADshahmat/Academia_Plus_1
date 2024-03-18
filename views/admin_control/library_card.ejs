@@ -42,7 +42,10 @@
                 <label for="session">Session:</label>
                 <input type="text" class="form-control" id="session" placeholder="Enter session" required>
             </div>
-
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" class="form-control-file" id="image" accept="image/*">
+            </div>
             <button type="button" class="btn btn-primary" onclick="generateCard()">Generate Card</button>
         </form>
 
@@ -53,51 +56,144 @@
 </div>
 <script>
     var cardGenerated = false;
+        var schoolLogo = new Image(); // Create an image object for the school logo
+        schoolLogo.src = "https://www.pinterest.com/pin/29-best-school-logo-designs-ideas--534591418260693929/";
 
     function generateCard() {
         var name = document.getElementById('name').value;
         var id = document.getElementById('id').value;
         var className = document.getElementById('class').value;
         var session = document.getElementById('session').value;
-
+        var image = document.getElementById('image').files[0];
         // Check if any of the required fields are empty
-        if (!name || !id || !className || !session) {
+        if (!name || !id || !className || !session||!image) {
             alert('Please fill in all required fields before generating the card.');
             return;
         }
 
         var cardContainer = document.getElementById('cardContainer');
-        cardContainer.innerHTML = '';
+            cardContainer.innerHTML = '';
 
-        var cardHTML = `
-            <div class="card">
-                <h4>Name: ${name}</h4>
-                <p>ID: ${id}</p>
-                <p>Class: ${className}</p>
-                <p>Session: ${session}</p>
-            </div>
-        `;
+            // Function to resize the uploaded image to passport size
+            function resizeImage(image, callback) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = new Image();
+                    img.onload = function() {
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        var maxSize = 128; // Set the desired passport size (width and height in pixels)
 
-        cardContainer.innerHTML = cardHTML;
-        cardGenerated = true;
-    }
+                        // Maintain aspect ratio while resizing
+                        var width = img.width;
+                        var height = img.height;
+                        if (width > height) {
+                            height = Math.round(height * maxSize / width);
+                            width = maxSize;
+                        } else {
+                            width = Math.round(width * maxSize / height);
+                            height = maxSize;
+                        }
 
-    function printCard() {
-        var cardContainer = document.getElementById('cardContainer');
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
 
-        // Check if there is content in the card container
-        if (!cardGenerated || !cardContainer.innerHTML.trim()) {
-            alert('Please generate a card before trying to print.');
-            return;
+                        var dataURL = canvas.toDataURL('image/jpeg'); // Change format if needed
+                        callback(dataURL);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(image);
+            }
+
+            if (image) {
+  resizeImage(image, function(dataURL) {
+    var cardHTML = `
+      <div class="card" style="display:flex;">
+        <img src="${dataURL}" alt="Resized Image" class="card-img-right" style="width: 100px; height: 100px; ">
+        <div class="card-body" style="margin-left:4rem;">
+          <h4>Name: ${name}</h4>
+          <p>ID: ${id}</p>
+          <p>Class: ${className}</p>
+          <p>Session: ${session}</p>
+          
+        </div>
+        
+        <img src="${schoolLogo.src}" alt="School Logo" class="card-img-overlay" style="opacity: 0.2; position: absolute; top: 10px; right: 10px;">
+      </div>
+      <table>
+    <thead> <tr>
+        <th>No</th>
+        <th>Book Name</th>
+        <th>Issue Date</th>
+        <th>Last Date</th>
+      </tr>
+    </thead>
+    <tbody> <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+    `;
+    cardContainer.innerHTML = cardHTML;
+    cardGenerated = true;
+  });
+} else {
+                // Handle case where no image is uploaded
+                var cardHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Name: ${name}</h4>
+                            <p>ID: ${id}</p>
+                            <p>Class: ${className}</p>
+                            <p>Session: <span class="math-inline">\{session\}</p\>
+</div\>
+<img src\="" alt\="No Image" class\="card\-img\-right" style\="width\: 100px; height\: 100px;"\> <img src\="</span>{schoolLogo.src}" alt="School Logo" class="card-img-overlay" style="opacity: 0.2; position: absolute; top: 10px; right: 10px;">  </div>
+</div>
+                `;
+                cardContainer.innerHTML = cardHTML;
+                cardGenerated = true;
+            }
         }
 
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write('<html><head><title>Library Card</title></head><body>');
-        printWindow.document.write(cardContainer.innerHTML);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        printWindow.print();
-    }
+        function printCard() {
+            var cardContainer = document.getElementById('cardContainer');
+
+            // Check if there is content in the card container
+            if (!cardGenerated || !cardContainer.innerHTML.trim()) {
+                alert('Please generate a card before trying to print.');
+                return;
+            }
+
+            var printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Library Card</title></head><body>');
+            printWindow.document.write(cardContainer.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }            
 </script>
 
 

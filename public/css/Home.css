@@ -210,6 +210,7 @@ transition: all .3s;
     margin-top: 30px;
     overflow: hidden;
     display: flex;
+    border: 1px solid #ccc;
     justify-content: space-around;
     padding: 30px 20px 20px 20px;
 }
@@ -588,6 +589,7 @@ transition: all .3s;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
+    border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 0.3s;
 }
@@ -790,4 +792,56 @@ top:7px;
     border-radius: 10px; 
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.gbMain {
+    width: 450px;
+    margin-top: 2rem;
+    margin-left: 6rem;
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    margin-bottom: 10px; 
+    font-size: 14px;
+  }
+  
+  .gbMain:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase box shadow on hover */
+  }
+  .marquee {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    animation: marquee-animation 20s linear infinite;
+    
+}
+
+.marquee li {
+    padding: 0 20px; /* Adjust as needed */
+}
+#clubs_ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: space-evenly;
+}
+
+#clubs_ul li {
+    margin: 20px; /* Increase the spacing between clubs */
+    text-align: center;
+}
+
+.club-icon {
+    font-size: 30px; /* Increase the icon size */
+    display: block;
+    margin-bottom: 10px; /* Add space below the icon */
+}
+
+@keyframes marquee-animation {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
