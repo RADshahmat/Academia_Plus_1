@@ -6,8 +6,8 @@ const upload = require("../multer/multer");
 
 router.get("/log_in", async function (req, res) {
   try{
-    if(req.session.user.isAuthenticated && req.session.user.account_type=='Applicant'){
-        res.redirect('applicant_dashboard');
+    if(req.session.user.isAuthenticated && req.session.user.account_type=='student'){
+        res.redirect('studentsdashboard');
         return;
   
     }else if(req.session.user.isAuthenticated && req.session.user.account_type=='Admin'){
@@ -18,8 +18,8 @@ router.get("/log_in", async function (req, res) {
       res.redirect('teachersdashboard');
       return;
     }
-    else if(req.session.user.isAuthenticated && req.session.user.account_type=='student'){
-      res.redirect('studentsdashboard');
+    else if(req.session.user.isAuthenticated && req.session.user.account_type=='Applicant'){
+      res.redirect('applicant_dashboard');
       return;
     }else{
       res.render("log_in");

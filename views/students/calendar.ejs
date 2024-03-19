@@ -19,15 +19,13 @@
     </head>
 <body>
     <%- include('../includes/cp_header.ejs') %>
-    <%- include('../includes/admin_sidebar.ejs') %>
+    <%- include('../includes/student_sidebar.ejs') %>
 
         <div class="content" id="content-container">
             <div class="row mt-3">
                 <div class="col ml-5 text-center">
                     <img src="images/calendar.jpg" alt="Girl in a jacket" width="1000" height="200" style="margin-left: -2.1rem;">
-                    <br><br><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoticeModal">
-                        Add Academic Calender
-                    </button>
+
                 </div>
             </div>
 
@@ -53,10 +51,10 @@
                                         
                                         <% } %>
                                         <td>
-                                            <form action="/delete_calendar" method="POST">
-                                            <input type="hidden" name="notice_id" value="<%= calendar_info[index][0] %>">
-                                              <input type="hidden" name="notice_file_name" value="<%= calendar_info[index][1] %>">
-                                              <button type="submit" class="btn btn-outline-success">Delete</button>
+                                            <form action="/download_calendar" method="POST">
+                                                <input type="hidden" name="notice_file_name" value="<%= calendar_info[index][1] %>">
+                                                <button type="submit" class="btn btn-outline-success">Download</button>
+                                              </form>
                                             </form>
                                         </td>
                                     </tr>
@@ -66,42 +64,6 @@
                         </table>
                     </div>
         </div>
-        
-            <!-- Add Notice Modal -->
-            <div class="modal fade" id="addNoticeModal" tabindex="-1" role="dialog" aria-labelledby="addNoticeModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addNoticeModalLabel">Add Calendar</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form  method="POST" id="add_calendar" action="/add_calendar" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label for="notice-title">Calendar Id</label>
-                                    <input type="text" class="form-control" id="notice_ID" name="notice_ID" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="notice-title">Calendar Title</label>
-                                    <input type="text" class="form-control" id="notice_title" name="notice_title" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="notice-title">Date</label>
-                                    <input type="text" class="form-control" id="pub_date" name="pub_date" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="noticeFile">File</label>
-                                    <input type="file" class="form-control-file" id="noticefile" name="noticeFile">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         
 

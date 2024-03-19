@@ -1,7 +1,7 @@
 const submit_button = document.querySelectorAll('.submit_assignment');
 const submit_form = document.querySelectorAll('.assignment_submit');
 
-for (let i = 0; i < submit_button.length; i++) {
+for (let i = 0; i < submit_form.length; i++) {
     submit_button[i].addEventListener('click', (event) => submit(event, i));
 }
 

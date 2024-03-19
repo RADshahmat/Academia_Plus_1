@@ -50,10 +50,10 @@ router.get("/library_card", async function (req, res) {
   res.render("admin_control/library_card");
 });
 router.get("/calendar_control", async function (req, res) {
-  const notices = await run(`select NOTICE_ID,NOTICE_FILE,NOTICE_TITLE,TO_CHAR(PUBLICATION_DATE, 'YYYY-MM-DD Day HH24:MI:SS') AS publication_date from NOTICES`);
-  console.log(notices);
+  const calendar = await run(`select ID,CALENDAR_FILE,CALENDAR_TITTLE,PUBLICATION_DATE from CALENDAR`);
+  console.log(calendar);
 
-  res.render("admin_control/notice_control", { notices_info: notices.data });
+  res.render("admin_control/calendar_control", { calendar_info: calendar.data });
 });
 router.post(
   "/add_books",
@@ -101,8 +101,20 @@ router.post("/delete_books", async (req, res) => {
   console.log(filePath);
 });
 //------------------------------Student_management------------------
-
 router.get("/student_management", function (req, res) {
+   try {
+        if (
+          req.session.user.isAuthenticated ||
+          req.session.user.account_type == "admin"
+        ) {
+          res.redirect("log_in");
+          return;
+        }
+      } catch {
+        res.redirect("log_in");
+        return;
+      }
+  
   console.log(req.session.user);
   res.render("admin_control/student_management", {
     logged_in: req.session.user.isAuthenticated,
@@ -159,6 +171,31 @@ router.post("/result_start", async (req, res) => {
   const result = await run(`UPDATE RESULTSTATUS
   SET result_start = :resultStart`, { resultStart: data.result_start })
 });
+router.post(
+  "/add_calendar",
+  upload.single("noticeFile"),
+  async function (req, res) {
+    const data = req.body;
+    const file_name = req.file.filename;
+    console.log(data, file_name);
+    const feedback = await run(
+      `
+      INSERT INTO CALENDAR (
+       ID ,CALENDAR_FILE,CALENDAR_TITTLE,PUBLICATION_DATE
+      ) VALUES (
+       :notice_ID, :file_name, :notice_title,:pub_date
+      )`,
+      {
+        notice_ID: data.notice_ID,
+        file_name: file_name,
+        notice_title: data.notice_title,
+        pub_date: data.pub_date
+      }
+    );
+    
+    res.redirect("calendar_control");
+  }
+);
 //-----------------------------------------------
 
 
@@ -305,6 +342,7 @@ router.post("/edit_teacher_form", upload.single("teacher_image"), async function
   }
 });
 
+<<<<<<< HEAD
 router.get("/student_management", function (req, res) {
   console.log(req.session.user);
   res.render("admin_control/student_management", {
@@ -478,6 +516,10 @@ router.post("/delete_student", async function (req, res) {
   }
 });
 
+=======
+
+//-----------------------------------------------
+>>>>>>> d1515310f5d61b5174346574dbc83a54e75877ab
 
 
 module.exports = router;
