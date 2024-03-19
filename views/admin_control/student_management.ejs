@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>School/College Management system</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School/College Management system</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-            crossorigin="anonymous"></script> 
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
-        
-        <link rel="stylesheet" href="css/admin.css">
-        <script src="js/admin.js" defer></script>
-    </head>
+            crossorigin="anonymous"></script>
+    <script src="js/admin.js" defer></script>
+    <style>
+              .student_image{
+            height: 70px;
+            width: 70px;
+        }
+    </style>
+</head>
 <body>
     <%- include('../includes/cp_header.ejs') %>
     <%- include('../includes/admin_sidebar.ejs') %>
@@ -67,8 +69,8 @@
                   <thead>
                       <tr>
                           <th>Student ID</th>
+                          <th>Photo</th>
                           <th>Student Name</th>
-                          <th>Phone No</th>
                           <th>Actions</th>
                       </tr>
                   </thead>
@@ -85,7 +87,6 @@
   
     <!------------add student---------------------------->
 
-    <!-- Add Student Modal -->
 <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -96,7 +97,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" id="add_student_form" action="/add_student" enctype="multipart/form-data">
+          <form  id="add_student_form" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="id">ID No.</label>
+              <input type="text" class="form-control" id="id" name="id" required>
+            </div>
             <div class="form-group">
               <label for="student_name1">First Name</label>
               <input type="text" class="form-control" id="student_name1" name="student_name1" required>
@@ -131,7 +136,7 @@
             </div>
             <div class="form-group">
               <label for="class">Class</label>
-              <input type="text" class="form-control" id="class" name="class" required>
+              <input type="text" class="form-control" id="studentClass" name="studentClass" required>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
@@ -153,13 +158,204 @@
                 <label for="image">Image</label>
                 <input type="file" class="form-control-file" id="image" name="image" required>
               </div>
-            <button type="submit" class="btn btn-primary">Add Student</button>
+            <button type="submit" id="add_student_save" class="btn btn-primary">Add Student</button>
           </form>
         </div>
       </div>
     </div>
   </div>
+
   
+  <!----------------------view student-------------------------------->
+
+<div class="modal fade" id="viewStudentModal" tabindex="-1" role="dialog" aria-labelledby="viewStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="viewStudentModalLabel">Student Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="student-id">ID</label>
+                  <input type="text" class="form-control" id="student_id" name="student_id" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-name1">First Name</label>
+                  <input type="text" class="form-control" id="student_name1" name="student_name1" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-name2">Last Name</label>
+                  <input type="text" class="form-control" id="student_name2" name="student_name2" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-phone">Phone Number</label>
+                  <input type="text" class="form-control" id="phone_no" name="phone_no" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-father">Father's Name</label>
+                  <input type="text" class="form-control" id="father_name" name="father_name" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-mother">Mother's Name</label>
+                  <input type="text" class="form-control" id="mother_name" name="mother_name" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-present-address">Present Address</label>
+                  <input type="text" class="form-control" id="present_address" name="present_address" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-permanent-address">Permanent Address</label>
+                  <input type="text" class="form-control" id="permanent_address" name="permanent_address" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-dob">Date of Birth</label>
+                  <input type="text" class="form-control" id="dob" name="dob" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-class">Class</label>
+                  <input type="text" class="form-control" id="class" name="class" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-city">City</label>
+                  <input type="text" class="form-control" id="city" name="city" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-state">State</label>
+                  <input type="text" class="form-control" id="state" name="state" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="student-zipcode">Zipcode</label>
+                  <input type="text" class="form-control" id="zipcode" name="zipcode" readonly>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!--------------edit student------------------------>
+
+<!-- Edit Student Modal -->
+<div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editStudentModalLabel">Edit Student Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="editStudentForm">
+                  <input type="hidden" id="edit_student_id">
+                  <div class="form-group">
+                      <label for="edit_student_name1">First Name</label>
+                      <input type="text" class="form-control" id="edit_student_name1" name="edit_student_name1">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_name2">Last Name</label>
+                      <input type="text" class="form-control" id="edit_student_name2" name="edit_student_name2">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_phone">Phone Number</label>
+                      <input type="text" class="form-control" id="edit_student_phone" name="edit_student_phone">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_father">Father's Name</label>
+                      <input type="text" class="form-control" id="edit_student_father" name="edit_student_father">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_mother">Mother's Name</label>
+                      <input type="text" class="form-control" id="edit_student_mother" name="edit_student_mother">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_present_address">Present Address</label>
+                      <input type="text" class="form-control" id="edit_student_present_address" name="edit_student_present_address">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_permanent_address">Permanent Address</label>
+                      <input type="text" class="form-control" id="edit_student_permanent_address" name="edit_student_permanent_address">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_dob">Date of Birth</label>
+                      <input type="date" class="form-control" id="edit_student_dob" name="edit_student_dob">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_class">Class</label>
+                      <select class="form-control" id="edit_student_class" name="edit_student_class" required>
+                        <option selected disabled>Select Class</option>
+                        <option value="one">One</option>
+                        <option value="two">Two</option>
+                        <option value="three">Three</option>
+                        <option value="four">Four</option>
+                        <option value="five">Five</option>
+                        <option value="six">Six</option>
+                        <option value="seven">Seven</option>
+                        <option value="eight">Eight</option>
+                        <option value="nine">Nine</option>
+                        <option value="ten">Ten</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_email">Email</label>
+                      <input type="email" class="form-control" id="edit_student_email" name="edit_student_email">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_city">City</label>
+                      <input type="text" class="form-control" id="edit_student_city" name="edit_student_city">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_state">State</label>
+                      <input type="text" class="form-control" id="edit_student_state" name="edit_student_state">
+                  </div>
+                  <div class="form-group">
+                      <label for="edit_student_zipcode">Zipcode</label>
+                      <input type="text" class="form-control" id="edit_student_zipcode" name="edit_student_zipcode">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit_student_image">Student Image</label>
+                    <input type="file" class="form-control-file" id="edit_student_image" name="edit_student_image" >
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="saveEditStudent">Save Changes</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<!-----------success modal------------->
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Success</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              Student added successfully!
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
 
     <script src="js/admin_ham_responsive.js" defer></script>
 
@@ -175,12 +371,12 @@ $(document).ready(function() {
 
   function fetchStudents(selectedBatch) {
     $.ajax({
-      url: '/fetch_students', // Route to fetch students from the backend
+      url: '/fetch_students',
       method: 'POST',
       data: { batch: selectedBatch },
       success: function(response) {
         try {
-          renderStudentTable(response); // Pass the response directly to render function
+          renderStudentTable(response); 
         } catch (error) {
           console.error('Error rendering students table:', error);
         }
@@ -190,26 +386,176 @@ $(document).ready(function() {
       }
     });
   }
-function renderStudentTable(students) {
+  function renderStudentTable(students) {
   $('#studentTableBody').empty();
   if (students.length > 0) {
-    var student = students[0];
-    var row = $('<tr>');
-    row.append($('<td>').text(student[0]));
-      row.append($('<td>').text(student[1] + ' ' + student[2])); 
-    row.append($('<td>').text(student[3]));
-    row.append($('<td>').html('<button class="btn btn-info btn-sm">View</button> <button class="btn btn-warning btn-sm">Edit</button> <button  class="btn btn-danger btn-sm">Delete</button>'));
-    $('#studentTableBody').append(row);
+    students.forEach(function(student) {
+      var row = $('<tr>');
+      row.append($('<td>').text(student[0]));
+      row.append($('<td>').append($('<img>').attr('src', student[10]).addClass('student_image')));
+
+      row.append($('<td>').text(student[1] + ' ' + student[2]));
+      var viewButton = $('<button>').addClass('btn btn-info btn-sm').text('View');
+      viewButton.on('click', function() {
+        viewStudent(student);
+      });
+      var editButton = $('<button>').addClass('btn btn-warning btn-sm').text('Edit');
+      editButton.on('click',function(){
+        editStudent(student); 
+      } )
+      var deleteButton = $('<button>').addClass('btn btn-danger btn-sm delete-btn').text('Delete');
+deleteButton.on('click', function() {
+    deleteStudent(student[0]); 
+});
+
+      row.append($('<td>').append(viewButton, ' ', editButton, ' ', deleteButton));
+      $('#studentTableBody').append(row);
+    });
   } else {
     $('#studentTableBody').append($('<tr>').append($('<td>').attr('colspan', '4').text('No students found')));
   }
 }
+
+function viewStudent(student) {
+    $('#viewStudentModal #student_id').val(student[0]);
+    $('#viewStudentModal #student_name1').val(student[1]);
+    $('#viewStudentModal #student_name2').val(student[2]);
+    $('#viewStudentModal #phone_no').val(student[3]);
+    $('#viewStudentModal #father_name').val(student[4]);
+    $('#viewStudentModal #mother_name').val(student[5]);
+    $('#viewStudentModal #present_address').val(student[6]);
+    $('#viewStudentModal #permanent_address').val(student[7]);
+    $('#viewStudentModal #dob').val(student[8]);
+    $('#viewStudentModal #class').val(student[9]);
+    $('#viewStudentModal #email').val(student[11]);
+    $('#viewStudentModal #city').val(student[12]);
+    $('#viewStudentModal #state').val(student[13]);
+    $('#viewStudentModal #zipcode').val(student[14]);
+    $('#viewStudentModal #student_image').attr('src', student[10]);
+
+    $('#viewStudentModal').modal('show');
+    console.log(student);
+}
+function editStudent(student) {
+    $('#editStudentModal #edit_student_id').val(student[0]);
+    $('#editStudentModal #edit_student_name1').val(student[1]);
+    $('#editStudentModal #edit_student_name2').val(student[2]);
+    $('#editStudentModal #edit_student_phone').val(student[3]);
+    $('#editStudentModal #edit_student_father').val(student[4]);
+    $('#editStudentModal #edit_student_mother').val(student[5]);
+    $('#editStudentModal #edit_student_present_address').val(student[6]);
+    $('#editStudentModal #edit_student_permanent_address').val(student[7]);
+    $('#editStudentModal #edit_student_dob').val(student[8]);
+    $('#editStudentModal #edit_student_class').val(student[9]);
+    $('#editStudentModal #edit_student_email').val(student[11]);
+    $('#editStudentModal #edit_student_city').val(student[12]);
+    $('#editStudentModal #edit_student_state').val(student[13]);
+    $('#editStudentModal #edit_student_zipcode').val(student[14]);
+
+    $('#editStudentModal').modal('show');
+    console.log(student);
+}
+
+$('#saveEditStudent').on('click', function() {
+    var formData = new FormData();
+    formData.append('edit_student_image', $('#edit_student_image')[0].files[0]); 
+    formData.append('id', $('#edit_student_id').val());
+    formData.append('name1', $('#edit_student_name1').val());
+    formData.append('name2', $('#edit_student_name2').val());
+    formData.append('phone_no', $('#edit_student_phone').val());
+    formData.append('father_name', $('#edit_student_father').val());
+    formData.append('mother_name', $('#edit_student_mother').val());
+    formData.append('present_address', $('#edit_student_present_address').val());
+    formData.append('permanent_address', $('#edit_student_permanent_address').val());
+    formData.append('dob', $('#edit_student_dob').val());
+    formData.append('studentClass', $('#edit_student_class').val());
+    formData.append('email', $('#edit_student_email').val());
+    formData.append('city', $('#edit_student_city').val());
+    formData.append('state', $('#edit_student_state').val());
+    formData.append('zipcode', $('#edit_student_zipcode').val());
+
+    $.ajax({
+        url: '/edit_student',
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response.success) {
+              
+                $('#editStudentModal').modal('hide');
+                $('#edit_student_image').val('');
+                var selectedBatch = $('#batchSelect').val();
+                if (selectedBatch) {
+                    fetchStudents(selectedBatch);
+                }
+            } else {
+                alert('Student not found or no changes were made');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error updating student:', error);
+        }
+    });
+});
+
+
+    $('#add_student_save').on('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var formData = new FormData($('#add_student_form')[0]); // Serialize the form data
+
+    $.ajax({
+        url: '/add_student',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.success) {
+                $('#addStudentModal').modal('hide');
+                $('#successModal').modal('show');
+            } else {
+                // Handle error responses if needed
+                console.error('Error adding student:', response.error);
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle error responses if needed
+            console.error('AJAX Error:', error);
+        }
+    });
+});
+
+function deleteStudent(studentId) {
+    if (confirm('Are you sure you want to delete this student?')) {
+        $.ajax({
+            url: '/delete_student',
+            method: 'POST',
+            data: { id: studentId },
+            success: function(response) {
+                if (response.success) {
+                    // Reload the student table after successful deletion
+                    var selectedBatch = $('#batchSelect').val();
+                    if (selectedBatch) {
+                        fetchStudents(selectedBatch);
+                    }
+                } else {
+                    alert('Failed to delete student');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error deleting student:', error);
+            }
+        });
+    }
+}
+
 
 });
 
 
 </script>
 
-    
 </body>
 </html>

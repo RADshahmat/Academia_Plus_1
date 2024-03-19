@@ -1,0 +1,18 @@
+
+#img_but{
+
+    height: 50px;
+    width: 50px;
+}
+
+#img_but img{
+height:50px;
+width: 50px;
+object-fit: cover;
+border-radius: 60px;
+
+}
+
+#img_but:hover{
+    cursor: pointer;
+}
